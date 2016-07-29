@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="work.WorkOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.work.WorkOrder" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="wfOrderid" property="wforderid" jdbcType="VARCHAR" />
+    <result column="stdt" property="stdt" jdbcType="TIMESTAMP" />
+    <result column="eddt" property="eddt" jdbcType="TIMESTAMP" />
+    <result column="productNo" property="productno" jdbcType="VARCHAR" />
+    <result column="productName" property="productname" jdbcType="VARCHAR" />
+    <result column="productformat" property="productformat" jdbcType="VARCHAR" />
+    <result column="lineid" property="lineid" jdbcType="VARCHAR" />
+    <result column="bomid" property="bomid" jdbcType="VARCHAR" />
+    <result column="dwgid" property="dwgid" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+    <result column="updatedt" property="updatedt" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="productionOrderNo" property="productionorderno" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="pstatus" property="pstatus" jdbcType="VARCHAR" />
+    <result column="SalesOrderNo" property="salesorderno" jdbcType="VARCHAR" />
+    <result column="productid" property="productid" jdbcType="VARCHAR" />
+    <result column="OrderCreateDate" property="ordercreatedate" jdbcType="TIMESTAMP" />
+    <result column="OrderFinishDate" property="orderfinishdate" jdbcType="TIMESTAMP" />
+    <result column="productUId" property="productuid" jdbcType="VARCHAR" />
+    <result column="planId" property="planid" jdbcType="VARCHAR" />
+    <result column="processrealid" property="processrealid" jdbcType="VARCHAR" />
+    
+    <result column="wftaskid" property="wftaskid" jdbcType="VARCHAR" />
+    <result column="wftaskname" property="wftaskname" jdbcType="VARCHAR" />
+    <result column="wftaskdisplay" property="wftaskdisplay" jdbcType="VARCHAR" />
+    <result column="wftaskurl" property="wftaskurl" jdbcType="VARCHAR" />
+    
+    <collection column="id" property="workstationlist" ofType="com.sipai.entity.work.WorkTaskWorkStation" select="getWorkStations"/>
+    <collection column="wftaskid" property="activeWorkstations" ofType="com.sipai.entity.work.Workstation" select="getActiveWorkStation"/>
+  </resultMap>
+  
+	<select id="selectActiveTasks" resultMap="BaseResultMap" parameterType="java.lang.String"> 
+	 	select tb_work_order.*,wf_task.id as wftaskid,wf_task.task_name as wftaskname,
+	 	wf_task.display_name as wftaskdisplay,wf_task.action_url as wftaskurl
+	  	from wf_task
+	  	inner join tb_work_order on tb_work_order.wforderid = wf_task.order_id
+	  	${where}
+	</select>
+	<select id="getWorkStations" parameterType="String" resultType="com.sipai.entity.work.WorkTaskWorkStation">  
+		select tb_work_task_workstation.*,tb_work_workstation.serial as workstationserial 
+		from tb_work_task_workstation 
+		left join tb_work_workstation on tb_work_workstation.id=tb_work_task_workstation.workstationid
+		where tb_work_task_workstation.taskid = #{id} 
+		order by tb_work_workstation.serial
+	</select>
+	<select id="getActiveWorkStation" parameterType="String" resultType="com.sipai.entity.work.Workstation">  
+		select distinct tb_work_workstation.*
+		from tb_work_workstation 
+		left join wf_task_actor on wf_task_actor.actor_id=tb_work_workstation.id
+		where wf_task_actor.task_id = #{wftaskid} 
+		order by tb_work_workstation.serial
+	</select>
+	<select id="selectDetailListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select tb_work_order.*,wf_task.id as wftaskid,tb_work_line.name as linename
+		from tb_work_order 
+		left join wf_task on tb_work_order.wforderid = wf_task.order_id
+		left join tb_work_line on tb_work_order.lineid = tb_work_line.id
+		${where}
+	</select>
+  <sql id="Base_Column_List" >
+    id, wfOrderid, stdt, eddt, productNo, productName, productformat, lineid, bomid, dwgid, 
+    insuser, insdt, updateuser, updatedt, type, productionOrderNo, status, pstatus, SalesOrderNo, 
+    productid, OrderCreateDate, OrderFinishDate, productUId,planId,processrealid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_work_order
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_work_order
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.work.WorkOrder" >
+    insert into tb_work_order (id, wfOrderid, stdt, 
+      eddt, productNo, productName, 
+      productformat, lineid, bomid, 
+      dwgid, insuser, insdt, 
+      updateuser, updatedt, type, 
+      productionOrderNo, status, pstatus, SalesOrderNo, 
+      productid, OrderCreateDate, OrderFinishDate, 
+      productUId,planId,processrealid)
+    values (#{id,jdbcType=VARCHAR}, #{wforderid,jdbcType=VARCHAR}, #{stdt,jdbcType=TIMESTAMP}, 
+      #{eddt,jdbcType=TIMESTAMP}, #{productno,jdbcType=VARCHAR}, #{productname,jdbcType=VARCHAR}, 
+      #{productformat,jdbcType=VARCHAR}, #{lineid,jdbcType=VARCHAR}, #{bomid,jdbcType=VARCHAR}, 
+      #{dwgid,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, 
+      #{updateuser,jdbcType=VARCHAR}, #{updatedt,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR}, 
+      #{productionorderno,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{pstatus,jdbcType=VARCHAR}, #{salesorderno,jdbcType=VARCHAR}, 
+      #{productid,jdbcType=VARCHAR}, #{ordercreatedate,jdbcType=TIMESTAMP}, #{orderfinishdate,jdbcType=TIMESTAMP}, 
+      #{productuid,jdbcType=VARCHAR}, #{planid,jdbcType=VARCHAR},#{processrealid,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.WorkOrder" >
+    update tb_work_order
+    <set >
+      <if test="wforderid != null" >
+        wfOrderid = #{wforderid,jdbcType=VARCHAR},
+      </if>
+      <if test="stdt != null" >
+        stdt = #{stdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eddt != null" >
+        eddt = #{eddt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productno != null" >
+        productNo = #{productno,jdbcType=VARCHAR},
+      </if>
+      <if test="productname != null" >
+        productName = #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="productformat != null" >
+        productformat = #{productformat,jdbcType=VARCHAR},
+      </if>
+      <if test="lineid != null" >
+        lineid = #{lineid,jdbcType=VARCHAR},
+      </if>
+      <if test="bomid != null" >
+        bomid = #{bomid,jdbcType=VARCHAR},
+      </if>
+      <if test="dwgid != null" >
+        dwgid = #{dwgid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedt != null" >
+        updatedt = #{updatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="productionorderno != null" >
+        productionOrderNo = #{productionorderno,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="pstatus != null" >
+        pstatus = #{pstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="salesorderno != null" >
+        SalesOrderNo = #{salesorderno,jdbcType=VARCHAR},
+      </if>
+      <if test="productid != null" >
+        productid = #{productid,jdbcType=VARCHAR},
+      </if>
+      <if test="ordercreatedate != null" >
+        OrderCreateDate = #{ordercreatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderfinishdate != null" >
+        OrderFinishDate = #{orderfinishdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productuid != null" >
+        productUId = #{productuid,jdbcType=VARCHAR},
+      </if>
+      <if test="planid != null" >
+        planId = #{planid,jdbcType=VARCHAR},
+      </if>
+      <if test="processrealid != null" >
+        processrealid = #{processrealid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseAllResultMap"
+		parameterType="java.lang.String">
+		select
+		task.*,sc.taskid,sc.workstationid,sc.userid
+		from tb_work_order task
+		left join tb_work_scheduling sc on sc.taskid =task.id
+		${where}
+	</select>
+	<resultMap id="BaseAllResultMap" type="com.sipai.entity.work.WorkOrder" >
+	    <id column="id" property="id" jdbcType="VARCHAR" />
+	    <result column="wfOrderid" property="wforderid" jdbcType="VARCHAR" />
+	    <result column="stdt" property="stdt" jdbcType="TIMESTAMP" />
+	    <result column="eddt" property="eddt" jdbcType="TIMESTAMP" />
+	    <result column="productNo" property="productno" jdbcType="VARCHAR" />
+	    <result column="productName" property="productname" jdbcType="VARCHAR" />
+	    <result column="productformat" property="productformat" jdbcType="VARCHAR" />
+	    <result column="lineid" property="lineid" jdbcType="VARCHAR" />
+	    <result column="bomid" property="bomid" jdbcType="VARCHAR" />
+	    <result column="dwgid" property="dwgid" jdbcType="VARCHAR" />
+	    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+	    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+	    <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+	    <result column="updatedt" property="updatedt" jdbcType="TIMESTAMP" />
+	    <result column="type" property="type" jdbcType="VARCHAR" />
+	    <result column="productionOrderNo" property="productionorderno" jdbcType="VARCHAR" />
+	    <result column="status" property="status" jdbcType="VARCHAR" />
+	    <result column="pstatus" property="pstatus" jdbcType="VARCHAR" />
+	    <result column="SalesOrderNo" property="salesorderno" jdbcType="VARCHAR" />
+	    <result column="productid" property="productid" jdbcType="VARCHAR" />
+	    <result column="OrderCreateDate" property="ordercreatedate" jdbcType="TIMESTAMP" />
+	    <result column="OrderFinishDate" property="orderfinishdate" jdbcType="TIMESTAMP" />
+	    <result column="productUId" property="productuid" jdbcType="VARCHAR" />
+	    <result column="planId" property="planid" jdbcType="VARCHAR" />
+	    <result column="processrealid" property="processrealid" jdbcType="VARCHAR" />
+	    
+	    <collection property="workscheduling" ofType="com.sipai.entity.work.WorkScheduling" >
+			<result property="taskid" column="taskid"/>
+			<result property="userid" column="userid"/>
+			<result property="workstationid" column="workstationid"/>
+		</collection>
+  </resultMap>
+  <select id="selecttaskListByWhere" resultMap="BaseResultMap"
+	parameterType="java.lang.String">
+	select  
+	<include refid="Base_Column_List" />
+	from tb_work_order 
+	${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String">
+	delete from tb_work_order
+	${where}
+  </delete>
+  <select id="getNewTask" resultMap="taskresultMap" parameterType="java.lang.String"> 
+	  SELECT  
+	  a.id					as id,
+	  c.stdt 				as stdt,
+	  c.eddt				as eddt,  
+  	  i.materialcode 		AS productNo,
+	  i.materialname 		AS productName, 
+	  c.lineid 				as lineid,
+	  c.bomid 				as bomid,
+	  c.dwgid 				as dwgid,
+	  c.type 				as type,
+	  c.productionOrderNo 	as productionOrderNo,
+	  c.insuser				as insuser,
+	  c.insdt				as insdt,
+	  b.SalesOrderNo 		as SalesOrderNo,
+	  b.productid 			as productid,
+	  b.OrderCreateDate		as OrderCreateDate,  
+	  b.OrderFinishDate     AS OrderFinishDate,
+	  a.productUId 			AS productUId,
+	  c.id					as planid,
+	  c.processrealid		as processrealid
+	  FROM TB_material_OrderProductDetail  a 
+	  left join TB_material_SalesOrderProduct b on a.pid=b.id
+	  left join  tb_material_info i on i.id=b.productid
+	  inner join tb_plan_day c on c.salesOrderID=b.id 
+	  and c.productionOrderNo=a.productionOrderNo
+	  ${where}
+	</select>
+	<resultMap id="taskresultMap" type="com.sipai.entity.work.WorkOrder">
+	  <id property="id" column="id" />
+	  <result property="stdt" column="stdt"/>
+	  <result property="eddt" column="eddt"/>
+	  <result property="productno" column="productNo"/>
+	  <result property="productname" column="productName"/>
+	  <result property="lineid" column="lineid"/>
+	  <result property="bomid" column="bomid"/>
+	  <result property="dwgid" column="dwgid"/>
+	  <result property="type" column="type"/>
+	  <result property="productionorderno" column="productionOrderNo"/>
+	  <result property="status" column="status"/>
+	  <result property="salesorderno" column="SalesOrderNo"/>
+	  <result property="productid" column="productid"/>
+	  <result property="ordercreatedate" column="OrderCreateDate"/>
+	  <result property="orderfinishdate" column="OrderFinishDate"/>
+	  <result property="productuid" column="productUId"/>
+	  <result property="planid" column="planid"/>
+	  <result property="processrealid" column="processrealid"/>
+	</resultMap> 
+</mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="msg.MsguserMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.msg.Msguser" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="masterid" property="masterid" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, masterid, userid, insuser, insdt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_MESSAGE_TYPE_msguser
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_MESSAGE_TYPE_msguser
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.msg.Msguser" >
+    insert into TB_MESSAGE_TYPE_msguser (id, masterid, userid, 
+      insuser, insdt)
+    values (#{id,jdbcType=VARCHAR}, #{masterid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.msg.Msguser" >
+    insert into TB_MESSAGE_TYPE_msguser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="masterid != null" >
+        masterid,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="masterid != null" >
+        #{masterid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.msg.Msguser" >
+    update TB_MESSAGE_TYPE_msguser
+    <set >
+      <if test="masterid != null" >
+        masterid = #{masterid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.msg.Msguser" >
+    update TB_MESSAGE_TYPE_msguser
+    set masterid = #{masterid,jdbcType=VARCHAR},
+      userid = #{userid,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_MESSAGE_TYPE_msguser
+    ${where}
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select 
+    <include refid="Base_Column_List" />
+    from TB_MESSAGE_TYPE_msguser
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from TB_MESSAGE_TYPE_msguser
+    ${where}
+  </delete>
+</mapper>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="material.MaterialBOMMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.material.MaterialBOM" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="ordernumber" property="ordernumber" jdbcType="INTEGER" />
+    <result column="materialcode" property="materialcode" jdbcType="VARCHAR" />
+    <result column="materialname" property="materialname" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="DOUBLE" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modifydt" property="modifydt" jdbcType="TIMESTAMP" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pid, ordernumber, materialcode, materialname, num, version, remark, insuser, 
+    insdt, modify, modifydt, unit
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_material_bom
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_material_bom
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.material.MaterialBOM" >
+    insert into tb_material_bom (id, pid, ordernumber, 
+      materialcode, materialname, num, 
+      version, remark, insuser, 
+      insdt, modify, modifydt, unit
+      )
+    values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{ordernumber,jdbcType=INTEGER}, 
+      #{materialcode,jdbcType=VARCHAR}, #{materialname,jdbcType=VARCHAR}, #{num,jdbcType=DOUBLE}, 
+      #{version,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, 
+      #{insdt,jdbcType=TIMESTAMP}, #{modify,jdbcType=VARCHAR}, #{modifydt,jdbcType=TIMESTAMP}, #{unit,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.material.MaterialBOM" >
+    insert into tb_material_bom
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="ordernumber != null" >
+        ordernumber,
+      </if>
+      <if test="materialcode != null" >
+        materialcode,
+      </if>
+      <if test="materialname != null" >
+        materialname,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="modify != null" >
+        modify,
+      </if>
+      <if test="modifydt != null" >
+        modifydt,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernumber != null" >
+        #{ordernumber,jdbcType=INTEGER},
+      </if>
+      <if test="materialcode != null" >
+        #{materialcode,jdbcType=VARCHAR},
+      </if>
+      <if test="materialname != null" >
+        #{materialname,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=DOUBLE},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.material.MaterialBOM" >
+    update tb_material_bom
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="ordernumber != null" >
+        ordernumber = #{ordernumber,jdbcType=INTEGER},
+      </if>
+      <if test="materialcode != null" >
+        materialcode = #{materialcode,jdbcType=VARCHAR},
+      </if>
+      <if test="materialname != null" >
+        materialname = #{materialname,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=DOUBLE},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        modifydt = #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.material.MaterialBOM" >
+    update tb_material_bom
+    set pid = #{pid,jdbcType=VARCHAR},
+      ordernumber = #{ordernumber,jdbcType=INTEGER},
+      materialcode = #{materialcode,jdbcType=VARCHAR},
+      materialname = #{materialname,jdbcType=VARCHAR},
+      num = #{num,jdbcType=DOUBLE},
+      version = #{version,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      modify = #{modify,jdbcType=VARCHAR},
+      modifydt = #{modifydt,jdbcType=TIMESTAMP},
+      unit = #{unit,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_material_bom
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_material_bom
+    ${where}
+  </delete>
+<!--   <select id="selectListByPid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    with tree as 
+    (
+    select *,0 as lvl,CAST(1 AS float) as pnum,CAST(num*1 AS float) as allnum from tb_material_bom 
+    where pid = #{pid,jdbcType=VARCHAR} 
+    union all
+    select b.*,lvl+1,a.num as pnum,CAST(a.num*b.num AS float) as allnum from tree a 
+    inner join tb_material_bom b on a.id = b.pid
+    )
+  	select *,allnum as num,lvl as _lvl,pid as _parentId from tree 
+  	order by _lvl,ordernumber
+  </select> -->
+  <select id="getRootByCodeAndVersion" resultMap="BaseResultMap" parameterType="com.sipai.entity.material.MaterialBOM" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_material_bom
+    where pid = '-1' and materialcode = #{materialcode,jdbcType=VARCHAR} and version = #{version,jdbcType=INTEGER}
+  </select>
+  <select id="getChildByCodeAndVersion" resultMap="BaseResultMap" parameterType="com.sipai.entity.material.MaterialBOM" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_material_bom
+    where pid = #{pid,jdbcType=VARCHAR} and materialcode = #{materialcode,jdbcType=VARCHAR} and version = #{version,jdbcType=INTEGER}
+  </select>
+  <select id="getRootByMaterialcode" resultMap="BaseResultMap" parameterType="com.sipai.entity.material.MaterialBOM" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_material_bom
+    where pid = '-1' and materialcode = #{materialcode,jdbcType=VARCHAR} order by materialcode 
+  </select>
+   <select id="selectListByPid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_material_bom
+    where pid = #{pid,jdbcType=VARCHAR} order by materialcode 
+  </select>
+</mapper>

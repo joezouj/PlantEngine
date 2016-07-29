@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="msg.EmppAdminMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.msg.EmppAdmin" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="emppname" property="emppname" jdbcType="VARCHAR" />
+    <result column="host" property="host" jdbcType="VARCHAR" />
+    <result column="port" property="port" jdbcType="INTEGER" />
+    <result column="accountId" property="accountid" jdbcType="VARCHAR" />
+    <result column="accname" property="accname" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="serviceId" property="serviceid" jdbcType="VARCHAR" />
+    <result column="insertuserid" property="insertuserid" jdbcType="VARCHAR" />
+    <result column="insertdate" property="insertdate" jdbcType="TIMESTAMP" />
+    <result column="updateuserid" property="updateuserid" jdbcType="VARCHAR" />
+    <result column="updatedate" property="updatedate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, emppname, host, port, accountId, accname, password, serviceId, insertuserid, 
+    insertdate, updateuserid, updatedate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_EMPP_EmppAdmin
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_EMPP_EmppAdmin
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.msg.EmppAdmin" >
+    insert into tb_EMPP_EmppAdmin (id, emppname, host, 
+      port, accountId, accname, 
+      password, serviceId, insertuserid, 
+      insertdate, updateuserid, updatedate
+      )
+    values (#{id,jdbcType=VARCHAR}, #{emppname,jdbcType=VARCHAR}, #{host,jdbcType=VARCHAR}, 
+      #{port,jdbcType=INTEGER}, #{accountid,jdbcType=VARCHAR}, #{accname,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{serviceid,jdbcType=VARCHAR}, #{insertuserid,jdbcType=VARCHAR}, 
+      #{insertdate,jdbcType=TIMESTAMP}, #{updateuserid,jdbcType=VARCHAR}, #{updatedate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.msg.EmppAdmin" >
+    insert into tb_EMPP_EmppAdmin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="emppname != null" >
+        emppname,
+      </if>
+      <if test="host != null" >
+        host,
+      </if>
+      <if test="port != null" >
+        port,
+      </if>
+      <if test="accountid != null" >
+        accountId,
+      </if>
+      <if test="accname != null" >
+        accname,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="serviceid != null" >
+        serviceId,
+      </if>
+      <if test="insertuserid != null" >
+        insertuserid,
+      </if>
+      <if test="insertdate != null" >
+        insertdate,
+      </if>
+      <if test="updateuserid != null" >
+        updateuserid,
+      </if>
+      <if test="updatedate != null" >
+        updatedate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="emppname != null" >
+        #{emppname,jdbcType=VARCHAR},
+      </if>
+      <if test="host != null" >
+        #{host,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="accountid != null" >
+        #{accountid,jdbcType=VARCHAR},
+      </if>
+      <if test="accname != null" >
+        #{accname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceid != null" >
+        #{serviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="insertuserid != null" >
+        #{insertuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="insertdate != null" >
+        #{insertdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null" >
+        #{updateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.msg.EmppAdmin" >
+    update tb_EMPP_EmppAdmin
+    <set >
+      <if test="emppname != null" >
+        emppname = #{emppname,jdbcType=VARCHAR},
+      </if>
+      <if test="host != null" >
+        host = #{host,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="accountid != null" >
+        accountId = #{accountid,jdbcType=VARCHAR},
+      </if>
+      <if test="accname != null" >
+        accname = #{accname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceid != null" >
+        serviceId = #{serviceid,jdbcType=VARCHAR},
+      </if>
+      <if test="insertuserid != null" >
+        insertuserid = #{insertuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="insertdate != null" >
+        insertdate = #{insertdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null" >
+        updateuserid = #{updateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null" >
+        updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.msg.EmppAdmin" >
+    update tb_EMPP_EmppAdmin
+    set emppname = #{emppname,jdbcType=VARCHAR},
+      host = #{host,jdbcType=VARCHAR},
+      port = #{port,jdbcType=INTEGER},
+      accountId = #{accountid,jdbcType=VARCHAR},
+      accname = #{accname,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      serviceId = #{serviceid,jdbcType=VARCHAR},
+      insertuserid = #{insertuserid,jdbcType=VARCHAR},
+      insertdate = #{insertdate,jdbcType=TIMESTAMP},
+      updateuserid = #{updateuserid,jdbcType=VARCHAR},
+      updatedate = #{updatedate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+     <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_EMPP_EmppAdmin
+    ${where}
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select 
+    <include refid="Base_Column_List" />
+    from tb_EMPP_EmppAdmin
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_EMPP_EmppAdmin
+    ${where}
+  </delete>
+</mapper>

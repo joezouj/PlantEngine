@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="material.SalesOrderProductMapper">
+  <resultMap id="BaseResultMap" type="com.sipai.entity.material.SalesOrderProduct">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="insuser" jdbcType="VARCHAR" property="insuser" />
+    <result column="insdt" jdbcType="TIMESTAMP" property="insdt" />
+    <result column="SalesOrderNo" jdbcType="VARCHAR" property="salesorderno" />
+    <result column="clientsid" jdbcType="VARCHAR" property="clientsid" />
+    <result column="productid" jdbcType="VARCHAR" property="productid" />
+    <result column="productNum" jdbcType="VARCHAR" property="productnum" />
+    <result column="OrderCreateDate" jdbcType="TIMESTAMP" property="ordercreatedate" />
+    <result column="OrderFinishDate" jdbcType="TIMESTAMP" property="orderfinishdate" />
+    <result column="deliverydate" jdbcType="TIMESTAMP" property="deliverydate" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  	
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, insuser, insdt, SalesOrderNo, clientsid, productid, productNum, OrderCreateDate, 
+    OrderFinishDate, deliverydate, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TB_material_SalesOrderProduct
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TB_material_SalesOrderProduct
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.material.SalesOrderProduct">
+    insert into TB_material_SalesOrderProduct (id, insuser, insdt, 
+      SalesOrderNo, clientsid, productid, 
+      productNum, OrderCreateDate, OrderFinishDate, 
+      deliverydate, status)
+    values (#{id,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, 
+      #{salesorderno,jdbcType=VARCHAR}, #{clientsid,jdbcType=VARCHAR}, #{productid,jdbcType=VARCHAR}, 
+      #{productnum,jdbcType=VARCHAR}, #{ordercreatedate,jdbcType=TIMESTAMP}, #{orderfinishdate,jdbcType=TIMESTAMP}, 
+      #{deliverydate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.material.SalesOrderProduct">
+    update TB_material_SalesOrderProduct
+    <set>
+      <if test="insuser != null">
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salesorderno != null">
+        SalesOrderNo = #{salesorderno,jdbcType=VARCHAR},
+      </if>
+      <if test="clientsid != null">
+        clientsid = #{clientsid,jdbcType=VARCHAR},
+      </if>
+      <if test="productid != null">
+        productid = #{productid,jdbcType=VARCHAR},
+      </if>
+      <if test="productnum != null">
+        productNum = #{productnum,jdbcType=VARCHAR},
+      </if>
+      <if test="ordercreatedate != null">
+        OrderCreateDate = #{ordercreatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderfinishdate != null">
+        OrderFinishDate = #{orderfinishdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deliverydate != null">
+        deliverydate = #{deliverydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <select id="selectListByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TB_material_SalesOrderProduct
+    ${where}
+  </select>
+  <select id="selectByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+    from TB_material_SalesOrderProduct
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String">
+    delete from TB_material_SalesOrderProduct
+    ${where}
+  </delete>
+    <select id="getSalesOrderProductlist" parameterType="java.lang.String" resultMap="ClassResultMapSOPlist"> 
+  SELECT  
+  P.id                  as p_id,
+  P.insuser             as p_insuser,
+  P.insdt               as P_insdt,
+  P.SalesOrderNo,
+  P.productid,
+  P.productNum,
+  P.OrderCreateDate,
+  P.OrderFinishDate, 
+  P.deliverydate,
+  P.status,
+  I.id                  as i_id,
+  I.materialname,
+  I.materialcode,
+  I.spec,
+  C.name as clientname
+  FROM TB_material_SalesOrderProduct P   
+  LEFT OUTER JOIN tb_material_info I ON I.id = P.productid
+  LEFT OUTER JOIN tb_clients C ON C.id = P.clientsid
+  ${where}
+</select>
+<resultMap id="ClassResultMapSOPlist" type="com.sipai.entity.material.SalesOrderProduct">
+  <id column="p_id" property="id" />
+  <result column="p_insuser" property="insuser" />
+  <result column="p_insdt" property="insdt" />
+  <result column="salesorderno" property="salesorderno" />
+  <result column="productid" property="productid" />
+  <result column="productNum" property="productnum" />
+  <result column="OrderCreateDate" property="ordercreatedate" />
+  <result column="OrderFinishDate" property="orderfinishdate" />
+  <result column="deliverydate" property="deliverydate" />
+  <result column="status" property="status" />
+  <result column="clientname" property="clientname" />
+  <association javaType="com.sipai.entity.material.MaterialInfo" property="product">
+  	<id column="i_id" property="id" />
+	<result column="materialname" property="materialname" />
+	<result column="materialcode" property="materialcode" />
+	<result column="spec" property="spec" />
+  </association>  
+</resultMap> 
+  <select id="getSalesOrderProduct" parameterType="java.lang.String" resultMap="ClassResultMapSOP"> 
+  SELECT  
+  P.id                  as p_id,
+  P.insuser             as p_insuser,
+  P.insdt               as P_insdt,
+  P.SalesOrderNo,
+  P.productid,
+  P.productNum,
+  P.OrderCreateDate,
+  P.OrderFinishDate,
+  P.deliverydate,
+  P.status,
+  D.id                  as d_id,
+  D.ProductUId,
+  D.productionorderno,
+  D.workorderId,
+  I.id                  as i_id,
+  I.materialname,
+  I.materialcode,
+  I.spec,
+  p.clientsid                  
+  FROM TB_material_SalesOrderProduct P 
+  LEFT OUTER JOIN TB_material_OrderProductDetail D ON D.pid = P.id
+  LEFT OUTER JOIN tb_material_info I ON I.id = P.productid
+  LEFT OUTER JOIN tb_clients c ON c.id = P.clientsid
+  ${where}
+</select>
+<resultMap id="ClassResultMapSOP" type="com.sipai.entity.material.SalesOrderProduct">
+  <id column="p_id" property="id" />
+  <result column="p_insuser" property="insuser" />
+  <result column="p_insdt" property="insdt" />
+  <result column="salesorderno" property="salesorderno" />
+  <result column="productid" property="productid" />
+  <result column="productNum" property="productnum" />
+  <result column="OrderCreateDate" property="ordercreatedate" />
+  <result column="OrderFinishDate" property="orderfinishdate" />
+  <result column="deliverydate" property="deliverydate" />
+  <result column="status" property="status" />
+  <result column="clientsid" property="clientsid" />
+  
+  <association javaType="com.sipai.entity.material.MaterialInfo" property="product">
+  	<id column="i_id" property="id" />
+	<result column="materialname" property="materialname" />
+	<result column="materialcode" property="materialcode" />
+	<result column="spec" property="spec" />
+  </association>
+  <collection column="clientsid" property="clients" ofType="com.sipai.entity.material.Clients" select="selectclients">
+  </collection>
+  <collection ofType="com.sipai.entity.material.OrderProductDetail" property="orderproductdetail">
+	<id column="d_id" property="id" />
+	<result column="ProductUId" property="productuid" />
+	<result column="productionorderno" property="productionorderno" />
+	<result column="workorderId" property="workorderid" />
+  </collection>
+  
+  
+</resultMap>
+<select id="selectclients" resultType="com.sipai.entity.material.Clients" parameterType="java.lang.String" >
+    select * from tb_clients where id = #{clientsid,jdbcType=VARCHAR}
+  </select>
+<select id="selectDistinctOrderByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select salesorderno,
+	SUM(case when productNum is not null then convert(int,productNum) else 0 end) as productnum
+    from TB_material_SalesOrderProduct
+    ${where}
+  </select>
+</mapper>

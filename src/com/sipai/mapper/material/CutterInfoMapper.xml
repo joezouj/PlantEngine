@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="material.CutterInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.material.CutterInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="cuttercode" property="cuttercode" jdbcType="VARCHAR" />
+    <result column="cuttername" property="cuttername" jdbcType="VARCHAR" />
+    <result column="typeid" property="typeid" jdbcType="VARCHAR" />
+    <result column="positionid" property="positionid" jdbcType="VARCHAR" />
+    <result column="life" property="life" jdbcType="DOUBLE" />
+    <result column="length" property="length" jdbcType="DOUBLE" />
+    <result column="ply" property="ply" jdbcType="DOUBLE" />
+    <result column="width" property="width" jdbcType="DOUBLE" />
+    <result column="producer" property="producer" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modifydt" property="modifydt" jdbcType="TIMESTAMP" />
+    
+    <association column="positionid" property="_positionname" jdbcType="VARCHAR" select="selectPosition"/>
+    <association column="typeid" property="_typename" jdbcType="VARCHAR" select="selectType"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cuttercode, cuttername, typeid, positionid, life, length, ply, width, producer, 
+    status, remark, insuser, insdt, modify, modifydt
+  </sql>
+  <select id="selectPosition" parameterType="String" resultType="String">  
+  	select name from tb_cutter_position where id = #{positionid} 
+  </select>
+  <select id="selectType" parameterType="String" resultType="String">  
+  	select typename from tb_cutter_type where id = #{typeid} 
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_cutter_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_cutter_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.material.CutterInfo" >
+    insert into tb_cutter_info (id, cuttercode, cuttername, 
+      typeid, positionid, life, 
+      length, ply, width, producer, 
+      status, remark, insuser, 
+      insdt, modify, modifydt
+      )
+    values (#{id,jdbcType=VARCHAR}, #{cuttercode,jdbcType=VARCHAR}, #{cuttername,jdbcType=VARCHAR}, 
+      #{typeid,jdbcType=VARCHAR}, #{positionid,jdbcType=VARCHAR}, #{life,jdbcType=DOUBLE}, 
+      #{length,jdbcType=DOUBLE}, #{ply,jdbcType=DOUBLE}, #{width,jdbcType=DOUBLE}, #{producer,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, 
+      #{insdt,jdbcType=TIMESTAMP}, #{modify,jdbcType=VARCHAR}, #{modifydt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.material.CutterInfo" >
+    insert into tb_cutter_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cuttercode != null" >
+        cuttercode,
+      </if>
+      <if test="cuttername != null" >
+        cuttername,
+      </if>
+      <if test="typeid != null" >
+        typeid,
+      </if>
+      <if test="positionid != null" >
+        positionid,
+      </if>
+      <if test="life != null" >
+        life,
+      </if>
+      <if test="length != null" >
+        length,
+      </if>
+      <if test="ply != null" >
+        ply,
+      </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="producer != null" >
+        producer,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="modify != null" >
+        modify,
+      </if>
+      <if test="modifydt != null" >
+        modifydt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cuttercode != null" >
+        #{cuttercode,jdbcType=VARCHAR},
+      </if>
+      <if test="cuttername != null" >
+        #{cuttername,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="positionid != null" >
+        #{positionid,jdbcType=VARCHAR},
+      </if>
+      <if test="life != null" >
+        #{life,jdbcType=DOUBLE},
+      </if>
+      <if test="length != null" >
+        #{length,jdbcType=DOUBLE},
+      </if>
+      <if test="ply != null" >
+        #{ply,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="producer != null" >
+        #{producer,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.material.CutterInfo" >
+    update tb_cutter_info
+    <set >
+      <if test="cuttercode != null" >
+        cuttercode = #{cuttercode,jdbcType=VARCHAR},
+      </if>
+      <if test="cuttername != null" >
+        cuttername = #{cuttername,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        typeid = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="positionid != null" >
+        positionid = #{positionid,jdbcType=VARCHAR},
+      </if>
+      <if test="life != null" >
+        life = #{life,jdbcType=DOUBLE},
+      </if>
+      <if test="length != null" >
+        length = #{length,jdbcType=DOUBLE},
+      </if>
+      <if test="ply != null" >
+        ply = #{ply,jdbcType=DOUBLE},
+      </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=DOUBLE},
+      </if>
+      <if test="producer != null" >
+        producer = #{producer,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        modifydt = #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.material.CutterInfo" >
+    update tb_cutter_info
+    set cuttercode = #{cuttercode,jdbcType=VARCHAR},
+      cuttername = #{cuttername,jdbcType=VARCHAR},
+      typeid = #{typeid,jdbcType=VARCHAR},
+      positionid = #{positionid,jdbcType=VARCHAR},
+      life = #{life,jdbcType=DOUBLE},
+      length = #{length,jdbcType=DOUBLE},
+      ply = #{ply,jdbcType=DOUBLE},
+      width = #{width,jdbcType=DOUBLE},
+      producer = #{producer,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      modify = #{modify,jdbcType=VARCHAR},
+      modifydt = #{modifydt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_cutter_info
+    ${where}
+  </select>
+  <select id="getListByCutterCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_cutter_info
+    where cuttercode = #{cuttercode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_cutter_info
+    ${where}
+  </delete>
+  <select id="getCutterInfo" resultMap="ResultMapMInfo" parameterType="java.lang.String"> 
+  SELECT 
+  I.*,
+  T.id           as t_id,
+  T.typename 	 as t_name,
+  T.status 	 	 as t_status,
+  P.id           as p_id,
+  P.name		 as p_name,
+  P.status 	 	 as p_status
+  FROM tb_cutter_info I 
+  LEFT OUTER JOIN tb_cutter_type T ON I.typeid = T.id 
+  Left join tb_cutter_position P on P.id = I.positionid 
+  ${where}
+</select>
+<resultMap id="ResultMapMInfo" type="com.sipai.entity.material.CutterInfo">
+  <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="cuttercode" property="cuttercode" jdbcType="VARCHAR" />
+    <result column="cuttername" property="cuttername" jdbcType="VARCHAR" />
+    <result column="typeid" property="typeid" jdbcType="VARCHAR" />
+    <result column="positionid" property="positionid" jdbcType="VARCHAR" />
+    <result column="life" property="life" jdbcType="DOUBLE" />
+    <result column="length" property="length" jdbcType="DOUBLE" />
+    <result column="ply" property="ply" jdbcType="DOUBLE" />
+    <result column="width" property="width" jdbcType="DOUBLE" />
+    <result column="producer" property="producer" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modifydt" property="modifydt" jdbcType="TIMESTAMP" />
+    
+    <association property="cutterType" resultMap="typeResult"/>
+   	<association property="cutterPosition" resultMap="positionResult" />  
+</resultMap> 
+<resultMap id="typeResult" type="com.sipai.entity.material.CutterType">
+  <id property="id" column="id"/>
+  <result property="typename" column="t_name"/>
+  <result property="status" column="t_status"/>
+</resultMap>
+<resultMap id="positionResult" type="com.sipai.entity.material.CutterPosition">
+  <id property="id" column="p_id"/>
+  <result property="name" column="p_name"/>
+  <result property="status" column="p_status"/>
+</resultMap>
+</mapper>

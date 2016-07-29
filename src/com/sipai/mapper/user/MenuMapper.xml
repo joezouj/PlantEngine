@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.user.Menu" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="PowerID" property="powerid" jdbcType="VARCHAR" />
+    <result column="caption" property="caption" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="target" property="target" jdbcType="VARCHAR" />
+    <result column="onclick" property="onclick" jdbcType="VARCHAR" />
+    <result column="onmouseover" property="onmouseover" jdbcType="VARCHAR" />
+    <result column="onmouseout" property="onmouseout" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="altImage" property="altimage" jdbcType="VARCHAR" />
+    <result column="tooltip" property="tooltip" jdbcType="VARCHAR" />
+    <result column="roles" property="roles" jdbcType="VARCHAR" />
+    <result column="page" property="page" jdbcType="VARCHAR" />
+    <result column="width" property="width" jdbcType="VARCHAR" />
+    <result column="height" property="height" jdbcType="VARCHAR" />
+    <result column="forward" property="forward" jdbcType="VARCHAR" />
+    <result column="action" property="action" jdbcType="VARCHAR" />
+    <result column="morder" property="morder" jdbcType="INTEGER" />
+    <result column="lvl" property="lvl" jdbcType="VARCHAR" />
+    <result column="active" property="active" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="mainpage" property="mainpage" jdbcType="VARCHAR" />
+    <result column="count" property="count" jdbcType="INTEGER" />
+    
+    <association column="pid" property="_pname" jdbcType="VARCHAR" select="selectPname"></association>
+  </resultMap>
+  <select id="selectPname" parameterType="String" resultType="String">  
+  	select name from tb_menuitem where id = #{pid} 
+  </select>
+  
+  <sql id="Base_Column_List" >
+    id, pid, PowerID, caption, name, description, location, target, onclick, onmouseover, 
+    onmouseout, image, altImage, tooltip, roles, page, width, height, forward, action, 
+    morder, lvl, active, type, mainpage, count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_menuitem
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_menuitem
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.user.Menu">
+    insert into tb_menuitem (id,pid, PowerID, 
+      caption, name, description, 
+      location, target, onclick, 
+      onmouseover, onmouseout, image, 
+      altImage, tooltip, roles, 
+      page, width, height, 
+      forward, action, morder, 
+      lvl, active, type, 
+      mainpage, count)
+    values (#{id,jdbcType=VARCHAR},#{pid,jdbcType=VARCHAR}, #{powerid,jdbcType=VARCHAR}, 
+      #{caption,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{target,jdbcType=VARCHAR}, #{onclick,jdbcType=VARCHAR}, 
+      #{onmouseover,jdbcType=VARCHAR}, #{onmouseout,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
+      #{altimage,jdbcType=VARCHAR}, #{tooltip,jdbcType=VARCHAR}, #{roles,jdbcType=VARCHAR}, 
+      #{page,jdbcType=VARCHAR}, #{width,jdbcType=VARCHAR}, #{height,jdbcType=VARCHAR}, 
+      #{forward,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, #{morder,jdbcType=INTEGER}, 
+      #{lvl,jdbcType=VARCHAR}, #{active,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{mainpage,jdbcType=VARCHAR}, #{count,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.user.Menu" >
+    insert into tb_menuitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="powerid != null" >
+        PowerID,
+      </if>
+      <if test="caption != null" >
+        caption,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="target != null" >
+        target,
+      </if>
+      <if test="onclick != null" >
+        onclick,
+      </if>
+      <if test="onmouseover != null" >
+        onmouseover,
+      </if>
+      <if test="onmouseout != null" >
+        onmouseout,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="altimage != null" >
+        altImage,
+      </if>
+      <if test="tooltip != null" >
+        tooltip,
+      </if>
+      <if test="roles != null" >
+        roles,
+      </if>
+      <if test="page != null" >
+        page,
+      </if>
+      <if test="width != null" >
+        width,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="forward != null" >
+        forward,
+      </if>
+      <if test="action != null" >
+        action,
+      </if>
+      <if test="morder != null" >
+        morder,
+      </if>
+      <if test="lvl != null" >
+        lvl,
+      </if>
+      <if test="active != null" >
+        active,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="mainpage != null" >
+        mainpage,
+      </if>
+      <if test="count != null" >
+        count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="powerid != null" >
+        #{powerid,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null" >
+        #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="onclick != null" >
+        #{onclick,jdbcType=VARCHAR},
+      </if>
+      <if test="onmouseover != null" >
+        #{onmouseover,jdbcType=VARCHAR},
+      </if>
+      <if test="onmouseout != null" >
+        #{onmouseout,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="altimage != null" >
+        #{altimage,jdbcType=VARCHAR},
+      </if>
+      <if test="tooltip != null" >
+        #{tooltip,jdbcType=VARCHAR},
+      </if>
+      <if test="roles != null" >
+        #{roles,jdbcType=VARCHAR},
+      </if>
+      <if test="page != null" >
+        #{page,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null" >
+        #{width,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=VARCHAR},
+      </if>
+      <if test="forward != null" >
+        #{forward,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null" >
+        #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="morder != null" >
+        #{morder,jdbcType=INTEGER},
+      </if>
+      <if test="lvl != null" >
+        #{lvl,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        #{active,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="mainpage != null" >
+        #{mainpage,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        #{count,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.user.Menu" >
+    update tb_menuitem
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="powerid != null" >
+        PowerID = #{powerid,jdbcType=VARCHAR},
+      </if>
+      <if test="caption != null" >
+        caption = #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        target = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="onclick != null" >
+        onclick = #{onclick,jdbcType=VARCHAR},
+      </if>
+      <if test="onmouseover != null" >
+        onmouseover = #{onmouseover,jdbcType=VARCHAR},
+      </if>
+      <if test="onmouseout != null" >
+        onmouseout = #{onmouseout,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="altimage != null" >
+        altImage = #{altimage,jdbcType=VARCHAR},
+      </if>
+      <if test="tooltip != null" >
+        tooltip = #{tooltip,jdbcType=VARCHAR},
+      </if>
+      <if test="roles != null" >
+        roles = #{roles,jdbcType=VARCHAR},
+      </if>
+      <if test="page != null" >
+        page = #{page,jdbcType=VARCHAR},
+      </if>
+      <if test="width != null" >
+        width = #{width,jdbcType=VARCHAR},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=VARCHAR},
+      </if>
+      <if test="forward != null" >
+        forward = #{forward,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null" >
+        action = #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="morder != null" >
+        morder = #{morder,jdbcType=INTEGER},
+      </if>
+      <if test="lvl != null" >
+        lvl = #{lvl,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        active = #{active,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="mainpage != null" >
+        mainpage = #{mainpage,jdbcType=VARCHAR},
+      </if>
+      <if test="count != null" >
+        count = #{count,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.user.Menu" >
+    update tb_menuitem
+    set pid = #{pid,jdbcType=VARCHAR},
+      PowerID = #{powerid,jdbcType=VARCHAR},
+      caption = #{caption,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      target = #{target,jdbcType=VARCHAR},
+      onclick = #{onclick,jdbcType=VARCHAR},
+      onmouseover = #{onmouseover,jdbcType=VARCHAR},
+      onmouseout = #{onmouseout,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      altImage = #{altimage,jdbcType=VARCHAR},
+      tooltip = #{tooltip,jdbcType=VARCHAR},
+      roles = #{roles,jdbcType=VARCHAR},
+      page = #{page,jdbcType=VARCHAR},
+      width = #{width,jdbcType=VARCHAR},
+      height = #{height,jdbcType=VARCHAR},
+      forward = #{forward,jdbcType=VARCHAR},
+      action = #{action,jdbcType=VARCHAR},
+      morder = #{morder,jdbcType=INTEGER},
+      lvl = #{lvl,jdbcType=VARCHAR},
+      active = #{active,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      mainpage = #{mainpage,jdbcType=VARCHAR},
+      count = #{count,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_menuitem 
+    order by morder
+  </select>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_menuitem 
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String">
+	delete from
+	tb_menuitem
+	${where}
+  </delete>
+</mapper>

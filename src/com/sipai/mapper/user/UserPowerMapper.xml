@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.UserPowerMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.user.UserPower" >
+    <result column="EmpID" property="empid" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="caption" property="caption" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="target" property="target" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="active" property="active" jdbcType="VARCHAR" />
+    <result column="lvl" property="lvl" jdbcType="VARCHAR" />
+    <result column="morder" property="morder" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="selectListByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select EmpID, id, name, pid, caption, location, target, type, active, lvl, morder
+    from uv_user_power
+    where EmpID = #{empid,jdbcType=VARCHAR}
+    order by morder
+  </select>
+  <select id="selectMenuByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select EmpID, id, name, pid, caption, location, target, type, active, lvl, morder
+    from uv_user_power
+    where EmpID = #{empid,jdbcType=VARCHAR} and type='menu'
+    order by morder
+  </select>
+  <select id="selectFuncByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select EmpID, id, name, pid, caption, location, target, type, active, lvl, morder
+    from uv_user_power
+    where EmpID = #{empid,jdbcType=VARCHAR} and type='func'
+    order by morder
+  </select>
+</mapper>

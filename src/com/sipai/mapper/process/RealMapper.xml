@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="process.RealMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.process.Real" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="processid" property="processid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="productid" property="productid" jdbcType="VARCHAR" />
+    <result column="lineid" property="lineid" jdbcType="VARCHAR" />
+    <result column="drawing" property="drawing" jdbcType="VARCHAR" />
+    <result column="bomId" property="bomid" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+    <result column="updatedt" property="updatedt" jdbcType="TIMESTAMP" />
+    <result column="st" property="st" jdbcType="VARCHAR" />
+    
+    <association column="productid" property="product" jdbcType="VARCHAR" select="selectProd"/>
+    <association column="processid" property="process" jdbcType="VARCHAR" select="selectProcess"/>
+  </resultMap>
+  <select id="selectProd" parameterType="String" resultType="com.sipai.entity.material.MaterialInfo">  
+  	select * from tb_material_info where id = #{productid} 
+  </select>
+  <select id="selectProcess" parameterType="String" resultType="com.sipai.entity.process.Processes">  
+  	select * from wf_process where id = #{processid} 
+  </select>
+  
+  <sql id="Base_Column_List" >
+    id, processid, name, productid, lineid, drawing, bomId, description, insuser, insdt, updateuser, 
+    updatedt, st
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_real
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="getListByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from tb_process_real
+	    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_process_real
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.process.Real" >
+    insert into tb_process_real (id, processid, name, 
+      productid, lineid, drawing, bomId, 
+      description, insuser, insdt, 
+      updateuser, updatedt, st
+      )
+    values (#{id,jdbcType=VARCHAR}, #{processid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{productid,jdbcType=VARCHAR}, #{lineid,jdbcType=VARCHAR}, #{drawing,jdbcType=VARCHAR}, #{bomid,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, 
+      #{updateuser,jdbcType=VARCHAR}, #{updatedt,jdbcType=TIMESTAMP}, #{st,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.process.Real" >
+    update tb_process_real
+    <set >
+      <if test="processid != null" >
+        processid = #{processid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="productid != null" >
+        productid = #{productid,jdbcType=VARCHAR},
+      </if>
+      <if test="lineid != null" >
+        lineid = #{lineid,jdbcType=VARCHAR},
+      </if>
+      <if test="drawing != null" >
+        drawing = #{drawing,jdbcType=VARCHAR},
+      </if>
+      <if test="bomid != null" >
+        bomId = #{bomid,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedt != null" >
+        updatedt = #{updatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="st != null" >
+        st = #{st,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_real
+    ${where}
+  </select>
+  <select id="selectListByDetailsID" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select  distinct a.* from tb_process_real a
+	left join tb_process_real_details b on b.pid=a.id 
+    ${where}
+  </select>
+  <select id="getLineListByWhere" resultType="com.sipai.entity.work.Line" parameterType="java.lang.String" >
+	SELECT DISTINCT tb_work_line.*
+	FROM tb_work_line_workstation INNER JOIN
+	tb_work_workstation ON tb_work_line_workstation.workstationid = tb_work_workstation.id INNER JOIN
+	tb_work_line ON tb_work_line_workstation.lineid = tb_work_line.id INNER JOIN
+	tb_process_real_details INNER JOIN
+	tb_process_real_details_workstation ON tb_process_real_details.id = tb_process_real_details_workstation.pid ON
+	tb_work_workstation.id = tb_process_real_details_workstation.workstationid
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_process_real
+    ${where}
+  </delete>
+</mapper>

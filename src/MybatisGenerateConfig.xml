@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<context id="SQLServerTables">
+		<commentGenerator>
+			<property name="suppressDate" value="true" />
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!--数据库链接URL，用户名、密码 -->
+		<jdbcConnection driverClass="net.sourceforge.jtds.jdbc.Driver"
+			connectionURL="jdbc:jtds:sqlserver://132.120.136.232:1433/PlantEngine" userId="sa"
+			password="ZAQwsx@2008" />
+		<!-- 生成模型bean的包名和位置 -->
+		<javaModelGenerator targetPackage="com.sipai.entity.plan"
+			targetProject="PlantEngine" />
+		<!-- 生成映射文件mapper的包名和位置 -->
+		<sqlMapGenerator targetPackage="com.sipai.mapper.plan"
+			targetProject="PlantEngine" />
+		<!-- 生成DAO的包名和位置 -->
+		<!-- <javaClientGenerator targetPackage="com.sipai.mapper.base"
+			targetProject="PlantEngine" type="XMLMAPPER" /> -->
+		<!-- 要生的表（可多个） -->
+		<!-- schema即为数据库名 tableName为对应的数据库表 domainObjectName是要生成的实体类 enable*ByExample 
+			是否生成 example类 -->
+
+		<table tableName="TB_plan_material" domainObjectName="DailyPlanSummaryMaterial"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<!-- 表结构重载（一般不用动） -->
+			<!-- <columnOverride column="id" property="varchar(50)" /> -->
+		</table>
+	</context>
+</generatorConfiguration>

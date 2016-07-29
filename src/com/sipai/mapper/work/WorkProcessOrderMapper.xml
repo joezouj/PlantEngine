@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.WorkProcessOrderMapper">
+  <resultMap id="BaseResultMap" type="com.sipai.entity.work.WorkProcessOrder">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="taskid" jdbcType="VARCHAR" property="taskid" />
+    <result column="process_realid" jdbcType="VARCHAR" property="processRealid" />
+    <result column="process_realdetailid" jdbcType="VARCHAR" property="processRealdetailid" />
+    <result column="insuser" jdbcType="VARCHAR" property="insuser" />
+    <result column="insdt" jdbcType="TIMESTAMP" property="insdt" />
+    <result column="updateuser" jdbcType="VARCHAR" property="updateuser" />
+    <result column="updatedt" jdbcType="TIMESTAMP" property="updatedt" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    
+     <association column="process_realdetailid" property="realDetails" jdbcType="VARCHAR" select="selectrealDetails"/>
+  </resultMap>
+  
+  <select id="selectrealDetails" parameterType="String" resultType="com.sipai.entity.process.RealDetails">  
+  	select * from tb_process_real_details where id = #{process_realdetailid} 
+  </select>
+  <sql id="Base_Column_List">
+    id, taskid, process_realid, process_realdetailid, insuser, insdt, updateuser, updatedt, 
+    status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_work_processorder
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_work_processorder
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.work.WorkProcessOrder">
+    insert into tb_work_processorder (id, taskid, process_realid, 
+      process_realdetailid, insuser, insdt, 
+      updateuser, updatedt, status
+      )
+    values (#{id,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, #{processRealid,jdbcType=VARCHAR}, 
+      #{processRealdetailid,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, 
+      #{updateuser,jdbcType=VARCHAR}, #{updatedt,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.work.WorkProcessOrder">
+    insert into tb_work_processorder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="taskid != null">
+        taskid,
+      </if>
+      <if test="processRealid != null">
+        process_realid,
+      </if>
+      <if test="processRealdetailid != null">
+        process_realdetailid,
+      </if>
+      <if test="insuser != null">
+        insuser,
+      </if>
+      <if test="insdt != null">
+        insdt,
+      </if>
+      <if test="updateuser != null">
+        updateuser,
+      </if>
+      <if test="updatedt != null">
+        updatedt,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null">
+        #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="processRealid != null">
+        #{processRealid,jdbcType=VARCHAR},
+      </if>
+      <if test="processRealdetailid != null">
+        #{processRealdetailid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null">
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedt != null">
+        #{updatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.WorkProcessOrder">
+    update tb_work_processorder
+    <set>
+      <if test="taskid != null">
+        taskid = #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="processRealid != null">
+        process_realid = #{processRealid,jdbcType=VARCHAR},
+      </if>
+      <if test="processRealdetailid != null">
+        process_realdetailid = #{processRealdetailid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null">
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedt != null">
+        updatedt = #{updatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.work.WorkProcessOrder">
+    update tb_work_processorder
+    set taskid = #{taskid,jdbcType=VARCHAR},
+      process_realid = #{processRealid,jdbcType=VARCHAR},
+      process_realdetailid = #{processRealdetailid,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      updateuser = #{updateuser,jdbcType=VARCHAR},
+      updatedt = #{updatedt,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tb_work_processorder
+		${where}
+	</select>
+	<delete id="deleteByWhere" parameterType="java.lang.String">
+		delete from tb_work_processorder
+		${where}
+	</delete>
+</mapper>

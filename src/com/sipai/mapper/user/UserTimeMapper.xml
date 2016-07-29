@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.UserTimeMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.user.UserTime" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="sdate" property="sdate" jdbcType="TIMESTAMP" />
+    <result column="edate" property="edate" jdbcType="TIMESTAMP" />
+    <result column="logintime" property="logintime" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, userid, ip, sdate, edate, logintime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user_time
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_user_time
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.user.UserTime" >
+    insert into tb_user_time (id, userid, ip, 
+      sdate, edate, logintime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{sdate,jdbcType=TIMESTAMP}, #{edate,jdbcType=TIMESTAMP}, #{logintime,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.user.UserTime" >
+    insert into tb_user_time
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="sdate != null" >
+        sdate,
+      </if>
+      <if test="edate != null" >
+        edate,
+      </if>
+      <if test="logintime != null" >
+        logintime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="sdate != null" >
+        #{sdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edate != null" >
+        #{edate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logintime != null" >
+        #{logintime,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.user.UserTime" >
+    update tb_user_time
+    <set >
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="sdate != null" >
+        sdate = #{sdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="edate != null" >
+        edate = #{edate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logintime != null" >
+        logintime = #{logintime,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.user.UserTime" >
+    update tb_user_time
+    set userid = #{userid,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      sdate = #{sdate,jdbcType=TIMESTAMP},
+      edate = #{edate,jdbcType=TIMESTAMP},
+      logintime = #{logintime,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="getTotaltimeByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select sum(logintime) as logintime
+    from tb_user_time
+    where userid = #{userid,jdbcType=VARCHAR}
+  </select>
+</mapper>

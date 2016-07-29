@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ServerConfig>
+	<Attribute name="DBTYPE">MSSQL</Attribute>
+	<Attribute name="DBEDIT">2008</Attribute>
+	<Attribute name="DEBUG">false</Attribute>
+	<Attribute name="RESOURCES">false</Attribute> 
+	<Attribute name="TOPTITLE">PLANT ENGINE</Attribute> 
+	<Attribute name="DBNAME">EIP_PRD_MG</Attribute>
+	<Attribute name="DBSERVER">127.0.0.1</Attribute>
+	<Attribute name="DBSERVER2">127.0.0.1</Attribute>	
+	<Attribute name="IPADDR">false</Attribute>
+	<Attribute name="IPTYPE">IP</Attribute>
+	<Attribute name="GLOBESET">true</Attribute>
+	<Attribute name="MULTILOGIN">admin</Attribute>
+	
+	<Attribute name="SMSTYPE">SMS</Attribute><!--亿美短信发送-->
+	<!--<Attribute name="SMSTYPE">Modem</Attribute> --><!--短信猫-->
+	<!--<Attribute name="SMSTYPE">Mobile</Attribute> --><!--移动提供服务-->
+	<Attribute name="SMSDevice">COM5</Attribute>
+	<Attribute name="SMSBaud">9600</Attribute>
+	<Attribute name="SMSSn">EPEY-TQKG-KKCW-QGWX</Attribute>
+	<Attribute name="SMSMobile">111111111</Attribute>
+<!--	<Attribute name="IPTYPE">MAC</Attribute> -->
+<!--	<Attribute name="IPTYPE">IPMAC</Attribute>  -->
+<!--	<Timers>-->
+<!--		<Timer>com.sipai.cal.CalClient</Timer>-->
+<!--	</Timers> -->
+<!--	<Timers>-->
+<!--		<Timer>com.sipai.httpclient.PumpClient</Timer>-->
+<!--	</Timers>-->
+<!--	<Timers>-->
+<!--		<Timer>com.sipai.httpclient.WaterClient</Timer>-->
+<!--	</Timers>-->
+</ServerConfig>

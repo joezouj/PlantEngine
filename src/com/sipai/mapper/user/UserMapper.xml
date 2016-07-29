@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.user.User" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="active" property="active" jdbcType="CHAR" />
+    <result column="caption" property="caption" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="officeroom" property="officeroom" jdbcType="VARCHAR" />
+    <result column="officephone" property="officephone" jdbcType="VARCHAR" />
+    <result column="useremail" property="useremail" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="lgnum" property="lgnum" jdbcType="INTEGER" />
+    <result column="totaltime" property="totaltime" jdbcType="DOUBLE" />
+    <result column="morder" property="morder" jdbcType="INTEGER" />
+    <result column="serial" property="serial" jdbcType="VARCHAR" />
+    <result column="cardid" property="cardid" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    
+    <association column="pid" property="_pname" jdbcType="VARCHAR" select="selectDept"/>
+    <collection column="id" property="jobs" ofType="com.sipai.entity.user.Job" select="selectJobs"/>
+    <collection column="id" property="roles" ofType="com.sipai.entity.user.Role" select="getRoles"/>
+  </resultMap>
+  
+  <select id="selectDept" parameterType="String" resultType="String">  
+  	select name from uv_unit where id = #{pid} 
+  </select>
+  <select id="selectJobs" parameterType="String" resultType="com.sipai.entity.user.Job">  
+  	select distinct tb_job.*
+    from tb_user_job 
+    left join tb_job on tb_user_job.jobid=tb_job.id
+    where tb_user_job.userid=#{id}
+    order by tb_job.pri asc
+  </select>
+  <select id="getRoles" parameterType="String" resultType="com.sipai.entity.user.Role">  
+  	select tb_role.* from tb_role left outer join tb_user_role on tb_role.id=tb_user_role.roleid where empid = #{id} 
+  </select>
+  
+  <sql id="Base_Column_List" >
+    id, name, password, active, caption, sex, officeroom, officephone, useremail, pid, 
+    lgnum, totaltime, morder, serial, cardid, insuser, insdt, mobile
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_user
+    where id = #{id,jdbcType=VARCHAR} and id !='emp01'
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.user.User" >
+    insert into tb_user (id, name, password, 
+      active, caption, sex, 
+      officeroom, officephone, useremail, 
+      pid, lgnum, totaltime, 
+      morder,  serial, 
+      cardid, insuser, insdt, mobile)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{active,jdbcType=CHAR}, #{caption,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{officeroom,jdbcType=VARCHAR}, #{officephone,jdbcType=VARCHAR}, #{useremail,jdbcType=VARCHAR}, 
+      #{pid,jdbcType=VARCHAR}, #{lgnum,jdbcType=INTEGER}, #{totaltime,jdbcType=DOUBLE}, 
+      #{morder,jdbcType=INTEGER},  #{serial,jdbcType=VARCHAR}, 
+      #{cardid,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=VARCHAR},#{mobile,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.user.User" >
+    insert into tb_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="active != null" >
+        active,
+      </if>
+      <if test="caption != null" >
+        caption,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="officeroom != null" >
+        officeroom,
+      </if>
+      <if test="officephone != null" >
+        officephone,
+      </if>
+      <if test="useremail != null" >
+        useremail,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="lgnum != null" >
+        lgnum,
+      </if>
+      <if test="totaltime != null" >
+        totaltime,
+      </if>
+      <if test="morder != null" >
+        morder,
+      </if>
+      
+      <if test="serial != null" >
+        serial,
+      </if>
+      <if test="cardid != null" >
+        cardid,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        #{active,jdbcType=CHAR},
+      </if>
+      <if test="caption != null" >
+        #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="officeroom != null" >
+        #{officeroom,jdbcType=VARCHAR},
+      </if>
+      <if test="officephone != null" >
+        #{officephone,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="lgnum != null" >
+        #{lgnum,jdbcType=INTEGER},
+      </if>
+      <if test="totaltime != null" >
+        #{totaltime,jdbcType=DOUBLE},
+      </if>
+      <if test="morder != null" >
+        #{morder,jdbcType=INTEGER},
+      </if>      
+      <if test="serial != null" >
+        #{serial,jdbcType=VARCHAR},
+      </if>
+      <if test="cardid != null" >
+        #{cardid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.user.User" >
+    update tb_user
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        active = #{active,jdbcType=CHAR},
+      </if>
+      <if test="caption != null" >
+        caption = #{caption,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="officeroom != null" >
+        officeroom = #{officeroom,jdbcType=VARCHAR},
+      </if>
+      <if test="officephone != null" >
+        officephone = #{officephone,jdbcType=VARCHAR},
+      </if>
+      <if test="useremail != null" >
+        useremail = #{useremail,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="lgnum != null" >
+        lgnum = #{lgnum,jdbcType=INTEGER},
+      </if>
+      <if test="totaltime != null" >
+        totaltime = #{totaltime,jdbcType=DOUBLE},
+      </if>
+      <if test="morder != null" >
+        morder = #{morder,jdbcType=INTEGER},
+      </if>     
+      <if test="serial != null" >
+        serial = #{serial,jdbcType=VARCHAR},
+      </if>
+      <if test="cardid != null" >
+        cardid = #{cardid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.user.User" >
+    update tb_user
+    set name = #{name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      active = #{active,jdbcType=CHAR},
+      caption = #{caption,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      officeroom = #{officeroom,jdbcType=VARCHAR},
+      officephone = #{officephone,jdbcType=VARCHAR},
+      useremail = #{useremail,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      lgnum = #{lgnum,jdbcType=INTEGER},
+      totaltime = #{totaltime,jdbcType=DOUBLE},
+      morder = #{morder,jdbcType=INTEGER},     
+      serial = #{serial,jdbcType=VARCHAR},
+      cardid = #{cardid,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user 
+    order by morder
+  </select>
+  <select id="getUserByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <select id="getListBySerial" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user
+    where serial = #{serial,jdbcType=VARCHAR}
+  </select>
+  <select id="getListByCardid" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user
+    where cardid = #{cardid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user
+    ${where}
+  </select>
+  <select id="selectListBySql" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    ${sql}
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select 
+    <include refid="Base_Column_List" />
+    from tb_user
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_user
+    ${where} and id !='emp01'
+  </delete>
+</mapper>

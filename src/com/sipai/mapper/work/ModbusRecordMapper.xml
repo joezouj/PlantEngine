@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="work.ModbusRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.work.ModbusRecord" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="lastdate" property="lastdate" jdbcType="TIMESTAMP" />
+    <result column="record" property="record" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, lastdate, record, insuser, insdt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_work_modbusrecord
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_work_modbusrecord
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.work.ModbusRecord" >
+    insert into tb_work_modbusrecord (id, lastdate, record, 
+      insuser, insdt)
+    values (#{id,jdbcType=VARCHAR}, #{lastdate,jdbcType=TIMESTAMP}, #{record,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.work.ModbusRecord" >
+    insert into tb_work_modbusrecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="lastdate != null" >
+        lastdate,
+      </if>
+      <if test="record != null" >
+        record,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="lastdate != null" >
+        #{lastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record != null" >
+        #{record,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.ModbusRecord" >
+    update tb_work_modbusrecord
+    <set >
+      <if test="lastdate != null" >
+        lastdate = #{lastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record != null" >
+        record = #{record,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.work.ModbusRecord" >
+    update tb_work_modbusrecord
+    set lastdate = #{lastdate,jdbcType=TIMESTAMP},
+      record = #{record,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+   <select id="selectListByWhere" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_work_modbusrecord
+		${where}
+	</select>
+	<delete id="deleteByWhere" parameterType="java.lang.String">
+		delete from tb_work_modbusrecord
+		${where}
+	</delete>
+</mapper>

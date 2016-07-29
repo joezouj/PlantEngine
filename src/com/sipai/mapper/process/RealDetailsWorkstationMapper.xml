@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="process.RealDetailsWorkstationMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.process.RealDetailsWorkstation" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="workstationid" property="workstationid" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="upduser" property="upduser" jdbcType="VARCHAR" />
+    <result column="upddt" property="upddt" jdbcType="TIMESTAMP" />
+    
+    <association column="workstationid" property="workstation" jdbcType="VARCHAR" select="selectWorkstation"/>
+  </resultMap>
+  
+  <select id="selectWorkstation" parameterType="String" resultType="com.sipai.entity.work.Workstation">  
+  	select tb_work_workstation.* ,tb_work_workstation_type.name as typename ,uv_unit.name as deptname ,tb_work_line.name as linename
+  	from tb_work_workstation 
+  	left join tb_work_line_workstation on tb_work_line_workstation.workstationid = tb_work_workstation.id
+  	left join tb_work_line on tb_work_line.id = tb_work_line_workstation.lineid
+  	left join tb_work_workstation_type on tb_work_workstation_type.id = tb_work_workstation.typeid
+  	left join uv_unit on uv_unit.id = tb_work_workstation.deptid
+  	where tb_work_workstation.id = #{workstationid} 
+  </select>
+  
+  <sql id="Base_Column_List" >
+    id, pid, workstationid, insuser, insdt, upduser, upddt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_real_details_workstation
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_process_real_details_workstation
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.process.RealDetailsWorkstation" >
+    insert into tb_process_real_details_workstation (id, pid, workstationid, 
+      insuser, insdt, upduser, 
+      upddt)
+    values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{workstationid,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, #{upduser,jdbcType=VARCHAR}, 
+      #{upddt,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.process.RealDetailsWorkstation" >
+    update tb_process_real_details_workstation
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null" >
+        workstationid = #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upduser != null" >
+        upduser = #{upduser,jdbcType=VARCHAR},
+      </if>
+      <if test="upddt != null" >
+        upddt = #{upddt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_real_details_workstation
+    ${where}
+  </select>
+  <select id="selectListByWhere1" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select tb_process_real_details_workstation.*,tb_work_line.id as lineid,tb_work_line.name as linename
+    from tb_process_real_details_workstation 
+    left join tb_work_workstation on tb_work_workstation.id=tb_process_real_details_workstation.workstationid
+    left join tb_work_line_workstation on tb_work_workstation.id=tb_work_line_workstation.workstationid
+    left join tb_work_line on tb_work_line.id=tb_work_line_workstation.lineid
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_process_real_details_workstation
+    ${where}
+  </delete>
+</mapper>

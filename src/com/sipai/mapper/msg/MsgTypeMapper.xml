@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="msg.MsgTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.msg.MsgType" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />   
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="sendway" property="sendway" jdbcType="VARCHAR" />
+    <collection column="id" property="_roleid" jdbcType="VARCHAR" select="selectRoleid" />    
+ 	<collection column="id" property="_msguserid" jdbcType="VARCHAR" select="selectMsguserid" />
+  	<collection column="id" property="_smsuserid" jdbcType="VARCHAR" select="selectSmsuserid" />
+  </resultMap>
+  <select id="selectRoleid" parameterType="String" resultType="String">  
+  	select roleid from TB_MESSAGE_TYPE_role where masterid = #{id} 
+  </select>
+  <select id="selectMsguserid" parameterType="String" resultType="String">  
+  	select userid from TB_MESSAGE_TYPE_msguser where masterid = #{id} 
+  </select>
+  <select id="selectSmsuserid" parameterType="String" resultType="String">  
+  	select userid from TB_MESSAGE_TYPE_smsuser where masterid = #{id} 
+  </select>
+  <sql id="Base_Column_List" >
+    id, name, insuser, insdt,  pid, remark, status,sendway
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_MESSAGE_TYPE
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_MESSAGE_TYPE
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.msg.MsgType" >
+    insert into TB_MESSAGE_TYPE (id, name, insuser, 
+      insdt, pid, remark, status,sendway
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, 
+      #{insdt,jdbcType=TIMESTAMP},#{pid,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{sendway,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.msg.MsgType" >
+    insert into TB_MESSAGE_TYPE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>    
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="sendway != null" >
+        sendway,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>     
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="sendway != null" >
+        #{sendway,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.msg.MsgType" >
+    update TB_MESSAGE_TYPE
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>      
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="sendway != null" >
+        sendway = #{sendway,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.msg.MsgType" >
+    update TB_MESSAGE_TYPE
+    set name = #{name,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},     
+      pid = #{pid,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      sendway = #{sendway,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_MESSAGE_TYPE
+    ${where}
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select 
+    <include refid="Base_Column_List" />
+    from TB_MESSAGE_TYPE
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from TB_MESSAGE_TYPE
+    ${where}
+  </delete>
+   <select id="getMsgType" resultMap="ClassResultMapMsgType" parameterType="java.lang.String"> 
+  SELECT  
+  T.id					as t_id,
+  T.name 				as t_typename,
+  T.pid,
+  T.status,
+  T.insuser,
+  T.insdt,
+  T.sendway,
+  T.remark,
+  R.id					as r_id,
+  R.roleid				as r_roleid,
+  M.id					as m_id,
+  M.userid				as m_userid,
+  S.id					as s_id,
+  S.userid				as s_userid
+  FROM TB_MESSAGE_TYPE T
+  LEFT OUTER JOIN TB_MESSAGE_TYPE_role R ON R.masterid = T.id 
+  LEFT OUTER JOIN TB_MESSAGE_TYPE_msguser M ON M.masterid = T.id 
+  LEFT OUTER JOIN TB_MESSAGE_TYPE_smsuser S ON S.masterid = T.id   
+  ${where}
+</select>
+  <resultMap id="ClassResultMapMsgType" type="com.sipai.entity.msg.MsgType">
+  <id property="id" column="t_id" />
+  <result property="name" column="t_typename"/>
+  <result property="pid" column="pid"/>
+  <result property="status" column="status"/>
+  <result property="insuser" column="insuser"/>
+  <result property="insdt" column="insdt"/>
+  <result property="sendway" column="sendway"/>
+  <result property="remark" column="remark"/>
+  <collection property="role" ofType="com.sipai.entity.msg.MsgRole" >
+    <id property="id" column="r_id"/>
+  	<result property="roleid" column="r_roleid"/>
+  </collection>
+  <collection property="msguser" ofType="com.sipai.entity.msg.Msguser" >
+    <id property="id" column="m_id"/>
+  	<result property="userid" column="m_userid"/>
+  </collection>
+  <collection property="smsuser" ofType="com.sipai.entity.msg.Smsuser" >
+    <id property="id" column="s_id"/>
+  	<result property="userid" column="s_userid"/>
+  </collection>
+</resultMap> 
+
+</mapper>

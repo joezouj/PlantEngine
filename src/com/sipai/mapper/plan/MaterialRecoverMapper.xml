@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="plan.MaterialRecoverMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.plan.MaterialRecover" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="dailyplanid" property="dailyplanid" jdbcType="VARCHAR" />
+    <result column="materialid" property="materialid" jdbcType="VARCHAR" />
+    <result column="workstationid" property="workstationid" jdbcType="VARCHAR" />
+    <result column="recoverid" property="recoverid" jdbcType="VARCHAR" />
+    <result column="recovertime" property="recovertime" jdbcType="TIMESTAMP" />
+    <result column="recovernum" property="recovernum" jdbcType="DOUBLE" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    
+    <association column="dailyplanid" property="dailyPlanSummary" jdbcType="VARCHAR" select="selectDailyPlanSummary"/>
+    <association column="materialid" property="materialInfo" jdbcType="VARCHAR" select="selectMaterialInfo"/>
+    <association column="workstationid" property="workstation" jdbcType="VARCHAR" select="selectWorkstation"/> 
+    <association column="recoverid" property="recover" jdbcType="VARCHAR" select="selectRecover"/>   
+  </resultMap>
+  <select id="selectDailyPlanSummary" parameterType="String" resultType="com.sipai.entity.plan.DailyPlanSummary">  
+  	select * from TB_plan_dailyplanSummary where id = #{dailyplanid} 
+  </select>
+  <select id="selectMaterialInfo" parameterType="String" resultType="com.sipai.entity.material.MaterialInfo">  
+  	select * from tb_material_info where id = #{materialid} 
+  </select>
+  <select id="selectWorkstation" parameterType="String" resultType="com.sipai.entity.work.Workstation">  
+  	select * from tb_work_workstation where id = #{workstationid} 
+  </select>
+  <select id="selectRecover" parameterType="String" resultType="com.sipai.entity.user.User">  
+  	select * from tb_user where id = #{recoverid} 
+  </select>
+  <sql id="Base_Column_List" >
+    id, dailyplanid, materialid, workstationid, recoverid, recovertime, recovernum, memo
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_plan_material_recover
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_plan_material_recover
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.plan.MaterialRecover" >
+    insert into tb_plan_material_recover (id, dailyplanid, materialid, 
+      workstationid, recoverid, recovertime, 
+      recovernum, memo)
+    values (#{id,jdbcType=VARCHAR}, #{dailyplanid,jdbcType=VARCHAR}, #{materialid,jdbcType=VARCHAR}, 
+      #{workstationid,jdbcType=VARCHAR}, #{recoverid,jdbcType=VARCHAR}, #{recovertime,jdbcType=TIMESTAMP}, 
+      #{recovernum,jdbcType=DOUBLE}, #{memo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.plan.MaterialRecover" >
+    insert into tb_plan_material_recover
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dailyplanid != null" >
+        dailyplanid,
+      </if>
+      <if test="materialid != null" >
+        materialid,
+      </if>
+      <if test="workstationid != null" >
+        workstationid,
+      </if>
+      <if test="recoverid != null" >
+        recoverid,
+      </if>
+      <if test="recovertime != null" >
+        recovertime,
+      </if>
+      <if test="recovernum != null" >
+        recovernum,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyplanid != null" >
+        #{dailyplanid,jdbcType=VARCHAR},
+      </if>
+      <if test="materialid != null" >
+        #{materialid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null" >
+        #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="recoverid != null" >
+        #{recoverid,jdbcType=VARCHAR},
+      </if>
+      <if test="recovertime != null" >
+        #{recovertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recovernum != null" >
+        #{recovernum,jdbcType=DOUBLE},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.plan.MaterialRecover" >
+    update tb_plan_material_recover
+    <set >
+      <if test="dailyplanid != null" >
+        dailyplanid = #{dailyplanid,jdbcType=VARCHAR},
+      </if>
+      <if test="materialid != null" >
+        materialid = #{materialid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null" >
+        workstationid = #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="recoverid != null" >
+        recoverid = #{recoverid,jdbcType=VARCHAR},
+      </if>
+      <if test="recovertime != null" >
+        recovertime = #{recovertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recovernum != null" >
+        recovernum = #{recovernum,jdbcType=DOUBLE},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.plan.MaterialRecover" >
+    update tb_plan_material_recover
+    set dailyplanid = #{dailyplanid,jdbcType=VARCHAR},
+      materialid = #{materialid,jdbcType=VARCHAR},
+      workstationid = #{workstationid,jdbcType=VARCHAR},
+      recoverid = #{recoverid,jdbcType=VARCHAR},
+      recovertime = #{recovertime,jdbcType=TIMESTAMP},
+      recovernum = #{recovernum,jdbcType=DOUBLE},
+      memo = #{memo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_plan_material_recover
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_plan_material_recover
+    ${where}
+  </delete>
+  
+  
+  <select id="getMaterialRecover" resultMap="MaterialRecoverMap" parameterType="java.lang.String"> 
+  select r.*,
+  d.id as d_id,
+  d.name as d_name,
+  d.plandt as d_plandt,
+  m.id as m_id,
+  m.materialcode as m_materialcode,
+  m.materialname as m_materialname,
+  m.unit as m_unit,
+  w.id as w_id,
+  w.name as w_name,
+  w.serial as w_serial,
+  u.id as u_id,
+  u.name as u_name
+  from tb_plan_material_recover r 
+  left join TB_plan_dailyplanSummary d on r.dailyplanid=d.id
+  left join tb_material_info m on r.materialid=m.id
+  left join tb_work_workstation w on r.workstationid=w.id
+  left join tb_user u on r.recoverid=u.id 
+  ${where}
+</select>
+<resultMap id="MaterialRecoverMap" type="com.sipai.entity.plan.MaterialRecover">
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="dailyplanid" property="dailyplanid" jdbcType="VARCHAR" />
+    <result column="materialid" property="materialid" jdbcType="VARCHAR" />
+    <result column="workstationid" property="workstationid" jdbcType="VARCHAR" />
+    <result column="recoverid" property="recoverid" jdbcType="VARCHAR" />
+    <result column="recovertime" property="recovertime" jdbcType="TIMESTAMP" />
+    <result column="recovernum" property="recovernum" jdbcType="DOUBLE" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    
+    <association property="dailyPlanSummary" resultMap="dailyPlanSummaryResult"/>
+    <association property="materialInfo" resultMap="materialInfoResult"/>
+    <association property="workstation" resultMap="workstationResult"/>
+    <association property="recover" resultMap="recoverResult"/>
+</resultMap> 
+<resultMap id="dailyPlanSummaryResult" type="com.sipai.entity.plan.DailyPlanSummary">
+  <id property="id" column="d_id"/>
+  <result property="name" column="d_name"/>
+  <result property="plandt" column="d_plandt"/>
+</resultMap>
+<resultMap id="materialInfoResult" type="com.sipai.entity.material.MaterialInfo">
+  <id property="id" column="m_id"/>
+  <result property="materialcode" column="m_materialcode"/>
+  <result property="materialname" column="m_materialname"/>
+  <result property="unit" column="m_unit"/>
+</resultMap>
+<resultMap id="workstationResult" type="com.sipai.entity.work.Workstation">
+  <id property="id" column="w_id"/>
+  <result property="name" column="w_name"/>
+  <result property="serial" column="w_serial"/>
+</resultMap>
+<resultMap id="recoverResult" type="com.sipai.entity.user.User">
+  <id property="id" column="u_id"/>
+  <result property="name" column="u_name"/>
+</resultMap>
+  
+</mapper>

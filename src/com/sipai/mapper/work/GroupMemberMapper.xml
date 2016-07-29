@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="work.GroupMemberMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.work.GroupMember" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="groupid" property="groupid" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="usertype" property="usertype" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    
+    <association column="userid" property="username" jdbcType="VARCHAR" select="selectUser"></association>
+  </resultMap>
+  
+  <select id="selectUser" resultType="String" parameterType="java.lang.String" >
+    select caption from tb_user where id = #{userid,jdbcType=VARCHAR}
+  </select>
+  
+  <sql id="Base_Column_List" >
+    id, groupid, userid, usertype, insuser, insdt, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_work_group_member
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_work_group_member
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.work.GroupMember" >
+    insert into tb_work_group_member (id, groupid, userid, 
+      usertype, insuser, insdt, 
+      remark)
+    values (#{id,jdbcType=VARCHAR}, #{groupid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{usertype,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.GroupMember" >
+    update tb_work_group_member
+    <set >
+      <if test="groupid != null" >
+        groupid = #{groupid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="usertype != null" >
+        usertype = #{usertype,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByGroupId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    gm.id, gm.groupid, gm.userid, gm.usertype, gm.insuser, gm.insdt, gm.remark,
+    uw.workstationid as _workstationid, ww.name as _workstationname
+    from tb_work_group_member gm
+    left join tb_user_workstation uw on gm.userid=uw.userid
+    left join tb_work_workstation ww on ww.id=uw.workstationid
+    where gm.groupid = #{groupid,jdbcType=VARCHAR}
+    order by gm.usertype
+  </select>
+  <delete id="deleteByGroupId" parameterType="java.lang.String" >
+    delete from tb_work_group_member
+    where groupid = #{groupid,jdbcType=VARCHAR}
+  </delete>
+  <select id="selectListByScheduling" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    Select 
+ 	gm.id, gm.groupid, gm.userid, gm.usertype, gm.insuser, gm.insdt, gm.remark,
+    ws.workstationid as _workstationid, ww.name as _workstationname
+	from tb_work_group_member gm
+	left join tb_work_scheduling ws on gm.userid =ws.userid
+	left join tb_work_workstation ww on ww.id=ws.workstationid
+    ${_parameter}
+  </select>
+</mapper>

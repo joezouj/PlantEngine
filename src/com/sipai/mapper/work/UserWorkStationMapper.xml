@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.UserWorkStationMapper">
+  <resultMap id="BaseResultMap" type="com.sipai.entity.work.UserWorkStation">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="workstationid" jdbcType="VARCHAR" property="workstationid" />
+    <result column="insuser" jdbcType="VARCHAR" property="insuser" />
+    <result column="insdt" jdbcType="TIMESTAMP" property="insdt" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userid, workstationid, insuser, insdt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_user_workstation
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_user_workstation
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.work.UserWorkStation">
+    insert into tb_user_workstation (id, userid, workstationid, 
+      insuser, insdt)
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{workstationid,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.work.UserWorkStation">
+    insert into tb_user_workstation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="workstationid != null">
+        workstationid,
+      </if>
+      <if test="insuser != null">
+        insuser,
+      </if>
+      <if test="insdt != null">
+        insdt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null">
+        #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.UserWorkStation">
+    update tb_user_workstation
+    <set>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null">
+        workstationid = #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.work.UserWorkStation">
+    update tb_user_workstation
+    set userid = #{userid,jdbcType=VARCHAR},
+      workstationid = #{workstationid,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tb_user_workstation
+		${where}
+	</select>
+	<delete id="deleteByWhere" parameterType="java.lang.String">
+		delete from
+		tb_user_workstation
+		${where}
+	</delete>
+</mapper>

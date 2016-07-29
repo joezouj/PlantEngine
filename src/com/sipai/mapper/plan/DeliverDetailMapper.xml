@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="plan.DeliverDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.plan.DeliverDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="materialid" property="materialid" jdbcType="VARCHAR" />
+    <result column="planamount" property="planamount" jdbcType="DOUBLE" />
+    <result column="deliveramount" property="deliveramount" jdbcType="DOUBLE" />
+    <result column="boxnumber" property="boxnumber" jdbcType="VARCHAR" />
+    <result column="boxname" property="boxname" jdbcType="VARCHAR" />
+    <result column="deliverst" property="deliverst" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modifydt" property="modifydt" jdbcType="TIMESTAMP" />
+    
+    <association column="materialid" property="materialInfo" jdbcType="VARCHAR" select="selectMaterialInfo"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pid, materialid, planamount, deliveramount, boxnumber, boxname, deliverst, remark, 
+    insuser, insdt, modify, modifydt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_plan_material_deliver_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectMaterialInfo" parameterType="String" resultType="com.sipai.entity.material.MaterialInfo">  
+  	select * from tb_material_info where id = #{materialid} 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_plan_material_deliver_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.plan.DeliverDetail" >
+    insert into tb_plan_material_deliver_detail (id, pid, materialid, 
+      planamount, deliveramount, boxnumber, 
+      boxname, deliverst, remark, 
+      insuser, insdt, modify, 
+      modifydt)
+    values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{materialid,jdbcType=VARCHAR}, 
+      #{planamount,jdbcType=DOUBLE}, #{deliveramount,jdbcType=DOUBLE}, #{boxnumber,jdbcType=VARCHAR}, 
+      #{boxname,jdbcType=VARCHAR}, #{deliverst,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, #{modify,jdbcType=VARCHAR}, 
+      #{modifydt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.plan.DeliverDetail" >
+    insert into tb_plan_material_deliver_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="materialid != null" >
+        materialid,
+      </if>
+      <if test="planamount != null" >
+        planamount,
+      </if>
+      <if test="deliveramount != null" >
+        deliveramount,
+      </if>
+      <if test="boxnumber != null" >
+        boxnumber,
+      </if>
+      <if test="boxname != null" >
+        boxname,
+      </if>
+      <if test="deliverst != null" >
+        deliverst,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="modify != null" >
+        modify,
+      </if>
+      <if test="modifydt != null" >
+        modifydt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="materialid != null" >
+        #{materialid,jdbcType=VARCHAR},
+      </if>
+      <if test="planamount != null" >
+        #{planamount,jdbcType=DOUBLE},
+      </if>
+      <if test="deliveramount != null" >
+        #{deliveramount,jdbcType=DOUBLE},
+      </if>
+      <if test="boxnumber != null" >
+        #{boxnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="boxname != null" >
+        #{boxname,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverst != null" >
+        #{deliverst,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.plan.DeliverDetail" >
+    update tb_plan_material_deliver_detail
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="materialid != null" >
+        materialid = #{materialid,jdbcType=VARCHAR},
+      </if>
+      <if test="planamount != null" >
+        planamount = #{planamount,jdbcType=DOUBLE},
+      </if>
+      <if test="deliveramount != null" >
+        deliveramount = #{deliveramount,jdbcType=DOUBLE},
+      </if>
+      <if test="boxnumber != null" >
+        boxnumber = #{boxnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="boxname != null" >
+        boxname = #{boxname,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverst != null" >
+        deliverst = #{deliverst,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        modifydt = #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.plan.DeliverDetail" >
+    update tb_plan_material_deliver_detail
+    set pid = #{pid,jdbcType=VARCHAR},
+      materialid = #{materialid,jdbcType=VARCHAR},
+      planamount = #{planamount,jdbcType=DOUBLE},
+      deliveramount = #{deliveramount,jdbcType=DOUBLE},
+      boxnumber = #{boxnumber,jdbcType=VARCHAR},
+      boxname = #{boxname,jdbcType=VARCHAR},
+      deliverst = #{deliverst,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      modify = #{modify,jdbcType=VARCHAR},
+      modifydt = #{modifydt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+   <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_plan_material_deliver_detail
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_plan_material_deliver_detail
+    ${where}
+  </delete>
+  <select id="getDeliverDetail" resultMap="DeliverDetailMap" parameterType="java.lang.String"> 
+  select d.*,
+  m.id as m_id,
+  m.materialcode as m_materialcode,
+  m.materialname as m_materialname,
+  m.unit as m_unit
+  from tb_plan_material_deliver_detail d 
+  left join tb_material_info m on m.id=d.materialid
+  ${where}
+</select>
+<resultMap id="DeliverDetailMap" type="com.sipai.entity.plan.DeliverDetail">
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="materialid" property="materialid" jdbcType="VARCHAR" />
+    <result column="planamount" property="planamount" jdbcType="DOUBLE" />
+    <result column="deliveramount" property="deliveramount" jdbcType="DOUBLE" />
+    <result column="boxnumber" property="boxnumber" jdbcType="VARCHAR" />
+    <result column="boxname" property="boxname" jdbcType="VARCHAR" />
+    <result column="deliverst" property="deliverst" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modifydt" property="modifydt" jdbcType="TIMESTAMP" />
+    
+    <association property="materialInfo" resultMap="materialInfoResult"/>
+</resultMap>
+<resultMap id="materialInfoResult" type="com.sipai.entity.material.MaterialInfo">
+  <id property="id" column="m_id"/>
+  <result property="materialcode" column="m_materialcode"/>
+  <result property="materialname" column="m_materialname"/>
+  <result property="unit" column="m_unit"/>
+</resultMap>
+   <select id="getPlanedAmount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  	select detail.materialid,SUM(case when detail.planamount is null then 0 else detail.planamount end) as planamount
+  	from tb_plan_material_deliver_detail detail 
+  	left join tb_plan_material_deliver  deliver on deliver.id=detail.pid  
+  	${where}
+  	group by materialid
+</select>  
+<select id="getMaterialDeliverStatus" resultMap="BaseResultMap" parameterType="java.lang.String" >
+ select (case 
+         when SUM(case when deliverst is null then 0 else deliverst end)=0 then 0 
+         when SUM(case when deliverst is null then 0 else deliverst end)=COUNT(id) then 1 
+         else 2 end) as deliverst 
+ from tb_plan_material_deliver_detail 
+ ${where}
+ group by pid
+</select>
+</mapper>

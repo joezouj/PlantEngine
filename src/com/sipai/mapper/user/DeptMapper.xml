@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.DeptMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.user.Dept" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="RoleID" property="roleid" jdbcType="VARCHAR" />
+    <result column="offtel" property="offtel" jdbcType="VARCHAR" />
+    <result column="telout" property="telout" jdbcType="VARCHAR" />
+    <result column="telin" property="telin" jdbcType="VARCHAR" />
+    <result column="fax" property="fax" jdbcType="VARCHAR" />
+    <result column="office" property="office" jdbcType="VARCHAR" />
+    <result column="logopic" property="logopic" jdbcType="VARCHAR" />
+    <result column="taskid" property="taskid" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="morder" property="morder" jdbcType="INTEGER" />
+    <result column="sname" property="sname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, pid, RoleID, offtel, telout, telin, fax, office, logopic, taskid, insdt, 
+    insuser, version, morder, sname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_dept
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_dept
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.user.Dept" >
+    insert into tb_dept (id, name, pid, 
+      RoleID, offtel, telout, 
+      telin, fax, office, 
+      logopic, taskid, insdt, 
+      insuser, version, morder, 
+      sname)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, 
+      #{roleid,jdbcType=VARCHAR}, #{offtel,jdbcType=VARCHAR}, #{telout,jdbcType=VARCHAR}, 
+      #{telin,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, #{office,jdbcType=VARCHAR}, 
+      #{logopic,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, 
+      #{insuser,jdbcType=VARCHAR}, #{version,jdbcType=INTEGER}, #{morder,jdbcType=INTEGER}, 
+      #{sname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.user.Dept" >
+    insert into tb_dept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="roleid != null" >
+        RoleID,
+      </if>
+      <if test="offtel != null" >
+        offtel,
+      </if>
+      <if test="telout != null" >
+        telout,
+      </if>
+      <if test="telin != null" >
+        telin,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="office != null" >
+        office,
+      </if>
+      <if test="logopic != null" >
+        logopic,
+      </if>
+      <if test="taskid != null" >
+        taskid,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="morder != null" >
+        morder,
+      </if>
+      <if test="sname != null" >
+        sname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="offtel != null" >
+        #{offtel,jdbcType=VARCHAR},
+      </if>
+      <if test="telout != null" >
+        #{telout,jdbcType=VARCHAR},
+      </if>
+      <if test="telin != null" >
+        #{telin,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="office != null" >
+        #{office,jdbcType=VARCHAR},
+      </if>
+      <if test="logopic != null" >
+        #{logopic,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      </if>
+      <if test="morder != null" >
+        #{morder,jdbcType=INTEGER},
+      </if>
+      <if test="sname != null" >
+        #{sname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.user.Dept" >
+    update tb_dept
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null" >
+        RoleID = #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="offtel != null" >
+        offtel = #{offtel,jdbcType=VARCHAR},
+      </if>
+      <if test="telout != null" >
+        telout = #{telout,jdbcType=VARCHAR},
+      </if>
+      <if test="telin != null" >
+        telin = #{telin,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="office != null" >
+        office = #{office,jdbcType=VARCHAR},
+      </if>
+      <if test="logopic != null" >
+        logopic = #{logopic,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        taskid = #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=INTEGER},
+      </if>
+      <if test="morder != null" >
+        morder = #{morder,jdbcType=INTEGER},
+      </if>
+      <if test="sname != null" >
+        sname = #{sname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.user.Dept" >
+    update tb_dept
+    set name = #{name,jdbcType=VARCHAR},
+      pid = #{pid,jdbcType=VARCHAR},
+      RoleID = #{roleid,jdbcType=VARCHAR},
+      offtel = #{offtel,jdbcType=VARCHAR},
+      telout = #{telout,jdbcType=VARCHAR},
+      telin = #{telin,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      office = #{office,jdbcType=VARCHAR},
+      logopic = #{logopic,jdbcType=VARCHAR},
+      taskid = #{taskid,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      version = #{version,jdbcType=INTEGER},
+      morder = #{morder,jdbcType=INTEGER},
+      sname = #{sname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

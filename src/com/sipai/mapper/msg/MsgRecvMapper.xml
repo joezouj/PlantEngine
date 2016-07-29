@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="msg.MsgRecvMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.msg.MsgRecv" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="masterid" property="masterid" jdbcType="VARCHAR" />
+    <result column="unitid" property="unitid" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="readtime" property="readtime" jdbcType="TIMESTAMP" />
+    <result column="delflag" property="delflag" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, masterid, unitid, status, readtime, delflag, insuser, insdt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_MESSAGE_RECV
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_MESSAGE_RECV
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.msg.MsgRecv" >
+    insert into TB_MESSAGE_RECV (id, masterid, unitid, 
+      status, readtime, delflag, 
+      insuser, insdt)
+    values (#{id,jdbcType=VARCHAR}, #{masterid,jdbcType=VARCHAR}, #{unitid,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{readtime,jdbcType=TIMESTAMP}, #{delflag,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.msg.MsgRecv" >
+    insert into TB_MESSAGE_RECV
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="masterid != null" >
+        masterid,
+      </if>
+      <if test="unitid != null" >
+        unitid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="readtime != null" >
+        readtime,
+      </if>
+      <if test="delflag != null" >
+        delflag,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="masterid != null" >
+        #{masterid,jdbcType=VARCHAR},
+      </if>
+      <if test="unitid != null" >
+        #{unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="readtime != null" >
+        #{readtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delflag != null" >
+        #{delflag,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.msg.MsgRecv" >
+    update TB_MESSAGE_RECV
+    <set >
+      <if test="masterid != null" >
+        masterid = #{masterid,jdbcType=VARCHAR},
+      </if>
+      <if test="unitid != null" >
+        unitid = #{unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="readtime != null" >
+        readtime = #{readtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delflag != null" >
+        delflag = #{delflag,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.msg.MsgRecv" >
+    update TB_MESSAGE_RECV
+    set masterid = #{masterid,jdbcType=VARCHAR},
+      unitid = #{unitid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      readtime = #{readtime,jdbcType=TIMESTAMP},
+      delflag = #{delflag,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+   <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_MESSAGE_RECV
+    ${where}
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select 
+    <include refid="Base_Column_List" />
+    from TB_MESSAGE_RECV
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from TB_MESSAGE_RECV
+    ${where}
+  </delete>
+  <update id="updateBySetAndWhere" parameterType="com.sipai.entity.msg.MsgRecv" >
+    update TB_MESSAGE_RECV
+    ${where}
+  </update>
+</mapper>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="msg.EmppSendMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.msg.EmppSend" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="emppAdminid" property="emppadminid" jdbcType="VARCHAR" />
+    <result column="senduserid" property="senduserid" jdbcType="VARCHAR" />
+    <result column="senddate" property="senddate" jdbcType="TIMESTAMP" />
+    <result column="insertuserid" property="insertuserid" jdbcType="VARCHAR" />
+    <result column="insertdate" property="insertdate" jdbcType="TIMESTAMP" />
+    <result column="updateuserid" property="updateuserid" jdbcType="VARCHAR" />
+    <result column="updatedate" property="updatedate" jdbcType="TIMESTAMP" />
+     <result column="recuserid" property="recuserid" jdbcType="CLOB" />
+    <result column="recusername" property="recusername" jdbcType="CLOB" />
+    <result column="sendtitle" property="sendtitle" jdbcType="CLOB" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, emppAdminid, senduserid, senddate, insertuserid, insertdate, updateuserid, updatedate,recuserid, recusername, sendtitle
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    
+    from tb_EMPP_EmppSend
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_EMPP_EmppSend
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.msg.EmppSend" >
+    insert into tb_EMPP_EmppSend (id, emppAdminid, senduserid, 
+      senddate, insertuserid, insertdate, 
+      updateuserid, updatedate, recuserid, 
+      recusername, sendtitle)
+    values (#{id,jdbcType=VARCHAR}, #{emppadminid,jdbcType=VARCHAR}, #{senduserid,jdbcType=VARCHAR}, 
+      #{senddate,jdbcType=TIMESTAMP}, #{insertuserid,jdbcType=VARCHAR}, #{insertdate,jdbcType=TIMESTAMP}, 
+      #{updateuserid,jdbcType=VARCHAR}, #{updatedate,jdbcType=TIMESTAMP}, #{recuserid,jdbcType=CLOB}, 
+      #{recusername,jdbcType=CLOB}, #{sendtitle,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.msg.EmppSend" >
+    insert into tb_EMPP_EmppSend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="emppadminid != null" >
+        emppAdminid,
+      </if>
+      <if test="senduserid != null" >
+        senduserid,
+      </if>
+      <if test="senddate != null" >
+        senddate,
+      </if>
+      <if test="insertuserid != null" >
+        insertuserid,
+      </if>
+      <if test="insertdate != null" >
+        insertdate,
+      </if>
+      <if test="updateuserid != null" >
+        updateuserid,
+      </if>
+      <if test="updatedate != null" >
+        updatedate,
+      </if>
+      <if test="recuserid != null" >
+        recuserid,
+      </if>
+      <if test="recusername != null" >
+        recusername,
+      </if>
+      <if test="sendtitle != null" >
+        sendtitle,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="emppadminid != null" >
+        #{emppadminid,jdbcType=VARCHAR},
+      </if>
+      <if test="senduserid != null" >
+        #{senduserid,jdbcType=VARCHAR},
+      </if>
+      <if test="senddate != null" >
+        #{senddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertuserid != null" >
+        #{insertuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="insertdate != null" >
+        #{insertdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null" >
+        #{updateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recuserid != null" >
+        #{recuserid,jdbcType=CLOB},
+      </if>
+      <if test="recusername != null" >
+        #{recusername,jdbcType=CLOB},
+      </if>
+      <if test="sendtitle != null" >
+        #{sendtitle,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.msg.EmppSend" >
+    update tb_EMPP_EmppSend
+    <set >
+      <if test="emppadminid != null" >
+        emppAdminid = #{emppadminid,jdbcType=VARCHAR},
+      </if>
+      <if test="senduserid != null" >
+        senduserid = #{senduserid,jdbcType=VARCHAR},
+      </if>
+      <if test="senddate != null" >
+        senddate = #{senddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insertuserid != null" >
+        insertuserid = #{insertuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="insertdate != null" >
+        insertdate = #{insertdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuserid != null" >
+        updateuserid = #{updateuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null" >
+        updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recuserid != null" >
+        recuserid = #{recuserid,jdbcType=CLOB},
+      </if>
+      <if test="recusername != null" >
+        recusername = #{recusername,jdbcType=CLOB},
+      </if>
+      <if test="sendtitle != null" >
+        sendtitle = #{sendtitle,jdbcType=CLOB},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.msg.EmppSend" >
+    update tb_EMPP_EmppSend
+    set emppAdminid = #{emppadminid,jdbcType=VARCHAR},
+      senduserid = #{senduserid,jdbcType=VARCHAR},
+      senddate = #{senddate,jdbcType=TIMESTAMP},
+      insertuserid = #{insertuserid,jdbcType=VARCHAR},
+      insertdate = #{insertdate,jdbcType=TIMESTAMP},
+      updateuserid = #{updateuserid,jdbcType=VARCHAR},
+      updatedate = #{updatedate,jdbcType=TIMESTAMP},
+      recuserid = #{recuserid,jdbcType=CLOB},
+      recusername = #{recusername,jdbcType=CLOB},
+      sendtitle = #{sendtitle,jdbcType=CLOB}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+     <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_EMPP_EmppSend
+    ${where}
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select 
+    <include refid="Base_Column_List" />
+    from tb_EMPP_EmppSend
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_EMPP_EmppSend
+    ${where}
+  </delete>
+</mapper>

@@ -1,0 +1,27 @@
+<!-- <serviceGroup>用于多个service发布 -->
+<serviceGroup>
+<service name="testService">
+	<description>  
+       Web Service例子  
+   	</description>  
+    <parameter name="ServiceClass">com.sipai.webservice.server.user.TestServer</parameter>
+    <messageReceivers>
+        <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+                         class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
+        <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+                         class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+    </messageReceivers>
+</service>
+<service name="userService">
+	<description>  
+       User的WebService
+   	</description>  
+    <parameter name="ServiceClass">com.sipai.webservice.server.user.UserServer</parameter>
+    <messageReceivers>
+        <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-only"
+                         class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
+        <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+                         class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+    </messageReceivers>
+</service>
+</serviceGroup>

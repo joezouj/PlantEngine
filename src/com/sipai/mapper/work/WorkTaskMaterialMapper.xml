@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.WorkTaskMaterialMapper">
+  <resultMap id="BaseResultMap" type="com.sipai.entity.work.WorkTaskMaterial">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="materialid" jdbcType="VARCHAR" property="materialid" />
+    <result column="amount" jdbcType="VARCHAR" property="amount" />
+    <result column="workstationid" jdbcType="VARCHAR" property="workstationid" />
+    <result column="taskid" jdbcType="VARCHAR" property="taskid" />
+    <result column="processrealdetailid" jdbcType="VARCHAR" property="processrealdetailid" />
+    <result column="insuser" jdbcType="VARCHAR" property="insuser" />
+    <result column="insdt" jdbcType="TIMESTAMP" property="insdt" />
+    <result column="batchingflag" jdbcType="VARCHAR" property="batchingflag" />
+    <result column="arrivalamount" jdbcType="VARCHAR" property="arrivalamount" />
+    <result column="batchingamount" jdbcType="VARCHAR" property="batchingamount" />
+    <result column="buser" jdbcType="VARCHAR" property="buser" />
+    <result column="bdt" jdbcType="TIMESTAMP" property="bdt" />
+	<association column="materialid" jdbcType="VARCHAR" property="materialinfo" select="selectMaterial" />
+    <association column="workstationid" jdbcType="VARCHAR" property="workstation" select="selectWorkstation" />
+  </resultMap>
+  <select id="selectMaterial" parameterType="String" resultType="com.sipai.entity.material.MaterialInfo">  
+  	select * from tb_material_info where id = #{materialid} 
+  </select>
+  <select id="selectWorkstation" parameterType="String" resultType="com.sipai.entity.work.Workstation">  
+  	select * from tb_work_workstation where id = #{workstationid} 
+  </select>
+  <sql id="Base_Column_List">
+    id, materialid, amount, workstationid, taskid, processrealdetailid, insuser, insdt, batchingflag, arrivalamount, 
+    batchingamount, buser, bdt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_work_task_material
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_work_task_material
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.work.WorkTaskMaterial">
+    insert into tb_work_task_material (id, materialid, amount, 
+      workstationid, taskid, processrealdetailid, insuser, 
+      insdt, batchingflag, arrivalamount, 
+      batchingamount, buser, bdt
+      )
+    values (#{id,jdbcType=VARCHAR}, #{materialid,jdbcType=VARCHAR}, #{amount,jdbcType=VARCHAR}, 
+      #{workstationid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, #{processrealdetailid,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, 
+      #{insdt,jdbcType=TIMESTAMP}, #{batchingflag,jdbcType=VARCHAR}, #{arrivalamount,jdbcType=VARCHAR}, 
+      #{batchingamount,jdbcType=VARCHAR}, #{buser,jdbcType=VARCHAR}, #{bdt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.WorkTaskMaterial">
+    update tb_work_task_material
+    <set>
+      <if test="materialid != null">
+        materialid = #{materialid,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null">
+        workstationid = #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null">
+        taskid = #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="processrealdetailid != null">
+        processrealdetailid = #{processrealdetailid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="batchingflag != null">
+        batchingflag = #{batchingflag,jdbcType=VARCHAR},
+      </if>
+      <if test="arrivalamount != null">
+        arrivalamount = #{arrivalamount,jdbcType=VARCHAR},
+      </if>
+      <if test="batchingamount != null">
+        batchingamount = #{batchingamount,jdbcType=VARCHAR},
+      </if>
+      <if test="buser != null">
+        buser = #{buser,jdbcType=VARCHAR},
+      </if>
+      <if test="bdt != null">
+        bdt = #{bdt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tb_work_task_material
+		${where}
+	</select>
+	<delete id="deleteByWhere" parameterType="java.lang.String">
+		delete from tb_work_task_material
+		${where}
+	</delete>
+	<select id="batchinglistByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select distinct
+		wtm.id, wtm.materialid, wtm.amount, 
+		wtm.workstationid, wtm.taskid, 
+		wtm.batchingflag, wtm.batchingamount,wtm.arrivalamount,
+		wtm.buser, 
+		wtm.bdt,
+		ws.deptid as _deptid
+		from tb_work_task_material wtm
+		left join tb_work_order wo on wtm.taskid=wo.id
+		left join tb_plan_day pd on pd.id=wo.planId
+		left join tb_work_workstation ws on ws.id=wtm.workstationid
+		left join tb_work_line_workstation wlw on wlw.workstationid=ws.id
+		left join tb_work_line wl on wl.id=wlw.lineid
+		left join tb_user tu on tu.pid=ws.deptid
+		${where}
+	</select>
+	<update id="executeSql" parameterType="com.sipai.entity.work.WorkTaskMaterial">
+    	${sql}
+  	</update>
+</mapper>

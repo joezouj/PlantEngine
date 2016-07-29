@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="plan.DailyPlanSummaryMapper">
+  <resultMap id="BaseResultMap" type="com.sipai.entity.plan.DailyPlanSummary">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="insuser" jdbcType="VARCHAR" property="insuser" />
+    <result column="insdt" jdbcType="TIMESTAMP" property="insdt" />
+    <result column="plandt" jdbcType="TIMESTAMP" property="plandt" />
+    <result column="auditor" jdbcType="VARCHAR" property="auditor" />
+    <result column="auditdate" jdbcType="TIMESTAMP" property="auditdate" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="modifydt" jdbcType="TIMESTAMP" property="modifydt" />
+    <association column="modifier" property="_modifiername" jdbcType="VARCHAR" select="selectModifier"/>
+  </resultMap>
+   <select id="selectModifier" parameterType="String" resultType="String">  
+  	select caption from tb_user where id = #{modifier} 
+  </select>
+  <sql id="Base_Column_List">
+    id, insuser, insdt, plandt, auditor, auditdate, status, name, remark, modifier, modifydt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TB_plan_dailyplanSummary
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from TB_plan_dailyplanSummary
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.plan.DailyPlanSummary">
+    insert into TB_plan_dailyplanSummary (id, insuser, insdt, 
+      plandt, auditor, auditdate, 
+      status, name, remark, 
+      modifier, modifydt)
+    values (#{id,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, 
+      #{plandt,jdbcType=TIMESTAMP}, #{auditor,jdbcType=VARCHAR}, #{auditdate,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifydt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.plan.DailyPlanSummary">
+    insert into TB_plan_dailyplanSummary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="insuser != null">
+        insuser,
+      </if>
+      <if test="insdt != null">
+        insdt,
+      </if>
+      <if test="plandt != null">
+        plandt,
+      </if>
+      <if test="auditor != null">
+        auditor,
+      </if>
+      <if test="auditdate != null">
+        auditdate,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifydt != null">
+        modifydt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plandt != null">
+        #{plandt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null">
+        #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditdate != null">
+        #{auditdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null">
+        #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.plan.DailyPlanSummary">
+    update TB_plan_dailyplanSummary
+    <set>
+      <if test="insuser != null">
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="plandt != null">
+        plandt = #{plandt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditor != null">
+        auditor = #{auditor,jdbcType=VARCHAR},
+      </if>
+      <if test="auditdate != null">
+        auditdate = #{auditdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null">
+        modifydt = #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.plan.DailyPlanSummary">
+    update TB_plan_dailyplanSummary
+    set insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      plandt = #{plandt,jdbcType=TIMESTAMP},
+      auditor = #{auditor,jdbcType=VARCHAR},
+      auditdate = #{auditdate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modifydt = #{modifydt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+ 
+   <select id="selectListByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TB_plan_dailyplanSummary
+    ${where}
+  </select>
+  <select id="selectByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+    from TB_plan_dailyplanSummary
+    ${where}
+  </select>
+  <select id="selectValueBySql" parameterType="java.lang.String" resultMap="BaseResultMap">
+    ${sql}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String">
+    delete from TB_plan_dailyplanSummary
+    ${where}
+  </delete>
+
+</mapper>

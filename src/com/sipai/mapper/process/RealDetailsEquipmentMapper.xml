@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="process.RealDetailsEquipmentMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.process.RealDetailsEquipment" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="equipmentid" property="equipmentid" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="upduser" property="upduser" jdbcType="VARCHAR" />
+    <result column="upddt" property="upddt" jdbcType="TIMESTAMP" />
+    
+    <association column="equipmentid" property="equipment" jdbcType="VARCHAR" select="selectEquipment"/>
+  </resultMap>
+  
+  <select id="selectEquipment" parameterType="String" resultType="com.sipai.entity.equipment.EquipmentCard">  
+  	select TB_EM_EquipmentCard.*,TB_EM_EquipmentClass.name as equipmentclassname 
+  	from TB_EM_EquipmentCard left join TB_EM_EquipmentClass 
+  	on TB_EM_EquipmentClass.id=TB_EM_EquipmentCard.equipmentclassid
+  	where TB_EM_EquipmentCard.id = #{equipmentid} 
+  </select>
+  
+  <sql id="Base_Column_List" >
+    id, pid, equipmentid, insuser, insdt, upduser, upddt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_real_details_equipment
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_process_real_details_equipment
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.process.RealDetailsEquipment" >
+    insert into tb_process_real_details_equipment (id, pid, equipmentid, 
+      insuser, insdt, upduser, 
+      upddt)
+    values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{equipmentid,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, #{upduser,jdbcType=VARCHAR}, 
+      #{upddt,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.process.RealDetailsEquipment" >
+    update tb_process_real_details_equipment
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentid != null" >
+        equipmentid = #{equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upduser != null" >
+        upduser = #{upduser,jdbcType=VARCHAR},
+      </if>
+      <if test="upddt != null" >
+        upddt = #{upddt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_real_details_equipment
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_process_real_details_equipment
+    ${where}
+  </delete>
+</mapper>

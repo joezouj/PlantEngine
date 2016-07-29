@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="process.TaskEquipmentMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.process.TaskEquipment" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="processid" property="processid" jdbcType="VARCHAR" />
+    <result column="taskname" property="taskname" jdbcType="VARCHAR" />
+    <result column="equipmentid" property="equipmentid" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modifydt" property="modifydt" jdbcType="TIMESTAMP" />
+    <association column="equipmentid" property="equipmentCard" jdbcType="VARCHAR" select="selectEquipment"/>
+  </resultMap>
+  <select id="selectEquipment" parameterType="String" resultType="com.sipai.entity.equipment.EquipmentCard">  
+  	select TB_EM_EquipmentCard.*,TB_EM_EquipmentClass.name as equipmentclassname 
+  	from TB_EM_EquipmentCard left join TB_EM_EquipmentClass 
+  	on TB_EM_EquipmentClass.id=TB_EM_EquipmentCard.equipmentclassid
+  	where TB_EM_EquipmentCard.id = #{equipmentid} 
+  </select>
+  <sql id="Base_Column_List" >
+    id, processid, taskname, equipmentid, status, memo, insuser, insdt, modify, modifydt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_task_equipment
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_process_task_equipment
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.process.TaskEquipment" >
+    insert into tb_process_task_equipment (id, processid, taskname, 
+      equipmentid, status, memo, 
+      insuser, insdt, modify, 
+      modifydt)
+    values (#{id,jdbcType=VARCHAR}, #{processid,jdbcType=VARCHAR}, #{taskname,jdbcType=VARCHAR}, 
+      #{equipmentid,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, #{modify,jdbcType=VARCHAR}, 
+      #{modifydt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.process.TaskEquipment" >
+    insert into tb_process_task_equipment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="processid != null" >
+        processid,
+      </if>
+      <if test="taskname != null" >
+        taskname,
+      </if>
+      <if test="equipmentid != null" >
+        equipmentid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="modify != null" >
+        modify,
+      </if>
+      <if test="modifydt != null" >
+        modifydt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="processid != null" >
+        #{processid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskname != null" >
+        #{taskname,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentid != null" >
+        #{equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.process.TaskEquipment" >
+    update tb_process_task_equipment
+    <set >
+      <if test="processid != null" >
+        processid = #{processid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskname != null" >
+        taskname = #{taskname,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentid != null" >
+        equipmentid = #{equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        modifydt = #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.process.TaskEquipment" >
+    update tb_process_task_equipment
+    set processid = #{processid,jdbcType=VARCHAR},
+      taskname = #{taskname,jdbcType=VARCHAR},
+      equipmentid = #{equipmentid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      modify = #{modify,jdbcType=VARCHAR},
+      modifydt = #{modifydt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_task_equipment
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_process_task_equipment
+    ${where}
+  </delete>  
+  <select id="selectListByWhere1" parameterType="String" resultMap="BaseResultMap">  
+	SELECT tb_process_task_equipment.*,TB_EM_EquipmentCard.equipmentCardID,TB_EM_EquipmentCard.equipmentName,
+	TB_EM_EquipmentCard.equipmentModel,TB_EM_EquipmentClass.name as equipmentClass,TB_EM_GeographyArea.name as geographyArea,
+	TB_EM_EquipmentCard.currentManageFlag,TB_EM_EquipmentCard.remark
+  	FROM tb_process_task_equipment
+  	left join TB_EM_EquipmentCard on TB_EM_EquipmentCard.id = tb_process_task_equipment.equipmentid
+  	left join TB_EM_EquipmentClass on TB_EM_EquipmentClass.id = TB_EM_EquipmentCard.equipmentClassID
+  	left join TB_EM_GeographyArea on TB_EM_GeographyArea.id = TB_EM_EquipmentCard.areaID
+  	left join tb_process_real on tb_process_real.processid=tb_process_task_equipment.processid
+  	left join tb_process_real_details on tb_process_real_details.pid=tb_process_real.id
+  	${where}
+  </select>
+</mapper>

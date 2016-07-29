@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="work.WorkStationConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.work.WorkStationConfig" >
+    <result column="workorderid" property="workorderid" jdbcType="VARCHAR" />
+    <result column="orderid" property="orderid" jdbcType="VARCHAR" />
+    <result column="taskname" property="taskname" jdbcType="VARCHAR" />
+    <result column="workstationid" property="workstationid" jdbcType="VARCHAR" />
+    <result column="workstationname" property="workstationname" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectListByOrderId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select workorderid, orderid, taskname, workstationid, workstationname 
+    from uv_workorder_station_config 
+    where orderid = #{orderid,jdbcType=VARCHAR}
+    order by taskname
+  </select>
+  <select id="selectListByWorkorderId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select workorderid, orderid, taskname, workstationid, workstationname 
+    from uv_workorder_station_config 
+    where workorderid = #{workorderid,jdbcType=VARCHAR}
+    order by taskname
+  </select>
+</mapper>

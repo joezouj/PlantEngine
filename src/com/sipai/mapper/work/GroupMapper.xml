@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="work.GroupMapper">
+	<resultMap id="BaseResultMap" type="com.sipai.entity.work.Group">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="deptid" property="deptid" jdbcType="VARCHAR" />
+		<result column="insuser" property="insuser" jdbcType="VARCHAR" />
+		<result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		
+		<association column="deptid" property="deptname" jdbcType="VARCHAR"
+			select="selectDept" />
+		<collection column="id" property="groupmembers" ofType="com.sipai.entity.work.GroupMember"
+			select="selectMembers" />
+	</resultMap>
+	<select id="selectDept" parameterType="String" resultType="String">
+		select name from uv_unit where id = #{deptid}
+	</select>
+	<select id="selectMembers" parameterType="String" resultType="com.sipai.entity.work.GroupMember">
+		select tb_work_group_member.*,
+		tb_user.caption as username ,
+		uw.workstationid as _workstationid,
+		ww.name as _workstationname
+		from tb_work_group_member 
+		left join tb_user on tb_user.id=tb_work_group_member.userid 
+		left join tb_user_workstation uw on uw.userid=tb_user.id
+		left join tb_work_workstation ww on ww.id=uw.workstationid
+		where groupid = #{id} order by tb_user.caption
+	</select>
+	
+	<sql id="Base_Column_List">
+		id, name, deptid, insuser, insdt, remark
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_work_group
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from tb_work_group
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.sipai.entity.work.Group">
+		insert into tb_work_group (id, name, deptid,
+		insuser, insdt, remark
+		)
+		values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{deptid,jdbcType=VARCHAR},
+		#{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.sipai.entity.work.Group">
+		insert into tb_work_group
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="deptid != null">
+				deptid,
+			</if>
+			<if test="insuser != null">
+				insuser,
+			</if>
+			<if test="insdt != null">
+				insdt,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="deptid != null">
+				#{deptid,jdbcType=VARCHAR},
+			</if>
+			<if test="insuser != null">
+				#{insuser,jdbcType=VARCHAR},
+			</if>
+			<if test="insdt != null">
+				#{insdt,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.Group">
+		update tb_work_group
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="deptid != null">
+				deptid = #{deptid,jdbcType=VARCHAR},
+			</if>
+			<if test="insuser != null">
+				insuser = #{insuser,jdbcType=VARCHAR},
+			</if>
+			<if test="insdt != null">
+				insdt = #{insdt,jdbcType=TIMESTAMP},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sipai.entity.work.Group">
+		update tb_work_group
+		set name = #{name,jdbcType=VARCHAR},
+		deptid = #{deptid,jdbcType=VARCHAR},
+		insuser = #{insuser,jdbcType=VARCHAR},
+		insdt = #{insdt,jdbcType=TIMESTAMP},
+		remark = #{remark,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectListByWhere" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_work_group
+		${where}
+	</select>
+	<delete id="deleteByWhere" parameterType="java.lang.String">
+		delete from
+		tb_work_group
+		${where}
+	</delete>
+</mapper>

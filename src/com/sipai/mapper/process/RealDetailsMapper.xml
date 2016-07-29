@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="process.RealDetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.process.RealDetails" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="taskname" property="taskname" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="SOP" property="sop" jdbcType="VARCHAR" />
+    <result column="worktime" property="worktime" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+    <result column="updatedt" property="updatedt" jdbcType="TIMESTAMP" />
+    <result column="ST" property="st" jdbcType="VARCHAR" />
+    
+    <association column="pid" property="pname" jdbcType="VARCHAR" select="selectPname"/>
+  </resultMap>
+  
+  <select id="selectPname" resultType="java.lang.String" parameterType="java.lang.String" >
+    select name from tb_process_real where id = #{pid,jdbcType=VARCHAR}
+  </select>
+  <sql id="Base_Column_List" >
+    id, pid, number, taskname, name, SOP, worktime, description, insuser, insdt, updateuser, updatedt, 
+    ST
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_real_details
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_process_real_details
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.process.RealDetails" >
+    insert into tb_process_real_details (id, pid, number, 
+      taskname, name, SOP, worktime, 
+      description, insuser, insdt, 
+      updateuser, updatedt, ST
+      )
+    values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{taskname,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sop,jdbcType=VARCHAR}, #{worktime,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, 
+      #{updateuser,jdbcType=VARCHAR}, #{updatedt,jdbcType=TIMESTAMP}, #{st,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.process.RealDetails" >
+    update tb_process_real_details
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="taskname != null" >
+        taskname = #{taskname,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sop != null" >
+        SOP = #{sop,jdbcType=VARCHAR},
+      </if>
+      <if test="worktime != null" >
+        worktime = #{worktime,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedt != null" >
+        updatedt = #{updatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="st != null" >
+        ST = #{st,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_real_details
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_process_real_details
+    ${where}
+  </delete>
+</mapper>

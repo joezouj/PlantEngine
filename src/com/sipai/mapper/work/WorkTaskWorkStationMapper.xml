@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.WorkTaskWorkStationMapper">
+  <resultMap id="BaseResultMap" type="com.sipai.entity.work.WorkTaskWorkStation">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="workstationid" jdbcType="VARCHAR" property="workstationid" />
+    <result column="workstationname" jdbcType="VARCHAR" property="workstationname" />
+    <result column="lineid" jdbcType="VARCHAR" property="lineid" />
+    <result column="linename" jdbcType="VARCHAR" property="linename" />
+    <result column="process_realid" jdbcType="VARCHAR" property="processRealid" />
+    <result column="process_realdetailid" jdbcType="VARCHAR" property="processRealdetailid" />
+    <result column="taskid" jdbcType="VARCHAR" property="taskid" />
+    <result column="insuser" jdbcType="VARCHAR" property="insuser" />
+    <result column="insdt" jdbcType="TIMESTAMP" property="insdt" />
+    <result column="wftaskname" jdbcType="VARCHAR" property="wftaskname" />
+    
+    <association column="workstationid" property="workstation" jdbcType="VARCHAR" select="selectWorkstation"/>
+  </resultMap>
+  
+   <select id="selectWorkstation" parameterType="String" resultType="com.sipai.entity.work.Workstation">  
+  	select tb_work_workstation.* ,tb_work_workstation_type.name as typename ,tb_dept.name as deptname
+  	from tb_work_workstation 
+  	left join tb_work_workstation_type on tb_work_workstation_type.id = tb_work_workstation.typeid
+  	left join tb_dept on tb_dept.id = tb_work_workstation.deptid
+  	where tb_work_workstation.id = #{workstationid} 
+  </select>
+  
+  <sql id="Base_Column_List">
+    id, workstationid, workstationname, process_realid, process_realdetailid, taskid, 
+    insuser, insdt
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_work_task_workstation
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_work_task_workstation
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.work.WorkTaskWorkStation">
+    insert into tb_work_task_workstation (id, workstationid, workstationname, 
+      process_realid, process_realdetailid, taskid, 
+      insuser, insdt)
+    values (#{id,jdbcType=VARCHAR}, #{workstationid,jdbcType=VARCHAR}, #{workstationname,jdbcType=VARCHAR}, 
+      #{processRealid,jdbcType=VARCHAR}, #{processRealdetailid,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.WorkTaskWorkStation">
+    update tb_work_task_workstation
+    <set>
+      <if test="workstationid != null">
+        workstationid = #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationname != null">
+        workstationname = #{workstationname,jdbcType=VARCHAR},
+      </if>
+      <if test="processRealid != null">
+        process_realid = #{processRealid,jdbcType=VARCHAR},
+      </if>
+      <if test="processRealdetailid != null">
+        process_realdetailid = #{processRealdetailid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null">
+        taskid = #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+   <select id="selectListByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tb_work_task_workstation
+		${where}
+	</select>
+	<select id="selectListByWhere1" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select tb_work_task_workstation.*,tb_dept.id as deptid,tb_dept.name as deptname
+		from tb_work_task_workstation 
+		left join tb_work_workstation on tb_work_workstation.id=tb_work_task_workstation.workstationid
+		left join tb_dept on tb_dept.id=tb_work_workstation.deptid
+		${where}
+	</select>
+	<select id="selectListByWhere2" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select tb_work_task_workstation.*,tb_dept.id as deptid,tb_dept.name as deptname,tb_work_line.id as lineid,tb_work_line.name as linename
+		from tb_work_task_workstation 
+		left join tb_work_workstation on tb_work_workstation.id=tb_work_task_workstation.workstationid
+		left join tb_dept on tb_dept.id=tb_work_workstation.deptid
+		left join tb_work_line_workstation on tb_work_line_workstation.workstationid=tb_work_task_workstation.workstationid
+		left join tb_work_line on tb_work_line.id=tb_work_line_workstation.lineid
+		${where}
+	</select>
+	<!-- 返回含有snaker中taskname的结果集 -->
+	<select id="selectListWithTasknameByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select tb_work_task_workstation.id,tb_work_task_workstation.workstationid,
+		tb_work_task_workstation.process_realid,tb_work_task_workstation.process_realid,tb_work_task_workstation.taskid,
+		tb_work_workstation.name as workstationname,
+		tb_process_real_details.taskname as wftaskname 
+		from tb_work_task_workstation 
+		left join tb_process_real_details on tb_process_real_details.id=tb_work_task_workstation.process_realdetailid
+		left join tb_work_workstation on tb_work_workstation.id=tb_work_task_workstation.workstationid
+		${where}
+	</select>
+	<delete id="deleteByWhere" parameterType="java.lang.String">
+		delete from tb_work_task_workstation
+		${where}
+	</delete>
+	<delete id="deleteByWhere1" parameterType="java.lang.String">
+		delete tb_work_task_workstation from tb_work_task_workstation 
+		left join tb_process_real_details on tb_process_real_details.id=tb_work_task_workstation.process_realdetailid
+		${where}
+	</delete>
+	<!-- 返回在产品工艺配置中配置过的工位及相关信息 -->
+  	<select id="getWorkStation" parameterType="java.lang.String" resultMap="stationresultMap"> 
+      	SELECT distinct tb_process_real_details_workstation.id,
+      	tb_work_workstation.id as workstationid,
+      	tb_work_workstation.serial as workstationserial,
+      	tb_work_workstation.name AS workstationname,
+      	tb_process_real_details.id as processRealdetailid,
+      	tb_process_real_details.pid as processRealid,
+      	tb_work_workstation_type.name AS typename,
+		tb_dept.name AS deptname
+		FROM tb_process_real_details_workstation INNER JOIN
+        tb_work_workstation ON tb_process_real_details_workstation.workstationid = tb_work_workstation.id INNER JOIN
+        tb_process_real_details ON tb_process_real_details_workstation.pid = tb_process_real_details.id INNER JOIN
+        tb_work_line_workstation ON tb_work_workstation.id = tb_work_line_workstation.workstationid INNER JOIN
+        tb_work_workstation_type ON tb_work_workstation.typeid = tb_work_workstation_type.id INNER JOIN
+        tb_dept ON tb_work_workstation.deptid = tb_dept.id
+	    ${where}
+	</select>
+	<resultMap id="stationresultMap" type="com.sipai.entity.work.WorkTaskWorkStation">
+	  <id column="id" property="id" />
+	  <result column="workstationid" property="workstationid" />
+	  <result column="workstationname" property="workstationname" />
+	  <result column="realdetailid" property="_realdetailid" />
+	  <result column="processname" property="_processname" />
+	  <result column="processdetailname" property="_processdetailname" />
+	  <result column="processRealdetailid" property="processRealdetailid" />
+	  <result column="processRealid" property="processRealid" />
+	</resultMap> 
+	 <select id="getWorkStationbyuserid" parameterType="java.lang.String" resultMap="stationbyuseridresultMap"> 
+	    SELECT 
+	    ws.id as id,	    
+		ws.userid as userid,
+		ws.taskid as taskid,
+		wtws.workstationid as workstationid,
+		ww.name as workstationname,
+		pr.id as processRealid,
+		prd.id as processRealdetailid,
+		prd.id as realdetailid,
+		pr.name as processname,
+		prd.name as processdetailname,
+		wp.stdt as taskstdt,
+		wp.edt as taskedt
+		from tb_work_scheduling ws
+		left join tb_work_workstation ww on ww.id=ws.workstationid
+		left join tb_work_task_workstation  wtws on wtws.workstationid =ws.workstationid and wtws.taskid=ws.taskid
+		left join tb_process_real pr on pr.id=wtws.process_realid
+		left join tb_process_real_details prd on prd.id=wtws.process_realdetailid
+		left join tb_work_process wp on wp.process_realid=wtws.process_realid and wp.process_realdetailid =wtws.process_realdetailid 
+		and wp.taskid=ws.taskid and wp.workstationid=ws.workstationid and wp.userid=ws.userid
+	    ${where}
+	</select>
+	<resultMap id="stationbyuseridresultMap" type="com.sipai.entity.work.WorkTaskWorkStation">
+	  <id column="id" property="id" />
+	  <result column="workstationid" property="workstationid" />
+	  <result column="workstationname" property="workstationname" />
+	  <result column="realdetailid" property="_realdetailid" />
+	  <result column="processname" property="_processname" />
+	  <result column="processdetailname" property="_processdetailname" />
+	  <result column="processRealdetailid" property="processRealdetailid" />
+	  <result column="processRealid" property="processRealid" />
+	  <result column="taskstdt" property="_taskstdt" />
+	  <result column="taskedt" property="_taskedt" />
+	  
+	  <association column="userid" property="user" jdbcType="VARCHAR" select="selectuser"/>
+	</resultMap> 
+	<select id="selectuser" parameterType="String" resultType="com.sipai.entity.user.User">  
+	  	select * from tb_user 	where id = #{userid} 
+    </select>
+</mapper>

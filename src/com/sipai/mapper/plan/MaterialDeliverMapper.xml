@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="plan.MaterialDeliverMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.plan.MaterialDeliver" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="dailyplanid" property="dailyplanid" jdbcType="VARCHAR" />
+    <result column="workstationid" property="workstationid" jdbcType="VARCHAR" />
+    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modifydt" property="modifydt" jdbcType="TIMESTAMP" />
+    
+    <association column="dailyplanid" property="dailyPlanSummary" jdbcType="VARCHAR" select="selectDailyPlanSummary"/>
+    <association column="workstationid" property="workstation" jdbcType="VARCHAR" select="selectWorkstation"/> 
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, dailyplanid, workstationid, starttime, endtime, status, remark,insuser, insdt, modify, modifydt
+  </sql>
+  <select id="selectDailyPlanSummary" parameterType="String" resultType="com.sipai.entity.plan.DailyPlanSummary">  
+  	select * from TB_plan_dailyplanSummary where id = #{dailyplanid} 
+  </select>
+  <select id="selectWorkstation" parameterType="String" resultType="com.sipai.entity.work.Workstation">  
+  	select * from tb_work_workstation where id = #{workstationid} 
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_plan_material_deliver
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_plan_material_deliver
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.plan.MaterialDeliver" >
+    insert into tb_plan_material_deliver (id, dailyplanid , 
+      workstationid, starttime, endtime, status, remark, insuser, insdt, modify, 
+      modifydt)
+    values (#{id,jdbcType=VARCHAR}, #{dailyplanid,jdbcType=VARCHAR},#{workstationid,jdbcType=VARCHAR},
+      #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR},#{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, #{modify,jdbcType=VARCHAR}, 
+      #{modifydt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.plan.MaterialDeliver" >
+    insert into tb_plan_material_deliver
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="dailyplanid != null" >
+        dailyplanid,
+      </if>
+      <if test="workstationid != null" >
+        workstationid,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="modify != null" >
+        modify,
+      </if>
+      <if test="modifydt != null" >
+        modifydt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyplanid != null" >
+        #{dailyplanid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null" >
+        #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.plan.MaterialDeliver" >
+    update tb_plan_material_deliver
+    <set >
+      <if test="dailyplanid != null" >
+        dailyplanid = #{dailyplanid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null" >
+        workstationid = #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        modifydt = #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.plan.MaterialDeliver" >
+    update tb_plan_material_deliver
+    set dailyplanid = #{dailyplanid,jdbcType=VARCHAR},
+      workstationid = #{workstationid,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      modify = #{modify,jdbcType=VARCHAR},
+      modifydt = #{modifydt,jdbcType=TIMESTAMP},
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_plan_material_deliver
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_plan_material_deliver
+    ${where}
+  </delete>
+  <select id="getMaterialDeliver" resultMap="MaterialDeliverMap" parameterType="java.lang.String"> 
+  select deliver.*, 
+  dailyplanSummary.id as d_id,
+  dailyplanSummary.name as d_name,
+  dailyplanSummary.plandt as d_plandt,
+  workstation.id as w_id,
+  workstation.name as w_name,
+  workstation.serial as w_serial
+  from tb_plan_material_deliver deliver 
+  left join TB_plan_dailyplanSummary dailyplanSummary on dailyplanSummary.id=deliver.dailyplanid 
+  left join tb_work_workstation workstation on workstation.id=deliver.workstationid 
+  ${where}
+</select>
+<select id="getProcessorDeliver" resultMap="MaterialDeliverMap" parameterType="java.lang.String"> 
+  select deliver.*, 
+  dailyplanSummary.id as d_id,
+  dailyplanSummary.name as d_name,
+  dailyplanSummary.plandt as d_plandt,
+  workstation.id as w_id,
+  workstation.name as w_name,
+  workstation.serial as w_serial
+  from tb_plan_material_deliver deliver 
+  left join TB_plan_dailyplanSummary dailyplanSummary on dailyplanSummary.id=deliver.dailyplanid 
+  left join tb_work_workstation workstation on workstation.id=deliver.workstationid 
+  left join tb_plan_material_deliver_processor processor on processor.pid=deliver.id 
+  ${where}
+</select>
+<resultMap id="MaterialDeliverMap" type="com.sipai.entity.plan.MaterialDeliver" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="dailyplanid" property="dailyplanid" jdbcType="VARCHAR" />
+    <result column="workstationid" property="workstationid" jdbcType="VARCHAR" />
+    <result column="starttime" property="starttime" jdbcType="TIMESTAMP" />
+    <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modifydt" property="modifydt" jdbcType="TIMESTAMP" />
+    
+    <association property="dailyPlanSummary" resultMap="dailyPlanSummaryResult"/>
+    <association property="workstation" resultMap="workstationResult"/>
+</resultMap> 
+<resultMap id="dailyPlanSummaryResult" type="com.sipai.entity.plan.DailyPlanSummary">
+  <id property="id" column="d_id"/>
+  <result property="name" column="d_name"/>
+  <result property="plandt" column="d_plandt"/>
+</resultMap>
+<resultMap id="workstationResult" type="com.sipai.entity.work.Workstation">
+  <id property="id" column="w_id"/>
+  <result property="name" column="w_name"/>
+  <result property="serial" column="w_serial"/>
+</resultMap>
+</mapper>

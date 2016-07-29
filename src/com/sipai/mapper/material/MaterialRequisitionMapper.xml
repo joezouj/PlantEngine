@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="material.MaterialRequisitionMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.material.MaterialRequisition" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="applyuserid" property="applyuserid" jdbcType="VARCHAR" />
+    <result column="workstationid" property="workstationid" jdbcType="VARCHAR" />
+    <result column="materialid" property="materialid" jdbcType="VARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="VARCHAR" />
+    <result column="requestsenddate" property="requestsenddate" jdbcType="TIMESTAMP" />
+    <result column="orderno" property="orderno" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="VARCHAR" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modifydt" property="modifydt" jdbcType="TIMESTAMP" />
+    <result column="workshopid" property="workshopid" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="deliverquantity" property="deliverquantity" jdbcType="VARCHAR" />
+    <result column="deliverman" property="deliverman" jdbcType="VARCHAR" />
+    <result column="deliverdate" property="deliverdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, applyuserid, workstationid, materialid, quantity, requestsenddate, orderno, insuser, 
+    insdt, modify, modifydt, workshopid,status,deliverquantity,deliverman,deliverdate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_material_MaterialRequisition
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="getListByOrderno" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_material_MaterialRequisition
+    where orderno = #{orderno,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_material_MaterialRequisition
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.material.MaterialRequisition" >
+    insert into TB_material_MaterialRequisition (id, applyuserid, workstationid, 
+      materialid, quantity, requestsenddate, 
+      orderno, insuser, insdt, 
+      modify, modifydt, workshopid,status,deliverquantity,deliverman,deliverdate
+      )
+    values (#{id,jdbcType=VARCHAR}, #{applyuserid,jdbcType=VARCHAR}, #{workstationid,jdbcType=VARCHAR}, 
+      #{materialid,jdbcType=VARCHAR}, #{quantity,jdbcType=VARCHAR}, #{requestsenddate,jdbcType=TIMESTAMP}, 
+      #{orderno,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=VARCHAR}, 
+      #{modify,jdbcType=VARCHAR}, #{modifydt,jdbcType=TIMESTAMP}, #{workshopid,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR},#{deliverquantity,jdbcType=VARCHAR},#{deliverman,jdbcType=VARCHAR},#{deliverdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.material.MaterialRequisition" >
+    insert into TB_material_MaterialRequisition
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="applyuserid != null" >
+        applyuserid,
+      </if>
+      <if test="workstationid != null" >
+        workstationid,
+      </if>
+      <if test="materialid != null" >
+        materialid,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="requestsenddate != null" >
+        requestsenddate,
+      </if>
+      <if test="orderno != null" >
+        orderno,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="modify != null" >
+        modify,
+      </if>
+      <if test="modifydt != null" >
+        modifydt,
+      </if>
+      <if test="workshopid != null" >
+        workshopid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="deliverquantity != null" >
+        deliverquantity,
+      </if>
+      <if test="deliverman != null" >
+        deliverman,
+      </if>
+      <if test="deliverdate != null" >
+        deliverdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="applyuserid != null" >
+        #{applyuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null" >
+        #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="materialid != null" >
+        #{materialid,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="requestsenddate != null" >
+        #{requestsenddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderno != null" >
+        #{orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=VARCHAR},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workshopid != null" >
+        #{workshopid,jdbcType=VARCHAR},
+      </if>
+       <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+       <if test="deliverquantity != null" >
+        #{deliverquantity,jdbcType=VARCHAR},
+      </if>
+       <if test="deliverman != null" >
+        #{deliverman,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverdate != null" >
+        #{deliverdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.material.MaterialRequisition" >
+    update TB_material_MaterialRequisition
+    <set >
+      <if test="applyuserid != null" >
+        applyuserid = #{applyuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null" >
+        workstationid = #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="materialid != null" >
+        materialid = #{materialid,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=VARCHAR},
+      </if>
+      <if test="requestsenddate != null" >
+        requestsenddate = #{requestsenddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderno != null" >
+        orderno = #{orderno,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=VARCHAR},
+      </if>
+      <if test="modify != null" >
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        modifydt = #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workshopid != null" >
+        workshopid = #{workshopid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverquantity != null" >
+        deliverquantity = #{deliverquantity,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverman != null" >
+        deliverman = #{deliverman,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverdate != null" >
+        deliverdate = #{deliverdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.material.MaterialRequisition" >
+    update TB_material_MaterialRequisition
+    set applyuserid = #{applyuserid,jdbcType=VARCHAR},
+      workstationid = #{workstationid,jdbcType=VARCHAR},
+      materialid = #{materialid,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=VARCHAR},
+      requestsenddate = #{requestsenddate,jdbcType=TIMESTAMP},
+      orderno = #{orderno,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=VARCHAR},
+      modify = #{modify,jdbcType=VARCHAR},
+      modifydt = #{modifydt,jdbcType=TIMESTAMP},
+      workshopid = #{workshopid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      deliverquantity = #{deliverquantity,jdbcType=VARCHAR},
+      deliverman = #{deliverman,jdbcType=VARCHAR},
+      deliverdate = #{deliverfate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+   <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_material_MaterialRequisition 
+    order by insdt desc
+  </select>
+    <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_material_MaterialRequisition
+    ${where}
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select 
+    <include refid="Base_Column_List" />
+    from TB_material_MaterialRequisition
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from TB_material_MaterialRequisition
+    ${where}
+  </delete>
+  <select id="getMaterialRequisitionList" resultMap="ClassResultMapMRlist" parameterType="java.lang.String"> 
+  SELECT 
+  R.id					as r_id,
+  R.applyuserid,
+  R.workstationid		as r_workstationid,
+  R.materialid			as r_materialid,
+  R.quantity			as r_quantity,
+  R.requestsenddate,
+  R.orderno				as r_orderno,
+  R.insuser           	as r_insuser,
+  R.insdt           	as r_insdt,
+  R.modify				as r_modify,
+  R.modifydt			as r_modifydt,
+  R.workshopid			as r_workshopid,
+  R.status				as r_status,
+  R.deliverquantity		as r_deliverquantity,
+  R.deliverman			as r_deliverman,
+  R.deliverdate			as r_deliverdate,
+  I.id					as i_id,
+  I.materialname,
+  I.materialcode,
+  I.spec,
+  I.unit,
+  U.id					as u_id,  
+  U.caption        		as u_username,
+  U.name				as u_name,
+  W.id					as w_id,
+  W.serial,
+  W.name				as w_name,
+  L.name				as l_name,
+  T.name				as t_name
+  FROM TB_material_MaterialRequisition R   
+  LEFT OUTER JOIN tb_material_info I ON I.id = R.materialid
+  LEFT OUTER JOIN tb_user U ON U.id = R.applyuserid
+  LEFT OUTER JOIN tb_work_workstation W ON W.id = R.workstationid
+  LEFT OUTER JOIN tb_work_line L ON L.id = W.lineid
+  LEFT OUTER JOIN uv_unit T ON T.id = L.deptid
+  ${where}
+</select>
+<resultMap id="ClassResultMapMRlist" type="com.sipai.entity.material.MaterialRequisition">
+  <id property="id" column="r_id" />
+  <result property="insuser" column="r_insuser"/>
+  <result property="insdt" column="r_insdt"/>
+  <result property="applyuserid" column="applyuserid"/>
+  <result property="workstationid" column="r_workstationid"/>
+  <result property="materialid" column="r_materialid"/>
+  <result property="quantity" column="r_quantity"/>
+  <result property="requestsenddate" column="requestsenddate"/>
+  <result property="orderno" column="r_orderno"/>
+  <result property="modify" column="r_modify"/>
+  <result property="modifydt" column="r_modifydt"/>
+  <result property="workshopid" column="r_workshopid"/>
+  <result property="status" column="r_status"/>
+  <result property="deliverquantity" column="r_deliverquantity"/>
+  <result property="deliverman" column="r_deliverman"/>
+  <result property="deliverdate" column="r_deliverdate"/>
+  <association property="materialinfo" javaType="com.sipai.entity.material.MaterialInfo" >
+  	<id property="id" column="i_id"/>
+	<result property="materialname" column="materialname"/>
+	<result property="materialcode" column="materialcode"/>
+	<result property="spec" column="spec"/>
+	<result property="unit" column="unit"/>
+  </association>
+  <association property="applyuser" javaType="com.sipai.entity.user.User" >
+  	<id property="id" column="u_id"/>
+  	<result property="caption" column="u_username"/>
+  	<result property="name" column="u_name"/>
+  </association>
+  <association property="workstation" javaType="com.sipai.entity.work.Workstation" >
+  	<id property="id" column="w_id"/>
+	<result property="serial" column="serial"/>
+	<result property="name" column="w_name"/>
+	<result property="linename" column="l_name"/>
+	<result property="deptname" column="t_name"/>
+  </association>
+</resultMap> 
+</mapper>

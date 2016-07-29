@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.UserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.user.UserRole" >
+    <result column="EmpID" property="empid" jdbcType="VARCHAR" />
+    <result column="RoleID" property="roleid" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.sipai.entity.user.UserRole" >
+    insert into tb_user_role (EmpID, RoleID)
+    values (#{empid,jdbcType=VARCHAR}, #{roleid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.user.UserRole" >
+    insert into tb_user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="empid != null" >
+        EmpID,
+      </if>
+      <if test="roleid != null" >
+        RoleID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="empid != null" >
+        #{empid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleid != null" >
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectListByRole" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from tb_user_role where roleId = #{roleid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByRole" parameterType="java.lang.String" >
+    delete from tb_user_role where roleID = #{roleid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByUser" parameterType="java.lang.String" >
+    delete from tb_user_role where EmpID = #{EmpID,jdbcType=VARCHAR}
+  </delete>
+</mapper>

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="document.DataMapper">
+  <resultMap id="BaseResultMap" type="com.sipai.entity.document.Data">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="doctype" jdbcType="VARCHAR" property="doctype" />
+    <result column="docname" jdbcType="VARCHAR" property="docname" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="insuser" jdbcType="VARCHAR" property="insuser" />
+    <result column="insdt" jdbcType="TIMESTAMP" property="insdt" />
+    <result column="updateuser" jdbcType="VARCHAR" property="updateuser" />
+    <result column="updatedt" jdbcType="TIMESTAMP" property="updatedt" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="st" jdbcType="VARCHAR" property="st" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="pid" jdbcType="VARCHAR" property="pid" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sipai.entity.document.Data">
+    <result column="details" jdbcType="CLOB" property="details" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, doctype, docname, number, details, insuser, insdt, updateuser, updatedt, memo, path, st, pid
+  </sql>
+  <sql id="Blob_Column_List">
+    details
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_doc_data
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select  
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_doc_data
+    order by number
+  </select>
+  <select id="selectListByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_doc_data
+    ${where}
+  </select>
+  <select id="getListByNumberAndType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from tb_doc_data
+	    where number = #{number,jdbcType=VARCHAR} and doctype = #{doctype,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String">
+    delete from tb_doc_data
+    ${where}
+  </delete>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_doc_data
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.document.Data">
+    insert into tb_doc_data (id, doctype, docname, 
+      number, insuser, insdt, 
+      updateuser, updatedt, memo, 
+      path, st, level, pid, 
+      details)
+    values (#{id,jdbcType=VARCHAR}, #{doctype,jdbcType=VARCHAR}, #{docname,jdbcType=VARCHAR}, 
+      #{number,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, 
+      #{updateuser,jdbcType=VARCHAR}, #{updatedt,jdbcType=TIMESTAMP}, #{memo,jdbcType=VARCHAR}, 
+      #{path,jdbcType=VARCHAR}, #{st,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{pid,jdbcType=VARCHAR}, 
+      #{details,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.document.Data">
+    insert into tb_doc_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="doctype != null">
+        doctype,
+      </if>
+      <if test="docname != null">
+        docname,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="insuser != null">
+        insuser,
+      </if>
+      <if test="insdt != null">
+        insdt,
+      </if>
+      <if test="updateuser != null">
+        updateuser,
+      </if>
+      <if test="updatedt != null">
+        updatedt,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+      <if test="st != null">
+        st,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="details != null">
+        details,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="doctype != null">
+        #{doctype,jdbcType=VARCHAR},
+      </if>
+      <if test="docname != null">
+        #{docname,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null">
+        #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedt != null">
+        #{updatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="st != null">
+        #{st,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null">
+        #{details,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.document.Data">
+    update tb_doc_data
+    <set>
+      <if test="doctype != null">
+        doctype = #{doctype,jdbcType=VARCHAR},
+      </if>
+      <if test="docname != null">
+        docname = #{docname,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null">
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedt != null">
+        updatedt = #{updatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="st != null">
+        st = #{st,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null">
+        details = #{details,jdbcType=CLOB},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sipai.entity.document.Data">
+    update tb_doc_data
+    set doctype = #{doctype,jdbcType=VARCHAR},
+      docname = #{docname,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      updateuser = #{updateuser,jdbcType=VARCHAR},
+      updatedt = #{updatedt,jdbcType=TIMESTAMP},
+      memo = #{memo,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      st = #{st,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=VARCHAR},
+      details = #{details,jdbcType=CLOB}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.document.Data">
+    update tb_doc_data
+    set doctype = #{doctype,jdbcType=VARCHAR},
+      docname = #{docname,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      updateuser = #{updateuser,jdbcType=VARCHAR},
+      updatedt = #{updatedt,jdbcType=TIMESTAMP},
+      memo = #{memo,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      st = #{st,jdbcType=VARCHAR},
+      level = #{level,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

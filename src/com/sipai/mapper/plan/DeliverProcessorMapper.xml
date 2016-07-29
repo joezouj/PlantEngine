@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="plan.DeliverProcessorMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.plan.DeliverProcessor" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="processorid" property="processorid" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    
+    <association column="processorid" property="processor" jdbcType="VARCHAR" select="selectProcessor"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pid, processorid, insuser, insdt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_plan_material_deliver_processor
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectProcessor" parameterType="String" resultType="com.sipai.entity.user.User">  
+  	select * from tb_user where id = #{processorid} 
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_plan_material_deliver_processor
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.plan.DeliverProcessor" >
+    insert into tb_plan_material_deliver_processor (id, pid, processorid, 
+      insuser, insdt)
+    values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{processorid,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.plan.DeliverProcessor" >
+    insert into tb_plan_material_deliver_processor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="processorid != null" >
+        processorid,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="processorid != null" >
+        #{processorid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.plan.DeliverProcessor" >
+    update tb_plan_material_deliver_processor
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="processorid != null" >
+        processorid = #{processorid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.plan.DeliverProcessor" >
+    update tb_plan_material_deliver_processor
+    set pid = #{pid,jdbcType=VARCHAR},
+      processorid = #{processorid,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_plan_material_deliver_processor
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_plan_material_deliver_processor
+    ${where}
+  </delete>
+  <select id="getDeliverProcessor" resultMap="DeliverProcessorMap" parameterType="java.lang.String"> 
+  select p.*,
+  u.id as u_id,
+  u.name as u_name,
+  u.serial as u_serial
+  from tb_plan_material_deliver_processor p 
+  left join tb_user u on u.id=p.processorid
+  ${where}
+</select>
+<resultMap id="DeliverProcessorMap" type="com.sipai.entity.plan.DeliverProcessor" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="processorid" property="processorid" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    
+    <association property="processor" resultMap="processorResult"/>
+</resultMap> 
+<resultMap id="processorResult" type="com.sipai.entity.user.User">
+  <id property="id" column="u_id"/>
+  <result property="name" column="u_name"/>
+  <result property="serial" column="u_serial"/>
+</resultMap>
+</mapper>

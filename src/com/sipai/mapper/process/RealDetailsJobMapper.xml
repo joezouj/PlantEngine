@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="process.RealDetailsJobMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.process.RealDetailsJob" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="unitid" property="unitid" jdbcType="VARCHAR" />
+    <result column="jobid" property="jobid" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="upduser" property="upduser" jdbcType="VARCHAR" />
+    <result column="upddt" property="upddt" jdbcType="TIMESTAMP" />
+    
+    <association column="unitid" property="unitname" jdbcType="VARCHAR" select="selectUnit"/>
+    <association column="jobid" property="jobname" jdbcType="VARCHAR" select="selectJob"/>
+  </resultMap>
+  <select id="selectUnit" parameterType="String" resultType="String">  
+  	select name from uv_unit where id = #{unitid} 
+  </select>
+  <select id="selectJob" parameterType="String" resultType="String">  
+  	select name from tb_job where id = #{jobid}
+  </select>
+  
+  <sql id="Base_Column_List" >
+    id, pid, unitid, jobid, insuser, insdt, upduser, upddt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_real_details_job
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_process_real_details_job
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.process.RealDetailsJob" >
+    insert into tb_process_real_details_job (id, pid, unitid, jobid, 
+      insuser, insdt, upduser, 
+      upddt)
+    values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{unitid,jdbcType=VARCHAR}, #{jobid,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, #{upduser,jdbcType=VARCHAR}, 
+      #{upddt,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.process.RealDetailsJob" >
+    update tb_process_real_details_job
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="unitid != null" >
+        unitid = #{unitid,jdbcType=VARCHAR},
+      </if>
+      <if test="jobid != null" >
+        jobid = #{jobid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upduser != null" >
+        upduser = #{upduser,jdbcType=VARCHAR},
+      </if>
+      <if test="upddt != null" >
+        upddt = #{upddt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_real_details_job
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_process_real_details_job
+    ${where}
+  </delete>
+</mapper>

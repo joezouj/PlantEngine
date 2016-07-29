@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="work.WorkOrderExcuteMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.work.WorkOrderExcute" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="wftaskid" property="wftaskid" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="updateuser" property="updateuser" jdbcType="VARCHAR" />
+    <result column="updatedt" property="updatedt" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, wftaskid, insuser, insdt, updateuser, updatedt, remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_work_order_excute
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_work_order_excute
+    ${where}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_work_order_excute
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_work_order_excute
+    ${where}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.work.WorkOrderExcute" >
+    insert into tb_work_order_excute (id, wftaskid, insuser, 
+      insdt, updateuser, updatedt, 
+      remark)
+    values (#{id,jdbcType=VARCHAR}, #{wftaskid,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, 
+      #{insdt,jdbcType=TIMESTAMP}, #{updateuser,jdbcType=VARCHAR}, #{updatedt,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.WorkOrderExcute" >
+    update tb_work_order_excute
+    <set >
+      <if test="wftaskid != null" >
+        wftaskid = #{wftaskid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateuser != null" >
+        updateuser = #{updateuser,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedt != null" >
+        updatedt = #{updatedt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.WorkSchedulingMapper">
+  <resultMap id="BaseResultMap" type="com.sipai.entity.work.WorkScheduling">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="workstationid" jdbcType="VARCHAR" property="workstationid" />
+    <result column="taskid" jdbcType="VARCHAR" property="taskid" />
+    <result column="workstdt" jdbcType="TIMESTAMP" property="workstdt" />
+    <result column="workeddt" jdbcType="TIMESTAMP" property="workeddt" />
+    <result column="grouptypeid" jdbcType="VARCHAR" property="grouptypeid" />
+    <result column="insuser" jdbcType="VARCHAR" property="insuser" />
+    <result column="insdt" jdbcType="TIMESTAMP" property="insdt" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="caption" jdbcType="VARCHAR" property="_username" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, userid, workstationid, taskid, workstdt, workeddt, grouptypeid, insuser, insdt, 
+    remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_work_scheduling
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_work_scheduling
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.work.WorkScheduling">
+    insert into tb_work_scheduling (id, userid, workstationid, 
+      taskid, workstdt, workeddt, 
+      grouptypeid, insuser, insdt, 
+      remarks)
+    values (#{id,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{workstationid,jdbcType=VARCHAR}, 
+      #{taskid,jdbcType=VARCHAR}, #{workstdt,jdbcType=TIMESTAMP}, #{workeddt,jdbcType=TIMESTAMP}, 
+      #{grouptypeid,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.work.WorkScheduling">
+    insert into tb_work_scheduling
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="workstationid != null">
+        workstationid,
+      </if>
+      <if test="taskid != null">
+        taskid,
+      </if>
+      <if test="workstdt != null">
+        workstdt,
+      </if>
+      <if test="workeddt != null">
+        workeddt,
+      </if>
+      <if test="grouptypeid != null">
+        grouptypeid,
+      </if>
+      <if test="insuser != null">
+        insuser,
+      </if>
+      <if test="insdt != null">
+        insdt,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null">
+        #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null">
+        #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstdt != null">
+        #{workstdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workeddt != null">
+        #{workeddt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="grouptypeid != null">
+        #{grouptypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.WorkScheduling">
+    update tb_work_scheduling
+    <set>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null">
+        workstationid = #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null">
+        taskid = #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstdt != null">
+        workstdt = #{workstdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workeddt != null">
+        workeddt = #{workeddt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="grouptypeid != null">
+        grouptypeid = #{grouptypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.work.WorkScheduling">
+    update tb_work_scheduling
+    set userid = #{userid,jdbcType=VARCHAR},
+      workstationid = #{workstationid,jdbcType=VARCHAR},
+      taskid = #{taskid,jdbcType=VARCHAR},
+      workstdt = #{workstdt,jdbcType=TIMESTAMP},
+      workeddt = #{workeddt,jdbcType=TIMESTAMP},
+      grouptypeid = #{grouptypeid,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+ 
+  	<select id="selectListByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tb_work_scheduling
+		${where}
+	</select>
+	<delete id="deleteByWhere" parameterType="java.lang.String">
+		delete from tb_work_scheduling
+		${where}
+	</delete>
+	<select id="getuserinfo" parameterType="java.lang.String" resultMap="userresultMap"> 
+	  Select 
+	  ws.id as id,
+	  ws.workstdt as workstdt,
+	  ws.workeddt as workeddt,
+	  gt.name as grouptypename,
+	  ws.userid as userid,
+	  u.name as username,
+	  ws.workstationid as workstationid,
+      ws.taskid as taskid,
+	  j.name as jobname ,
+	  wg.name as groupname,
+	  wst.name as workstationname
+	  from tb_work_scheduling ws
+	  left join tb_user_job uj on ws.userid=uj.userid
+	  left join tb_job j on j.id=uj.jobid
+	  left join tb_work_group_member wgm on wgm.userid=ws.userid
+	  left join tb_work_group wg on wg.id=wgm.groupid
+	  left join tb_user u on u.id=ws.userid
+	  left join tb_work_grouptype gt on ws.grouptypeid=gt.id
+	  left join tb_work_workstation wst on ws.workstationid=wst.id
+	  ${where}
+	</select>
+	<resultMap id="userresultMap" type="com.sipai.entity.work.WorkScheduling">
+	  <id column="id" property="id" />
+	  <result column="taskid" property="taskid" />
+	  <result column="workstdt" property="workstdt" />
+	  <result column="workeddt" property="workeddt" />
+	  <result column="groupname" property="_groupname" />
+	  <result column="userid" property="userid" />
+	  <result column="username" property="_username" />
+	  <result column="jobname" property="_jobname" />
+	  <result column="groupname" property="_groupname" />
+	  <result column="grouptypename" property="_grouptypename" />
+	  <result column="workstationname" property="_workstationname" />
+	</resultMap> 
+	<select id="getWorkSation" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select distinct workstationid from tb_work_scheduling
+		where GETDATE() between workstdt and workeddt 
+		${where}		
+		order by workstationid
+	</select>
+	<select id="distinctWdByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select
+		distinct  workstdt,grouptypeid
+		from tb_work_scheduling
+		${where}
+	</select>
+	<select id="selectTaskUserListByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select wf_task_actor.task_id,tb_work_scheduling.workstationid,tb_work_scheduling.userid,tb_user.caption
+		from tb_work_scheduling
+		left join wf_task_actor on wf_task_actor.actor_id = tb_work_scheduling.workstationid
+		left join tb_user on tb_user.id = tb_work_scheduling.userid
+		${where}
+	</select>
+</mapper>

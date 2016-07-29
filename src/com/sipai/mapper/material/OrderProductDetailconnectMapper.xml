@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="material.OrderProductDetailconnectMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.material.OrderProductDetailconnect" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="planid" property="planid" jdbcType="VARCHAR" />
+    <result column="productdetailid" property="productdetailid" jdbcType="VARCHAR" />
+    <result column="workorderid" property="workorderid" jdbcType="VARCHAR" />
+    <result column="processrealid" property="processrealid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, insdt, insuser, planid, productdetailid, workorderid, processrealid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_material_OrderProductDetail_connect
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_material_OrderProductDetail_connect
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.material.OrderProductDetailconnect" >
+    insert into TB_material_OrderProductDetail_connect (id, insdt, insuser, 
+      planid, productdetailid, workorderid, 
+      processrealid)
+    values (#{id,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, #{insuser,jdbcType=VARCHAR}, 
+      #{planid,jdbcType=VARCHAR}, #{productdetailid,jdbcType=VARCHAR}, #{workorderid,jdbcType=VARCHAR}, 
+      #{processrealid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.material.OrderProductDetailconnect" >
+    insert into TB_material_OrderProductDetail_connect
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="planid != null" >
+        planid,
+      </if>
+      <if test="productdetailid != null" >
+        productdetailid,
+      </if>
+      <if test="workorderid != null" >
+        workorderid,
+      </if>
+      <if test="processrealid != null" >
+        processrealid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="planid != null" >
+        #{planid,jdbcType=VARCHAR},
+      </if>
+      <if test="productdetailid != null" >
+        #{productdetailid,jdbcType=VARCHAR},
+      </if>
+      <if test="workorderid != null" >
+        #{workorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="processrealid != null" >
+        #{processrealid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.material.OrderProductDetailconnect" >
+    update TB_material_OrderProductDetail_connect
+    <set >
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="planid != null" >
+        planid = #{planid,jdbcType=VARCHAR},
+      </if>
+      <if test="productdetailid != null" >
+        productdetailid = #{productdetailid,jdbcType=VARCHAR},
+      </if>
+      <if test="workorderid != null" >
+        workorderid = #{workorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="processrealid != null" >
+        processrealid = #{processrealid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.material.OrderProductDetailconnect" >
+    update TB_material_OrderProductDetail_connect
+    set insdt = #{insdt,jdbcType=TIMESTAMP},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      planid = #{planid,jdbcType=VARCHAR},
+      productdetailid = #{productdetailid,jdbcType=VARCHAR},
+      workorderid = #{workorderid,jdbcType=VARCHAR},
+      processrealid = #{processrealid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_material_OrderProductDetail_connect
+    ${where}
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select 
+    <include refid="Base_Column_List" />
+    from TB_material_OrderProductDetail_connect
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from TB_material_OrderProductDetail_connect
+    ${where}
+  </delete>
+</mapper>

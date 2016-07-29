@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.UnitMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.user.Unit" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sname" property="sname" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="taskid" property="taskid" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="active" property="active" jdbcType="VARCHAR" />
+    <result column="morder" property="morder" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="getUnitById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id,name,sname,pid,taskid,type,active,morder
+    from uv_unit 
+    where id=#{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id,name,sname,pid,taskid,type,active,morder
+    from uv_unit 
+    where type in ('D','C')
+    order by morder
+  </select>
+  <select id="selectListAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id,name,sname,pid,taskid,type,active,morder
+    from uv_unit 
+    order by morder
+  </select>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id,name,sname,pid,taskid,type,active,morder
+    from uv_unit
+    ${where}
+  </select>
+</mapper>

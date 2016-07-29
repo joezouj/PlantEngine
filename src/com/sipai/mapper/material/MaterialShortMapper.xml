@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="material.MaterialShortMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.material.MaterialShort" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="materialid" property="materialid" jdbcType="VARCHAR" />
+    <result column="productid" property="productid" jdbcType="VARCHAR" />
+    <result column="wftaskid" property="wftaskid" jdbcType="VARCHAR" />
+    <result column="workstationserial" property="workstationserial" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="amount" property="amount" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, materialid, productid, wftaskid, workstationserial, insuser, insdt, amount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_material_short
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_material_short
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.material.MaterialShort" >
+    insert into tb_material_short (id, materialid, productid, 
+      wftaskid, workstationserial, insuser, 
+      insdt, amount)
+    values (#{id,jdbcType=VARCHAR}, #{materialid,jdbcType=VARCHAR}, #{productid,jdbcType=VARCHAR}, 
+      #{wftaskid,jdbcType=VARCHAR}, #{workstationserial,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, 
+      #{insdt,jdbcType=TIMESTAMP}, #{amount,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.material.MaterialShort" >
+    insert into tb_material_short
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="materialid != null" >
+        materialid,
+      </if>
+      <if test="productid != null" >
+        productid,
+      </if>
+      <if test="wftaskid != null" >
+        wftaskid,
+      </if>
+      <if test="workstationserial != null" >
+        workstationserial,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="materialid != null" >
+        #{materialid,jdbcType=VARCHAR},
+      </if>
+      <if test="productid != null" >
+        #{productid,jdbcType=VARCHAR},
+      </if>
+      <if test="wftaskid != null" >
+        #{wftaskid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationserial != null" >
+        #{workstationserial,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.material.MaterialShort" >
+    update tb_material_short
+    <set >
+      <if test="materialid != null" >
+        materialid = #{materialid,jdbcType=VARCHAR},
+      </if>
+      <if test="productid != null" >
+        productid = #{productid,jdbcType=VARCHAR},
+      </if>
+      <if test="wftaskid != null" >
+        wftaskid = #{wftaskid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationserial != null" >
+        workstationserial = #{workstationserial,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.material.MaterialShort" >
+    update tb_material_short
+    set materialid = #{materialid,jdbcType=VARCHAR},
+      productid = #{productid,jdbcType=VARCHAR},
+      wftaskid = #{wftaskid,jdbcType=VARCHAR},
+      workstationserial = #{workstationserial,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      amount = #{amount,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_material_short
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_material_short
+    ${where}
+  </delete>
+  
+</mapper>

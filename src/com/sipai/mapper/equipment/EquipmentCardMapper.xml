@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="equipment.EquipmentCardMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.equipment.EquipmentCard" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="VARCHAR" />
+    <result column="equipmentCardID" property="equipmentcardid" jdbcType="VARCHAR" />
+    <result column="equipmentClassID" property="equipmentclassid" jdbcType="VARCHAR" />
+    <result column="equipmentModel" property="equipmentmodel" jdbcType="VARCHAR" />
+    <result column="areaID" property="areaid" jdbcType="VARCHAR" />
+    <result column="currentManageFlag" property="currentmanageflag" jdbcType="VARCHAR" />
+    <result column="equipmentName" property="equipmentname" jdbcType="CLOB" /> 
+    <result column="remark" property="remark" jdbcType="CLOB" />
+  </resultMap>
+<!--   <resultMap id="ResultMapWithBLOBs" type="com.sipai.entity.equipment.EquipmentCardWithBLOBs" extends="BaseResultMap" > -->
+<!--     <result column="equipmentName" property="equipmentname" jdbcType="CLOB" /> -->
+<!--     <result column="remark" property="remark" jdbcType="CLOB" /> -->
+<!--   </resultMap> -->
+  <sql id="Base_Column_List" >
+    id, insuser, insdt, equipmentCardID, equipmentClassID, equipmentModel, areaID, currentManageFlag,equipmentName, remark
+  </sql>
+<!--   <sql id="Blob_Column_List" > -->
+<!--     equipmentName, remark -->
+<!--   </sql> -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select    
+    <include refid="Base_Column_List" />
+    from TB_EM_EquipmentCard
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_EM_EquipmentCard
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.equipment.EquipmentCard" >
+    insert into TB_EM_EquipmentCard (id, insuser, insdt, 
+      equipmentCardID, equipmentClassID, equipmentModel, 
+      areaID, currentManageFlag, equipmentName, 
+      remark)
+    values (#{id,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=VARCHAR}, 
+      #{equipmentcardid,jdbcType=VARCHAR}, #{equipmentclassid,jdbcType=VARCHAR}, #{equipmentmodel,jdbcType=VARCHAR}, 
+      #{areaid,jdbcType=VARCHAR}, #{currentmanageflag,jdbcType=VARCHAR}, #{equipmentname,jdbcType=CLOB}, 
+      #{remark,jdbcType=CLOB})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.equipment.EquipmentCard" >
+    insert into TB_EM_EquipmentCard
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="equipmentcardid != null" >
+        equipmentCardID,
+      </if>
+      <if test="equipmentclassid != null" >
+        equipmentClassID,
+      </if>
+      <if test="equipmentmodel != null" >
+        equipmentModel,
+      </if>
+      <if test="areaid != null" >
+        areaID,
+      </if>
+      <if test="currentmanageflag != null" >
+        currentManageFlag,
+      </if>
+      <if test="equipmentname != null" >
+        equipmentName,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentcardid != null" >
+        #{equipmentcardid,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentclassid != null" >
+        #{equipmentclassid,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentmodel != null" >
+        #{equipmentmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="areaid != null" >
+        #{areaid,jdbcType=VARCHAR},
+      </if>
+      <if test="currentmanageflag != null" >
+        #{currentmanageflag,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentname != null" >
+        #{equipmentname,jdbcType=CLOB},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=CLOB},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.equipment.EquipmentCard" >
+    update TB_EM_EquipmentCard
+    <set >
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentcardid != null" >
+        equipmentCardID = #{equipmentcardid,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentclassid != null" >
+        equipmentClassID = #{equipmentclassid,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentmodel != null" >
+        equipmentModel = #{equipmentmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="areaid != null" >
+        areaID = #{areaid,jdbcType=VARCHAR},
+      </if>
+      <if test="currentmanageflag != null" >
+        currentManageFlag = #{currentmanageflag,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentname != null" >
+        equipmentName = #{equipmentname,jdbcType=CLOB},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=CLOB},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.equipment.EquipmentCard" >
+    update TB_EM_EquipmentCard
+    set insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=VARCHAR},
+      equipmentCardID = #{equipmentcardid,jdbcType=VARCHAR},
+      equipmentClassID = #{equipmentclassid,jdbcType=VARCHAR},
+      equipmentModel = #{equipmentmodel,jdbcType=VARCHAR},
+      areaID = #{areaid,jdbcType=VARCHAR},
+      currentManageFlag = #{currentmanageflag,jdbcType=VARCHAR},
+      equipmentName = #{equipmentname,jdbcType=CLOB},
+      remark = #{remark,jdbcType=CLOB}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <!-- <update id="updateByPrimaryKey" parameterType="com.sipai.entity.equipment.EquipmentCard" >
+    update TB_EM_EquipmentCard
+    set insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=VARCHAR},
+      equipmentCardID = #{equipmentcardid,jdbcType=VARCHAR},
+      equipmentClassID = #{equipmentclassid,jdbcType=VARCHAR},
+      equipmentModel = #{equipmentmodel,jdbcType=VARCHAR},
+      areaID = #{areaid,jdbcType=VARCHAR},
+      currentManageFlag = #{currentmanageflag,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update> -->
+  <select id="selectList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_EM_EquipmentCard 
+    order by equipmentName
+  </select>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_EM_EquipmentCard
+    ${where}
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select 
+    <include refid="Base_Column_List" />
+    from TB_EM_EquipmentCard
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from TB_EM_EquipmentCard
+    ${where}
+  </delete>
+  <select id="getEquipmentCard" resultMap="ClassResultMapEquipmentCard" parameterType="java.lang.String"> 
+  SELECT  
+  E.id					as e_id,  
+  E.equipmentCardID,
+  E.equipmentName,
+  E.equipmentClassID,
+  E.equipmentModel,
+  E.areaID,
+  E.currentManageFlag,
+  E.remark				as e_remark,
+  E.insuser				as e_insuser,
+  E.insdt				as e_insdt,
+  C.id					as c_id,
+  C.name				as c_name,
+  C.status              as c_status, 
+  G.id					as g_id,
+  G.name				as g_name,
+  G.status              as g_status   
+  FROM TB_EM_EquipmentCard E
+  LEFT OUTER JOIN TB_EM_EquipmentClass C ON C.id = E.equipmentClassID 
+  LEFT OUTER JOIN TB_EM_GeographyArea G ON G.id = E.areaID 
+  ${where}
+</select>
+<resultMap id="ClassResultMapEquipmentCard" type="com.sipai.entity.equipment.EquipmentCard">
+  <id property="id" column="e_id" /> 
+  <result property="equipmentcardid" column="equipmentCardID"/>
+  <result property="equipmentname" column="equipmentName"/>
+  <result property="equipmentclassid" column="equipmentClassID"/>
+  <result property="equipmentmodel" column="equipmentModel"/>
+  <result property="areaid" column="areaID"/>
+  <result property="currentmanageflag" column="currentManageFlag"/>
+  <result property="remark" column="e_remark"/>
+  <result property="insuser" column="e_insuser"/>
+  <result property="insdt" column="e_insdt"/>  
+  <association property="equipmentclass" resultMap="equipmentclassResult" />
+  <association property="geographyarea" resultMap="geographyareaResult" />
+</resultMap>
+<resultMap id="equipmentclassResult" type="com.sipai.entity.equipment.EquipmentClass">
+  <id property="id" column="c_id"/>
+  <result property="name" column="c_name"/>
+  <result property="status" column="c_status"/>
+</resultMap> 
+<resultMap id="geographyareaResult" type="com.sipai.entity.equipment.GeographyArea">
+  <id property="id" column="g_id"/>
+  <result property="name" column="g_name"/>
+  <result property="status" column="g_status"/>
+</resultMap>
+<select id="getEquipmentCardByCardId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_EM_EquipmentCard
+    where equipmentcardId = #{name,jdbcType=VARCHAR}
+  </select> 
+</mapper>

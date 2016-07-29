@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="quality.LeaveFactoryCheckMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.quality.LeaveFactoryCheck" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="Equipmentname" property="equipmentname" jdbcType="VARCHAR" />
+    <result column="RatedVoltage" property="ratedvoltage" jdbcType="VARCHAR" />
+    <result column="RatedCurrent" property="ratedcurrent" jdbcType="VARCHAR" />
+    <result column="InstallationType" property="installationtype" jdbcType="VARCHAR" />
+    <result column="ReleaseModel" property="releasemodel" jdbcType="VARCHAR" />
+    <result column="Appendix" property="appendix" jdbcType="VARCHAR" />
+    <result column="PowerOperationV" property="poweroperationv" jdbcType="VARCHAR" />
+    <result column="ShuntReleaseV" property="shuntreleasev" jdbcType="VARCHAR" />
+    <result column="ClosingEMV" property="closingemv" jdbcType="VARCHAR" />
+    <result column="UnderVReleaseV" property="undervreleasev" jdbcType="VARCHAR" />
+    <result column="RemarkOverall" property="remarkoverall" jdbcType="VARCHAR" />
+    <result column="RemarkTable" property="remarktable" jdbcType="VARCHAR" />
+    <result column="InspectDate" property="inspectdate" jdbcType="TIMESTAMP" />
+    <result column="Inspector" property="inspector" jdbcType="VARCHAR" />
+    <result column="LeaveFactoryNo" property="leavefactoryno" jdbcType="VARCHAR" />
+    <result column="phaseA" property="phasea" jdbcType="VARCHAR" />
+    <result column="phaseB" property="phaseb" jdbcType="VARCHAR" />
+    <result column="phaseC" property="phasec" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, insuser, insdt, Equipmentname, RatedVoltage, RatedCurrent, InstallationType, 
+    ReleaseModel, Appendix, PowerOperationV, ShuntReleaseV, ClosingEMV, UnderVReleaseV, 
+    RemarkOverall, RemarkTable, InspectDate, Inspector,LeaveFactoryNo,phaseA,phaseB,phaseC
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_QM_LeaveFactoryCheck
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_QM_LeaveFactoryCheck
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.quality.LeaveFactoryCheck" >
+    insert into TB_QM_LeaveFactoryCheck (id, insuser, insdt, 
+      Equipmentname, RatedVoltage, RatedCurrent, 
+      InstallationType, ReleaseModel, Appendix, 
+      PowerOperationV, ShuntReleaseV, ClosingEMV, 
+      UnderVReleaseV, RemarkOverall, RemarkTable, 
+      InspectDate, Inspector,LeaveFactoryNo,phaseA,phaseB,phaseC)
+    values (#{id,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, 
+      #{equipmentname,jdbcType=VARCHAR}, #{ratedvoltage,jdbcType=VARCHAR}, #{ratedcurrent,jdbcType=VARCHAR}, 
+      #{installationtype,jdbcType=VARCHAR}, #{releasemodel,jdbcType=VARCHAR}, #{appendix,jdbcType=VARCHAR}, 
+      #{poweroperationv,jdbcType=VARCHAR}, #{shuntreleasev,jdbcType=VARCHAR}, #{closingemv,jdbcType=VARCHAR}, 
+      #{undervreleasev,jdbcType=VARCHAR}, #{remarkoverall,jdbcType=VARCHAR}, #{remarktable,jdbcType=VARCHAR}, 
+      #{inspectdate,jdbcType=TIMESTAMP}, #{inspector,jdbcType=VARCHAR}, #{leavefactoryno,jdbcType=VARCHAR},
+       #{phasea,jdbcType=VARCHAR}, #{phaseb,jdbcType=VARCHAR}, #{phasec,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.quality.LeaveFactoryCheck" >
+    insert into TB_QM_LeaveFactoryCheck
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="equipmentname != null" >
+        Equipmentname,
+      </if>
+      <if test="ratedvoltage != null" >
+        RatedVoltage,
+      </if>
+      <if test="ratedcurrent != null" >
+        RatedCurrent,
+      </if>
+      <if test="installationtype != null" >
+        InstallationType,
+      </if>
+      <if test="releasemodel != null" >
+        ReleaseModel,
+      </if>
+      <if test="appendix != null" >
+        Appendix,
+      </if>
+      <if test="poweroperationv != null" >
+        PowerOperationV,
+      </if>
+      <if test="shuntreleasev != null" >
+        ShuntReleaseV,
+      </if>
+      <if test="closingemv != null" >
+        ClosingEMV,
+      </if>
+      <if test="undervreleasev != null" >
+        UnderVReleaseV,
+      </if>
+      <if test="remarkoverall != null" >
+        RemarkOverall,
+      </if>
+      <if test="remarktable != null" >
+        RemarkTable,
+      </if>
+      <if test="inspectdate != null" >
+        InspectDate,
+      </if>
+      <if test="inspector != null" >
+        Inspector,
+      </if>
+       <if test="leavefactoryno != null" >
+        LeaveFactoryNo,
+      </if>
+      <if test="phasea != null" >
+        phaseA,
+      </if>
+      <if test="phaseb != null" >
+        phaseB,
+      </if>
+      <if test="phasec != null" >
+        phaseC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentname != null" >
+        #{equipmentname,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedvoltage != null" >
+        #{ratedvoltage,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedcurrent != null" >
+        #{ratedcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="installationtype != null" >
+        #{installationtype,jdbcType=VARCHAR},
+      </if>
+      <if test="releasemodel != null" >
+        #{releasemodel,jdbcType=VARCHAR},
+      </if>
+      <if test="appendix != null" >
+        #{appendix,jdbcType=VARCHAR},
+      </if>
+      <if test="poweroperationv != null" >
+        #{poweroperationv,jdbcType=VARCHAR},
+      </if>
+      <if test="shuntreleasev != null" >
+        #{shuntreleasev,jdbcType=VARCHAR},
+      </if>
+      <if test="closingemv != null" >
+        #{closingemv,jdbcType=VARCHAR},
+      </if>
+      <if test="undervreleasev != null" >
+        #{undervreleasev,jdbcType=VARCHAR},
+      </if>
+      <if test="remarkoverall != null" >
+        #{remarkoverall,jdbcType=VARCHAR},
+      </if>
+      <if test="remarktable != null" >
+        #{remarktable,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectdate != null" >
+        #{inspectdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspector != null" >
+        #{inspector,jdbcType=VARCHAR},
+      </if>
+      <if test="leavefactoryno != null" >
+        #{leavefactoryno,jdbcType=VARCHAR},
+      </if>
+      <if test="phasea != null" >
+        #{phasea,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseb != null" >
+        #{phaseb,jdbcType=VARCHAR},
+      </if>
+      <if test="phasec != null" >
+        #{phasec,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.quality.LeaveFactoryCheck" >
+    update TB_QM_LeaveFactoryCheck
+    <set >
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="equipmentname != null" >
+        Equipmentname = #{equipmentname,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedvoltage != null" >
+        RatedVoltage = #{ratedvoltage,jdbcType=VARCHAR},
+      </if>
+      <if test="ratedcurrent != null" >
+        RatedCurrent = #{ratedcurrent,jdbcType=VARCHAR},
+      </if>
+      <if test="installationtype != null" >
+        InstallationType = #{installationtype,jdbcType=VARCHAR},
+      </if>
+      <if test="releasemodel != null" >
+        ReleaseModel = #{releasemodel,jdbcType=VARCHAR},
+      </if>
+      <if test="appendix != null" >
+        Appendix = #{appendix,jdbcType=VARCHAR},
+      </if>
+      <if test="poweroperationv != null" >
+        PowerOperationV = #{poweroperationv,jdbcType=VARCHAR},
+      </if>
+      <if test="shuntreleasev != null" >
+        ShuntReleaseV = #{shuntreleasev,jdbcType=VARCHAR},
+      </if>
+      <if test="closingemv != null" >
+        ClosingEMV = #{closingemv,jdbcType=VARCHAR},
+      </if>
+      <if test="undervreleasev != null" >
+        UnderVReleaseV = #{undervreleasev,jdbcType=VARCHAR},
+      </if>
+      <if test="remarkoverall != null" >
+        RemarkOverall = #{remarkoverall,jdbcType=VARCHAR},
+      </if>
+      <if test="remarktable != null" >
+        RemarkTable = #{remarktable,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectdate != null" >
+        InspectDate = #{inspectdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspector != null" >
+        Inspector = #{inspector,jdbcType=VARCHAR},
+      </if>
+      <if test="leavefactoryno != null" >
+       LeaveFactoryNo= #{leavefactoryno,jdbcType=VARCHAR},
+      </if>
+      <if test="phasea != null" >
+       phaseA= #{phasea,jdbcType=VARCHAR},
+      </if>
+      <if test="phaseb != null" >
+       phaseB= #{phaseb,jdbcType=VARCHAR},
+      </if>
+      <if test="phasec != null" >
+       phaseC= #{phasec,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.quality.LeaveFactoryCheck" >
+    update TB_QM_LeaveFactoryCheck
+    set insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      Equipmentname = #{equipmentname,jdbcType=VARCHAR},
+      RatedVoltage = #{ratedvoltage,jdbcType=VARCHAR},
+      RatedCurrent = #{ratedcurrent,jdbcType=VARCHAR},
+      InstallationType = #{installationtype,jdbcType=VARCHAR},
+      ReleaseModel = #{releasemodel,jdbcType=VARCHAR},
+      Appendix = #{appendix,jdbcType=VARCHAR},
+      PowerOperationV = #{poweroperationv,jdbcType=VARCHAR},
+      ShuntReleaseV = #{shuntreleasev,jdbcType=VARCHAR},
+      ClosingEMV = #{closingemv,jdbcType=VARCHAR},
+      UnderVReleaseV = #{undervreleasev,jdbcType=VARCHAR},
+      RemarkOverall = #{remarkoverall,jdbcType=VARCHAR},
+      RemarkTable = #{remarktable,jdbcType=VARCHAR},
+      InspectDate = #{inspectdate,jdbcType=TIMESTAMP},
+      Inspector = #{inspector,jdbcType=VARCHAR},
+      LeaveFactoryNo = #{leavefactoryno,jdbcType=VARCHAR},
+      phaseA = #{phasea,jdbcType=VARCHAR},
+      phaseB = #{phaseb,jdbcType=VARCHAR},
+      phaseC = #{phasec,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+   <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_QM_LeaveFactoryCheck
+    ${where}
+  </select>
+    <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from TB_QM_LeaveFactoryCheck
+    ${where}
+  </delete>
+</mapper>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.WorkInterruptMapper">
+  <resultMap id="BaseResultMap" type="com.sipai.entity.work.WorkInterrupt">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="productid" jdbcType="VARCHAR" property="productid" />
+    <result column="wftaskid" jdbcType="VARCHAR" property="wftaskid" />
+    <result column="insuser" jdbcType="VARCHAR" property="insuser" />
+    <result column="insdt" jdbcType="TIMESTAMP" property="insdt" />
+    <result column="materialid" jdbcType="VARCHAR" property="materialid" />
+    <result column="amount" jdbcType="VARCHAR" property="amount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, productid, wftaskid, insuser, insdt, materialid, amount
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_work_interrupt
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_work_interrupt
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.work.WorkInterrupt">
+    insert into tb_work_interrupt (id, productid, wftaskid, 
+      insuser, insdt, materialid, 
+      amount)
+    values (#{id,jdbcType=VARCHAR}, #{productid,jdbcType=VARCHAR}, #{wftaskid,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, #{materialid,jdbcType=VARCHAR}, 
+      #{amount,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.work.WorkInterrupt">
+    insert into tb_work_interrupt
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="productid != null">
+        productid,
+      </if>
+      <if test="wftaskid != null">
+        wftaskid,
+      </if>
+      <if test="insuser != null">
+        insuser,
+      </if>
+      <if test="insdt != null">
+        insdt,
+      </if>
+      <if test="materialid != null">
+        materialid,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="productid != null">
+        #{productid,jdbcType=VARCHAR},
+      </if>
+      <if test="wftaskid != null">
+        #{wftaskid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="materialid != null">
+        #{materialid,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.WorkInterrupt">
+    update tb_work_interrupt
+    <set>
+      <if test="productid != null">
+        productid = #{productid,jdbcType=VARCHAR},
+      </if>
+      <if test="wftaskid != null">
+        wftaskid = #{wftaskid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="materialid != null">
+        materialid = #{materialid,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.work.WorkInterrupt">
+    update tb_work_interrupt
+    set productid = #{productid,jdbcType=VARCHAR},
+      wftaskid = #{wftaskid,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      materialid = #{materialid,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+ 
+	<select id="selectListByWhere" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_work_interrupt
+		${where}
+	</select>
+  <delete id="deleteByWhere" parameterType="java.lang.String">
+		delete from tb_work_interrupt
+		${where}
+	</delete>
+</mapper>

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="material.MaterialInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.material.MaterialInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="materialcode" property="materialcode" jdbcType="VARCHAR" />
+    <result column="materialname" property="materialname" jdbcType="VARCHAR" />
+    <result column="figurenumberid" property="figurenumberid" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="typeid" property="typeid" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modifydt" property="modifydt" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="delivertype" property="delivertype" jdbcType="VARCHAR" />
+    
+    <association column="figurenumberid" property="figure" jdbcType="VARCHAR" select="selectFigure"/>
+    <association column="typeid" property="_typename" jdbcType="VARCHAR" select="selectType"/>
+  </resultMap>
+  <select id="selectFigure" parameterType="String" resultType="com.sipai.entity.document.Data">  
+  	select * from tb_doc_data where id = #{figurenumberid} 
+  </select>
+   <select id="selectType" parameterType="String" resultType="String">  
+  	select typename from tb_material_type where id = #{typeid} 
+  </select>
+  <sql id="Base_Column_List" >
+    id, materialcode, materialname,figurenumberid, spec, unit, typeid, remark, insuser, insdt, modify, modifydt,status,delivertype
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_material_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_material_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.material.MaterialInfo" >
+    insert into tb_material_info (id, materialcode, materialname, 
+      figurenumberid,spec, unit, typeid, remark, 
+      insuser, insdt, modify, 
+      modifydt,status,delivertype)
+    values (#{id,jdbcType=VARCHAR}, #{materialcode,jdbcType=VARCHAR}, #{materialname,jdbcType=VARCHAR}, 
+      #{figurenumberid,jdbcType=VARCHAR},#{spec,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, #{modify,jdbcType=VARCHAR}, 
+      #{modifydt,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{delivertype,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.material.MaterialInfo" >
+    insert into tb_material_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="materialcode != null" >
+        materialcode,
+      </if>
+      <if test="materialname != null" >
+        materialname,
+      </if>
+      <if test="materialname != null" >
+        figurenumberid,
+      </if>
+      <if test="spec != null" >
+        spec,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="typeid != null" >
+        typeid,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="modify != null" >
+        modify,
+      </if>
+      <if test="modifydt != null" >
+        modifydt,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="delivertype != null" >
+        delivertype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="materialcode != null" >
+        #{materialcode,jdbcType=VARCHAR},
+      </if>
+      <if test="materialname != null" >
+        #{materialname,jdbcType=VARCHAR},
+      </if>
+      <if test="materialname != null" >
+        #{figurenumberid,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="delivertype != null" >
+        #{delivertype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.material.MaterialInfo" >
+    update tb_material_info
+    <set >
+      <if test="materialcode != null" >
+        materialcode = #{materialcode,jdbcType=VARCHAR},
+      </if>
+      <if test="materialname != null" >
+        materialname = #{materialname,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        figurenumberid = #{figurenumberid,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        spec = #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        typeid = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        modifydt = #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="delivertype != null" >
+        delivertype = #{delivertype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.material.MaterialInfo" >
+    update tb_material_info
+    set materialcode = #{materialcode,jdbcType=VARCHAR},
+      materialname = #{materialname,jdbcType=VARCHAR},
+      figurenumberid = #{figurenumberid,jdbcType=VARCHAR},
+      spec = #{spec,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      typeid = #{typeid,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      modify = #{modify,jdbcType=VARCHAR},
+      modifydt = #{modifydt,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      delivertype = #{delivertype,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_material_info
+    ${where}
+  </select>
+  <select id="getListByMaterialCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_material_info
+    where materialcode = #{materialcode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_material_info
+    ${where}
+  </delete>
+  <select id="getMaterialInfo" resultMap="ResultMapMInfo" parameterType="java.lang.String"> 
+  SELECT 
+  I.id            as i_id,
+  I.materialcode,
+  I.materialname,
+  I.figurenumberid,
+  I.spec, 
+  I.unit, 
+  I.typeid, 
+  I.remark, 
+  I.insuser, 
+  I.insdt, 
+  I.modify, 
+  I.modifydt,
+  I.status       as i_status,
+  I.delivertype,
+  T.id           as t_id,
+  T.typecode,
+  T.typename,
+  T.status       as t_status,
+  D.id           as f_id,
+  D.number,
+  D.docname 
+  FROM tb_material_info I 
+  LEFT OUTER JOIN tb_material_type T ON I.typeid = T.id 
+  Left join tb_doc_data D on D.id = I.figurenumberid 
+  ${where}
+</select>
+<resultMap id="ResultMapMInfo" type="com.sipai.entity.material.MaterialInfo">
+  <id property="id" column="i_id" />
+    <result column="materialcode" property="materialcode" jdbcType="VARCHAR" />
+    <result column="materialname" property="materialname" jdbcType="VARCHAR" />
+    <result column="figurenumberid" property="figurenumberid" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="typeid" property="typeid" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modifydt" property="modifydt" jdbcType="TIMESTAMP" />
+    <result column="i_status" property="status" jdbcType="VARCHAR" />
+    <result column="delivertype" property="delivertype" jdbcType="VARCHAR" />
+    
+    <association property="figure" resultMap="figureResult"/>
+   	<association property="materialtype" resultMap="typeResult" />  
+</resultMap> 
+<resultMap id="typeResult" type="com.sipai.entity.material.MaterialType">
+  <id property="id" column="t_id"/>
+  <result property="typecode" column="typecode"/>
+  <result property="typename" column="typename"/>
+  <result property="status" column="t_status"/>
+</resultMap>
+<resultMap id="figureResult" type="com.sipai.entity.document.Data">
+  <id property="id" column="f_id"/>
+  <result property="number" column="number"/>
+  <result property="docname" column="docname"/>
+</resultMap>
+</mapper>

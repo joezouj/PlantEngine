@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<process displayName="总装工艺" name="assemble">
+<start displayName="start1" layout="57,24,-1,-1" name="start1">
+<transition g="" name="transition1" offset="0,0" to="apply"/>
+</start>
+<end displayName="end1" layout="61,320,-1,-1" name="end1"/>
+<task displayName="触头、机构安装" form="leave/apply.html" layout="24,128,124,52" name="apply" performType="ANY">
+<transition g="" name="transition2" offset="0,0" to="approveDept"/>
+</task>
+<task assignee="approveDept.operator" displayName="电动机安装" form="leave/approveDept.html" layout="193,126,-1,-1" name="approveDept" performType="ANY">
+<transition g="" name="transition3" offset="0,0" to="approveBoss"/>
+</task>
+<task assignee="approveBoss.operator" displayName="后盖、灭弧罩、基座安装" form="leave/approveBoss.html" layout="306,125,168,52" name="approveBoss" performType="ANY">
+<transition g="" name="transition4" offset="0,0" to="task1"/>
+</task>
+<task autoExecute="Y" displayName="大电流测试" layout="512,121,-1,-1" name="task1" performType="ANY" taskType="Major">
+<transition g="" name="transition5" offset="0,0" to="decision1"/>
+</task>
+<task autoExecute="Y" displayName="二次回路" layout="770,120,-1,-1" name="task2" performType="ANY" taskType="Major">
+<transition g="" name="transition6" offset="0,0" to="task3"/>
+</task>
+<task autoExecute="Y" displayName="对抽架安装" layout="772,209,-1,-1" name="task3" performType="ANY" taskType="Major">
+<transition g="" name="transition7" offset="0,0" to="task4"/>
+</task>
+<task autoExecute="Y" displayName="耐压测试" layout="600,212,-1,-1" name="task4" performType="ANY" taskType="Major">
+<transition g="" name="transition8" offset="0,0" to="decision2"/>
+</task>
+<task autoExecute="Y" displayName="综合测试" layout="305,214,-1,-1" name="task5" performType="ANY" taskType="Major">
+<transition g="" name="transition16" offset="0,0" to="decision3"/>
+</task>
+<task autoExecute="Y" displayName="包装" layout="39,214,-1,-1" name="task6" performType="ANY" taskType="Major">
+<transition g="" name="transition10" offset="0,0" to="end1"/>
+</task>
+<task autoExecute="Y" displayName="避风港" layout="643,22,-1,-1" name="task7" performType="ANY" taskType="Major">
+<transition g="" name="transition13" offset="0,0" to="task1"/>
+</task>
+<decision displayName="decision1" layout="667,124,-1,-1" name="decision1">
+<transition displayName="不通过" g="" name="transition11" offset="0,0" to="task7"/>
+<transition displayName="通过" g="" name="transition12" offset="0,0" to="task2"/>
+</decision>
+<decision displayName="decision2" layout="480,215,-1,-1" name="decision2">
+<transition displayName="通过" g="" name="transition9" offset="0,0" to="task5"/>
+<transition displayName="不通过" g="" name="transition14" offset="0,0" to="task8"/>
+</decision>
+<task autoExecute="Y" displayName="避风港" layout="456,318,-1,-1" name="task8" performType="ANY" taskType="Major">
+<transition g="" name="transition15" offset="0,0" to="task4"/>
+</task>
+<decision displayName="decision3" layout="208,219,-1,-1" name="decision3">
+<transition displayName="通过" g="" name="transition17" offset="0,0" to="task6"/>
+<transition displayName="不通过" g="" name="transition18" offset="0,0" to="task9"/>
+</decision>
+<task autoExecute="Y" displayName="避风港" layout="191,314,-1,-1" name="task9" performType="ANY" taskType="Major">
+<transition g="" name="transition19" offset="0,0" to="task5"/>
+</task>
+</process>

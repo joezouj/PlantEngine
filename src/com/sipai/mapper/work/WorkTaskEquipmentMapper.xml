@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="work.WorkTaskEquipmentMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.work.WorkTaskEquipment" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="equipmentid" property="equipmentid" jdbcType="VARCHAR" />
+    <result column="workstationid" property="workstationid" jdbcType="VARCHAR" />
+    <result column="taskid" property="taskid" jdbcType="VARCHAR" />
+    <result column="processrealdetailid" jdbcType="VARCHAR" property="processrealdetailid" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <association column="equipmentid" property="equipment" jdbcType="VARCHAR" select="selectEquipment"/>
+  </resultMap>
+  <select id="selectEquipment" parameterType="String" resultType="com.sipai.entity.equipment.EquipmentCard">  
+  	select TB_EM_EquipmentCard.*,TB_EM_EquipmentClass.name as equipmentclassname 
+  	from TB_EM_EquipmentCard left join TB_EM_EquipmentClass 
+  	on TB_EM_EquipmentClass.id=TB_EM_EquipmentCard.equipmentclassid
+  	where TB_EM_EquipmentCard.id = #{equipmentid} 
+  </select>
+  <sql id="Base_Column_List" >
+    id, equipmentid, workstationid, taskid, processrealdetailid, insuser, insdt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_work_task_equipment
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_work_task_equipment
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.work.WorkTaskEquipment" >
+    insert into tb_work_task_equipment (id, equipmentid, workstationid, 
+      taskid, processrealdetailid, insuser, insdt
+      )
+    values (#{id,jdbcType=VARCHAR}, #{equipmentid,jdbcType=VARCHAR}, #{workstationid,jdbcType=VARCHAR}, 
+      #{taskid,jdbcType=VARCHAR}, #{processrealdetailid,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.WorkTaskEquipment" >
+    update tb_work_task_equipment
+    <set >
+      <if test="equipmentid != null" >
+        equipmentid = #{equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null" >
+        workstationid = #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        taskid = #{taskid,jdbcType=VARCHAR},
+      </if>
+       <if test="processrealdetailid != null" >
+        processrealdetailid = #{processrealdetailid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_work_task_equipment
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_work_task_equipment
+    ${where}
+  </delete>
+  <update id="executeSql" parameterType="com.sipai.entity.work.WorkTaskEquipment">
+    ${sql}
+  </update>
+</mapper>

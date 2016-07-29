@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.RoleMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.user.RoleMenu" >
+    <result column="roleID" property="roleid" jdbcType="VARCHAR" />
+    <result column="menuID" property="menuid" jdbcType="VARCHAR" />
+    
+    <association column="menuID" property="menu" jdbcType="VARCHAR" select="selectMenu"/>
+  </resultMap>
+  <select id="selectMenu" parameterType="String" resultType="com.sipai.entity.user.Menu">  
+  	select * from tb_menuitem where id = #{menuID} 
+  </select>
+  
+  <insert id="insert" parameterType="com.sipai.entity.user.RoleMenu" >
+    insert into tb_role_menu (roleID, menuID)
+    values (#{roleid,jdbcType=VARCHAR}, #{menuid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.user.RoleMenu" >
+    insert into tb_role_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        roleID,
+      </if>
+      <if test="menuid != null" >
+        menuID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleid != null" >
+        #{roleid,jdbcType=VARCHAR},
+      </if>
+      <if test="menuid != null" >
+        #{menuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectListByRole" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select * from tb_role_menu where roleId = #{roleid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectMenuListByRole" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select tb_role_menu.* from tb_role_menu 
+  	left join tb_menuitem on tb_role_menu.menuid= tb_menuitem.id 
+  	where roleId = #{roleid,jdbcType=VARCHAR} and tb_menuitem.type='menu'
+  </select>
+  <select id="selectFuncListByRole" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select tb_role_menu.* from tb_role_menu 
+  	left join tb_menuitem on tb_role_menu.menuid= tb_menuitem.id 
+  	where roleId = #{roleid,jdbcType=VARCHAR} and tb_menuitem.type='func'
+  </select>
+  <delete id="deleteByRole" parameterType="java.lang.String" >
+    delete from tb_role_menu 
+    where roleID = #{roleid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteMenuByRole" parameterType="java.lang.String" >
+    delete tb_role_menu from tb_role_menu 
+    left join tb_menuitem on tb_role_menu.menuid= tb_menuitem.id 
+    where roleID = #{roleid,jdbcType=VARCHAR} and tb_menuitem.type='menu'
+  </delete>
+  <delete id="deleteFuncByRole" parameterType="java.lang.String" >
+    delete tb_role_menu from tb_role_menu 
+    left join tb_menuitem on tb_role_menu.menuid= tb_menuitem.id 
+    where roleID = #{roleid,jdbcType=VARCHAR} and tb_menuitem.type='func'
+  </delete>
+  <delete id="deleteFuncByRoleMenu" parameterType="java.util.Map" >
+    delete tb_role_menu from tb_role_menu 
+    left join tb_menuitem on tb_role_menu.menuid= tb_menuitem.id 
+    where roleID = #{roleid1} and tb_menuitem.pid= #{menuid1} and tb_menuitem.type='func'
+  </delete>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_role_menu 
+    ${where}
+  </delete>
+</mapper>

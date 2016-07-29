@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="work.WorkstationTypeMapper">
+	<resultMap id="BaseResultMap" type="com.sipai.entity.work.WorkstationType">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="serial" property="serial" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="intro" property="intro" jdbcType="VARCHAR" />
+		<result column="insuser" property="insuser" jdbcType="VARCHAR" />
+		<result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, serial, name, intro, insuser, insdt
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_work_workstation_type
+		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="getListBySerial" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	    select 
+	    <include refid="Base_Column_List" />
+	    from tb_work_workstation_type
+	    where serial = #{serial,jdbcType=VARCHAR}
+  	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from tb_work_workstation_type
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.sipai.entity.work.WorkstationType">
+		insert into tb_work_workstation_type (id, serial, name, intro,
+		insuser, insdt)
+		values (#{id,jdbcType=VARCHAR}, #{serial,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR},
+		#{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.sipai.entity.work.WorkstationType">
+		insert into tb_work_workstation_type
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="serial != null">
+				serial,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="intro != null">
+				intro,
+			</if>
+			<if test="insuser != null">
+				insuser,
+			</if>
+			<if test="insdt != null">
+				insdt,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="serial != null">
+				#{serial,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="intro != null">
+				#{intro,jdbcType=VARCHAR},
+			</if>
+			<if test="insuser != null">
+				#{insuser,jdbcType=VARCHAR},
+			</if>
+			<if test="insdt != null">
+				#{insdt,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.WorkstationType">
+		update tb_work_workstation_type
+		<set>
+			<if test="serial != null">
+				serial = #{serial,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="intro != null">
+				intro = #{intro,jdbcType=VARCHAR},
+			</if>
+			<if test="insuser != null">
+				insuser = #{insuser,jdbcType=VARCHAR},
+			</if>
+			<if test="insdt != null">
+				insdt = #{insdt,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.sipai.entity.work.WorkstationType">
+		update tb_work_workstation_type
+		set serial = #{serial,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		intro = #{intro,jdbcType=VARCHAR},
+		insuser = #{insuser,jdbcType=VARCHAR},
+		insdt = #{insdt,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectListByWhere" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_work_workstation_type
+		${where}
+	</select>
+	<delete id="deleteByWhere" parameterType="java.lang.String">
+		delete from
+		tb_work_workstation_type
+		${where}
+	</delete>
+</mapper>

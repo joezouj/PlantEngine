@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="msg.MsgMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.msg.Msg" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="suserid" property="suserid" jdbcType="VARCHAR" />
+    <result column="sdt" property="sdt" jdbcType="TIMESTAMP" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="readflag" property="readflag" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="backid" property="backid" jdbcType="VARCHAR" />
+    <result column="typeid" property="typeid" jdbcType="VARCHAR" />
+    <result column="plansdt" property="plansdt" jdbcType="VARCHAR" />
+    <result column="plansdate" property="plansdate" jdbcType="TIMESTAMP" />
+    <result column="sendflag" property="sendflag" jdbcType="VARCHAR" />
+    <result column="delflag" property="delflag" jdbcType="VARCHAR" />
+    <result column="alerturl" property="alerturl" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="bizid" property="bizid" jdbcType="VARCHAR" />
+    <result column="issms" property="issms" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pid, suserid, sdt, url, readflag, content, backid, typeid, plansdt, plansdate, 
+    sendflag, delflag, alerturl, insuser, insdt, bizid,issms
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_MESSAGE
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_MESSAGE
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.msg.Msg" >
+    insert into TB_MESSAGE (id, pid, suserid, 
+      sdt, url, readflag, 
+      content, backid, typeid, 
+      plansdt, plansdate, sendflag, 
+      delflag, alerturl, insuser, 
+      insdt, bizid,issms)
+    values (#{id,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{suserid,jdbcType=VARCHAR}, 
+      #{sdt,jdbcType=TIMESTAMP}, #{url,jdbcType=VARCHAR}, #{readflag,jdbcType=VARCHAR}, 
+      #{content,jdbcType=VARCHAR}, #{backid,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}, 
+      #{plansdt,jdbcType=VARCHAR}, #{plansdate,jdbcType=TIMESTAMP}, #{sendflag,jdbcType=VARCHAR}, 
+      #{delflag,jdbcType=VARCHAR}, #{alerturl,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, 
+      #{insdt,jdbcType=TIMESTAMP}, #{bizid,jdbcType=VARCHAR}, #{issms,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.msg.Msg" >
+    insert into TB_MESSAGE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="suserid != null" >
+        suserid,
+      </if>
+      <if test="sdt != null" >
+        sdt,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="readflag != null" >
+        readflag,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="backid != null" >
+        backid,
+      </if>
+      <if test="typeid != null" >
+        typeid,
+      </if>
+      <if test="plansdt != null" >
+        plansdt,
+      </if>
+      <if test="plansdate != null" >
+        plansdate,
+      </if>
+      <if test="sendflag != null" >
+        sendflag,
+      </if>
+      <if test="delflag != null" >
+        delflag,
+      </if>
+      <if test="alerturl != null" >
+        alerturl,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="bizid != null" >
+        bizid,
+      </if>      
+      <if test="issms != null" >
+        issms,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="suserid != null" >
+        #{suserid,jdbcType=VARCHAR},
+      </if>
+      <if test="sdt != null" >
+        #{sdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="readflag != null" >
+        #{readflag,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="backid != null" >
+        #{backid,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="plansdt != null" >
+        #{plansdt,jdbcType=VARCHAR},
+      </if>
+      <if test="plansdate != null" >
+        #{plansdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendflag != null" >
+        #{sendflag,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null" >
+        #{delflag,jdbcType=VARCHAR},
+      </if>
+      <if test="alerturl != null" >
+        #{alerturl,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bizid != null" >
+        #{bizid,jdbcType=VARCHAR},
+      </if>
+      <if test="issms != null" >
+        #{issms,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.msg.Msg" >
+    update TB_MESSAGE
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="suserid != null" >
+        suserid = #{suserid,jdbcType=VARCHAR},
+      </if>
+      <if test="sdt != null" >
+        sdt = #{sdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="readflag != null" >
+        readflag = #{readflag,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="backid != null" >
+        backid = #{backid,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        typeid = #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="plansdt != null" >
+        plansdt = #{plansdt,jdbcType=VARCHAR},
+      </if>
+      <if test="plansdate != null" >
+        plansdate = #{plansdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendflag != null" >
+        sendflag = #{sendflag,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null" >
+        delflag = #{delflag,jdbcType=VARCHAR},
+      </if>
+      <if test="alerturl != null" >
+        alerturl = #{alerturl,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bizid != null" >
+        bizid = #{bizid,jdbcType=VARCHAR},
+      </if>
+      <if test="issms != null" >
+        issms = #{issms,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.msg.Msg" >
+    update TB_MESSAGE
+    set pid = #{pid,jdbcType=VARCHAR},
+      suserid = #{suserid,jdbcType=VARCHAR},
+      sdt = #{sdt,jdbcType=TIMESTAMP},
+      url = #{url,jdbcType=VARCHAR},
+      readflag = #{readflag,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      backid = #{backid,jdbcType=VARCHAR},
+      typeid = #{typeid,jdbcType=VARCHAR},
+      plansdt = #{plansdt,jdbcType=VARCHAR},
+      plansdate = #{plansdate,jdbcType=TIMESTAMP},
+      sendflag = #{sendflag,jdbcType=VARCHAR},
+      delflag = #{delflag,jdbcType=VARCHAR},
+      alerturl = #{alerturl,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      bizid = #{bizid,jdbcType=VARCHAR},
+      issms = #{issms,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_MESSAGE
+    ${where}
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select 
+    <include refid="Base_Column_List" />
+    from TB_MESSAGE
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from TB_MESSAGE
+    ${where}
+  </delete>
+
+
+<select id="getMsgsendlist" resultMap="ClassResultMapsendlist" parameterType="java.lang.String"> 
+  SELECT  
+  T.id					as t_id,
+  T.name 				as t_typename,
+  U.id					as u_id,  
+  U.caption        		AS u_username,
+  M.id					as m_id,  
+  M.url         		as m_url,  
+  M.suserid 			AS m_suserid,
+  M.sdt 				AS m_sdt,
+  M.content				AS m_content,
+  M.typeid 				AS m_typeid,
+  M.insdt 				AS m_insdt,
+  M.issms 				AS m_issms,
+  M.pid					AS m_pid
+  FROM TB_MESSAGE M    
+  LEFT OUTER JOIN  TB_User U ON M.suserid = U.id 
+  LEFT OUTER JOIN TB_MESSAGE_TYPE T ON M.typeid = T.id 
+  ${where}
+</select>
+ <select id="getMsgsend" resultMap="ClassResultMaprecv" parameterType="java.lang.String"> 
+  SELECT  
+  T.id					as t_id,
+  T.name 				as t_typename,
+  U.id					as u_id,  
+  U.caption        		AS u_username,
+  M.id					as m_id,  
+  M.url         		as m_url,  
+  M.suserid 			AS m_suserid,
+  M.sdt 				AS m_sdt,
+  M.content				AS m_content,
+  M.typeid 				AS m_typeid,
+  M.insdt 				AS m_insdt,
+  M.issms 				AS m_issms,
+  M.pid					AS m_pid
+  FROM TB_MESSAGE M 
+  LEFT OUTER JOIN  TB_User U ON M.suserid = U.id 
+  LEFT OUTER JOIN TB_MESSAGE_TYPE T ON M.typeid = T.id 
+  ${where}
+</select>
+  <select id="getMsgrecv" resultMap="ClassResultMaprecv" parameterType="java.lang.String"> 
+  SELECT  
+  T.id					as t_id,
+  T.name 				as t_typename,
+  V.id					as v_id,  
+  V.status 				AS v_status,
+  V.masterid 			AS v_masterid, 
+  V.delflag 			as v_delflag,
+  V.unitid,
+  V.readtime,
+  U.id					as u_id,  
+  U.caption        		AS u_username,
+  M.id					as m_id,  
+  M.url         		as m_url,  
+  M.suserid 			AS m_suserid,
+  M.sdt 				AS m_sdt,
+  M.content				AS m_content,
+  M.typeid 				AS m_typeid,
+  M.insdt 				AS m_insdt,
+  M.issms 				AS m_issms,
+  M.pid					AS m_pid
+  FROM TB_MESSAGE M 
+  LEFT OUTER JOIN TB_MESSAGE_RECV V ON M.id = V.masterid 
+  LEFT OUTER JOIN  TB_User U ON M.suserid = U.id 
+  LEFT OUTER JOIN TB_MESSAGE_TYPE T ON M.typeid = T.id 
+  ${where}
+</select>
+  <select id="getMsgrecvTop1" resultMap="ClassResultMaprecv" parameterType="java.lang.String"> 
+  SELECT  Top 1
+  T.id					as t_id,
+  T.name 				as t_typename,
+  V.id					as v_id,  
+  V.status 				AS v_status,
+  V.masterid 			AS v_masterid, 
+  V.delflag 			as v_delflag,
+  V.unitid,
+  V.readtime,
+  U.id					as u_id,  
+  U.caption        		AS u_username,
+  U.name				as u_name,
+  M.id					as m_id,  
+  M.url         		as m_url,  
+  M.suserid 			AS m_suserid,
+  M.sdt 				AS m_sdt,
+  M.content				AS m_content,
+  M.typeid 				AS m_typeid,
+  M.issms 				AS m_issms,
+  M.pid					AS m_pid
+  FROM TB_MESSAGE M 
+  LEFT OUTER JOIN TB_MESSAGE_RECV V ON M.id = V.masterid 
+  LEFT OUTER JOIN  TB_User U ON M.suserid = U.id 
+  LEFT OUTER JOIN TB_MESSAGE_TYPE T ON M.typeid = T.id 
+  ${where}
+</select> 
+<resultMap id="ClassResultMapsendlist" type="com.sipai.entity.msg.Msg">
+  <id property="id" column="m_id" />
+  <result property="url" column="m_url"/>
+  <result property="suserid" column="m_suserid"/>
+  <result property="sdt" column="m_sdt"/>
+  <result property="content" column="m_content"/>
+  <result property="typeid" column="m_typeid"/>
+  <result property="insdt" column="m_insdt"/>
+  <result property="issms" column="m_issms"/>
+  <result property="pid" column="m_pid"/>
+  <association property="susername" resultMap="userResult" />
+  <association property="typename" resultMap="typeResult" />  
+</resultMap> 
+<resultMap id="ClassResultMaprecv" type="com.sipai.entity.msg.Msg">
+  <id property="id" column="m_id" />
+  <result property="url" column="m_url"/>
+  <result property="suserid" column="m_suserid"/>
+  <result property="sdt" column="m_sdt"/>
+  <result property="content" column="m_content"/>
+  <result property="typeid" column="m_typeid"/>
+  <result property="insdt" column="m_insdt"/>
+  <result property="issms" column="m_issms"/>
+  <result property="pid" column="m_pid"/>
+  <association property="susername" resultMap="userResult" />
+  <association property="typename" resultMap="typeResult" />
+  <collection property="mrecv" ofType="com.sipai.entity.msg.MsgRecv" >
+	<id property="id" column="v_id"/>
+	<result property="status" column="v_status"/>
+	<result property="masterid" column="v_masterid"/>
+	<result property="delflag" column="v_delflag"/>
+	<result property="unitid" column="unitid"/>
+	<result property="readtime" column="readtime"/>
+  </collection>
+</resultMap> 
+
+<resultMap id="userResult" type="com.sipai.entity.user.User">
+  <id property="id" column="u_id"/>
+  <result property="caption" column="u_username"/>
+  <result property="name" column="u_name"/>
+</resultMap>
+<resultMap id="typeResult" type="com.sipai.entity.msg.MsgType">
+  <id property="id" column="t_id"/>
+  <result property="name" column="t_typename"/>
+</resultMap>
+<update id="updateBySetAndWhere" parameterType="com.sipai.entity.msg.Msg" >
+    update TB_MESSAGE
+    ${where}
+</update>
+</mapper>

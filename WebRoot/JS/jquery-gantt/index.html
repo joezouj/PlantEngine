@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>jQuery.Gantt</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1">
+        <link href="css/style.css" type="text/css" rel="stylesheet">
+    </head>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/jquery.fn.gantt.js"></script>
+
+    <body>
+		<div style="width:800px;margin: 0 auto;">
+			<div class="gantt"></div>	
+		</div>
+
+
+  <script>
+		$(function() {
+
+			"use strict";
+			
+			var tgManagerBeginTime = (new Date("2013/12/19")).getTime(); 
+			var tgManagerEndTime = (new Date("2013/12/24")).getTime(); 
+
+			var tgListBeginTime = (new Date("2013/12/23")).getTime(); 
+			var tgListEndTime = (new Date("2013/12/23")).getTime(); 
+
+			var tgEditBeginTime = (new Date("2013/12/22")).getTime(); 
+			var tgEditEndTime = (new Date("2013/12/22")).getTime(); 
+
+			var tgCreateBeginTime = (new Date("2013/12/21")).getTime(); 
+			var tgCreateEndTime = (new Date("2013/12/21")).getTime(); 
+
+			var tgViewBeginTime = (new Date("2013/12/24")).getTime(); 
+			var tgViewEndTime = (new Date("2013/12/24")).getTime(); 
+
+			var tgViewBeginTime = (new Date("2013/12/24")).getTime(); 
+			var tgViewEndTime = (new Date("2013/12/24")).getTime(); 
+
+			var taskCreateBeginTime = (new Date("2013/12/25")).getTime(); 
+			var taskCreateEndTime = (new Date("2014/01/01")).getTime(); 
+
+			var taskEditBeginTime = (new Date("2014/01/01")).getTime(); 
+			var taskEditEndTime = (new Date("2014/03/01")).getTime(); 
+
+			$(".gantt").gantt({
+				source: [{
+					name: "TG管理",
+					desc: "TG列表",
+					values: [{
+						from: tgListBeginTime,
+						to: tgListEndTime,
+						label: "andy",
+						customClass: "ganttRed"
+					}]
+				},{
+					name: " ",
+					desc: "TG创建",
+					values: [{
+						from: tgCreateBeginTime,
+						to: tgCreateEndTime,
+						label: "andy",
+						customClass: "ganttRed"
+					}]
+				},{
+					name: " ",
+					desc: "TG编辑",
+					values: [{
+						from: tgEditBeginTime,
+						to: tgEditEndTime,									label: "andy",
+						customClass: "ganttRed"
+					}]
+				},{
+					name: "",
+					desc: "TG查看",
+					values: [{
+						from: tgViewBeginTime,
+						to: tgViewEndTime,
+						label: "andy",
+						customClass: "ganttGreen"
+					}]
+				},{
+					name: "任务管理",
+					desc: "任务创建",
+					values: [{
+						from: taskCreateBeginTime,
+						to: taskCreateEndTime,								label: "andy",
+						customClass: "ganttRed"
+					}]
+				},{
+					name: "",
+					desc: "任务编辑",
+					values: [{
+						from: taskEditBeginTime,
+						to: taskEditBeginTime,
+						label: "andy",
+						customClass: "ganttGreen"
+					}]
+				}],
+				navigate: "scroll",
+				maxScale: "hours",
+				itemsPerPage: 10,
+				onItemClick: function(data) {
+					alert("Item clicked - show some details");
+				},
+				onAddClick: function(dt, rowId) {
+					alert("Empty space clicked - add an item!");
+				},
+				onRender: function() {
+					if (window.console && typeof console.log === "function") {
+						console.log("chart rendered");
+					}
+				}
+			});
+
+			$(".gantt").popover({
+				selector: ".bar",
+				title: "I'm a popover",
+				content: "And I'm the content of said popover.",
+				trigger: "hover"
+			});
+
+			prettyPrint();
+
+		});
+  </script>
+
+    </body>
+</html>

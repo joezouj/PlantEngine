@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="process.TaskWorkstationMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.process.TaskWorkstation" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="processid" property="processid" jdbcType="VARCHAR" />
+    <result column="taskname" property="taskname" jdbcType="VARCHAR" />
+    <result column="workstationid" property="workstationid" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="modify" property="modify" jdbcType="VARCHAR" />
+    <result column="modifydt" property="modifydt" jdbcType="TIMESTAMP" />
+    <association column="workstationid" property="workStation" jdbcType="VARCHAR" select="selectWorkstation"/>
+  </resultMap>
+  <select id="selectWorkstation" parameterType="String" resultType="com.sipai.entity.work.Workstation">  
+  	select tb_work_workstation.* ,tb_work_workstation_type.name as typename ,tb_dept.name as deptname
+  	from tb_work_workstation 
+  	left join tb_dept on tb_work_workstation.deptid = tb_dept.id
+  	left join tb_work_workstation_type on tb_work_workstation_type.id = tb_work_workstation.typeid
+  	where tb_work_workstation.id = #{workstationid} 
+  </select>
+  <sql id="Base_Column_List" >
+    id, processid, taskname, workstationid, status, memo, insuser, insdt, modify, modifydt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_task_workstation
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_process_task_workstation
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.process.TaskWorkstation" >
+    insert into tb_process_task_workstation (id, processid, taskname, 
+      workstationid, status, memo, 
+      insuser, insdt, modify, 
+      modifydt)
+    values (#{id,jdbcType=VARCHAR}, #{processid,jdbcType=VARCHAR}, #{taskname,jdbcType=VARCHAR}, 
+      #{workstationid,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, 
+      #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, #{modify,jdbcType=VARCHAR}, 
+      #{modifydt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.process.TaskWorkstation" >
+    insert into tb_process_task_workstation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="processid != null" >
+        processid,
+      </if>
+      <if test="taskname != null" >
+        taskname,
+      </if>
+      <if test="workstationid != null" >
+        workstationid,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="memo != null" >
+        memo,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="modify != null" >
+        modify,
+      </if>
+      <if test="modifydt != null" >
+        modifydt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="processid != null" >
+        #{processid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskname != null" >
+        #{taskname,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null" >
+        #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.process.TaskWorkstation" >
+    update tb_process_task_workstation
+    <set >
+      <if test="processid != null" >
+        processid = #{processid,jdbcType=VARCHAR},
+      </if>
+      <if test="taskname != null" >
+        taskname = #{taskname,jdbcType=VARCHAR},
+      </if>
+      <if test="workstationid != null" >
+        workstationid = #{workstationid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modify != null" >
+        modify = #{modify,jdbcType=VARCHAR},
+      </if>
+      <if test="modifydt != null" >
+        modifydt = #{modifydt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.process.TaskWorkstation" >
+    update tb_process_task_workstation
+    set processid = #{processid,jdbcType=VARCHAR},
+      taskname = #{taskname,jdbcType=VARCHAR},
+      workstationid = #{workstationid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      modify = #{modify,jdbcType=VARCHAR},
+      modifydt = #{modifydt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_process_task_workstation
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from tb_process_task_workstation
+    ${where}
+  </delete>
+  
+  <select id="selectListByWhere1" parameterType="String" resultMap="BaseResultMap">  
+  	SELECT tb_process_task_workstation.*,tb_dept.name as deptname,tb_work_workstation_type.name as typename,
+  	tb_work_workstation.serial,tb_work_workstation.name
+  	FROM tb_process_task_workstation
+  	left join tb_work_workstation on tb_work_workstation.id = tb_process_task_workstation.workstationid
+  	left join tb_work_workstation_type on tb_work_workstation.typeid = tb_work_workstation_type.id
+  	left join tb_dept on tb_work_workstation.deptid = tb_dept.id
+  	left join tb_process_real on tb_process_real.processid=tb_process_task_workstation.processid
+  	left join tb_process_real_details on tb_process_real_details.pid=tb_process_real.id
+  	${where}
+  </select>
+</mapper>

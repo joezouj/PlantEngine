@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="plan.DailyPlanMapper">
+  <resultMap id="BaseResultMap" type="com.sipai.entity.plan.DailyPlan">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="stdt" jdbcType="TIMESTAMP" property="stdt" />
+    <result column="eddt" jdbcType="TIMESTAMP" property="eddt" />
+    <result column="productNo" jdbcType="VARCHAR" property="productno" />
+    <result column="productName" jdbcType="VARCHAR" property="productname" />
+    <result column="lineid" jdbcType="VARCHAR" property="lineid" />
+    <result column="bomid" jdbcType="VARCHAR" property="bomid" />
+    <result column="dwgid" jdbcType="VARCHAR" property="dwgid" />
+    <result column="insuser" jdbcType="VARCHAR" property="insuser" />
+    <result column="insdt" jdbcType="TIMESTAMP" property="insdt" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="salesOrderID" jdbcType="VARCHAR" property="salesorderid" />
+    <result column="productionOrderNo" jdbcType="VARCHAR" property="productionorderno" />
+    <result column="productQuantity" jdbcType="VARCHAR" property="productquantity" />
+    <result column="finishedQuantity" jdbcType="VARCHAR" property="finishedquantity" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="delflag" jdbcType="VARCHAR" property="delflag" />
+    <result column="taskchangedstatus" jdbcType="VARCHAR" property="taskchangedstatus" />
+    <result column="processrealid" property="processrealid" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="porder" property="porder" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, stdt, eddt, productNo, productName, lineid, bomid, dwgid, insuser, insdt, remark, 
+    type, salesOrderID, productionOrderNo, productQuantity, finishedQuantity,status,delflag,taskchangedstatus,processrealid,pid,porder
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_plan_day
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_plan_day
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.plan.DailyPlan">
+    insert into tb_plan_day (id, stdt, eddt, 
+      productNo, productName, lineid, 
+      bomid, dwgid, insuser, 
+      insdt, remark, type, 
+      salesOrderID, productionOrderNo, productQuantity, 
+      finishedQuantity,status,delflag,taskchangedstatus,processrealid,pid,porder)
+    values (#{id,jdbcType=VARCHAR}, #{stdt,jdbcType=TIMESTAMP}, #{eddt,jdbcType=TIMESTAMP}, 
+      #{productno,jdbcType=VARCHAR}, #{productname,jdbcType=VARCHAR}, #{lineid,jdbcType=VARCHAR}, 
+      #{bomid,jdbcType=VARCHAR}, #{dwgid,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, 
+      #{insdt,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{salesorderid,jdbcType=VARCHAR}, #{productionorderno,jdbcType=VARCHAR}, #{productquantity,jdbcType=VARCHAR}, 
+      #{finishedquantity,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR},#{delflag,jdbcType=VARCHAR},#{taskchangedstatus,jdbcType=VARCHAR},
+      #{processrealid,jdbcType=VARCHAR},#{pid,jdbcType=VARCHAR},#{porder,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.plan.DailyPlan">
+    update tb_plan_day
+    <set>
+      <if test="stdt != null">
+        stdt = #{stdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eddt != null">
+        eddt = #{eddt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="productno != null">
+        productNo = #{productno,jdbcType=VARCHAR},
+      </if>
+      <if test="productname != null">
+        productName = #{productname,jdbcType=VARCHAR},
+      </if>
+      <if test="lineid != null">
+        lineid = #{lineid,jdbcType=VARCHAR},
+      </if>
+      <if test="bomid != null">
+        bomid = #{bomid,jdbcType=VARCHAR},
+      </if>
+      <if test="dwgid != null">
+        dwgid = #{dwgid,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null">
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null">
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="salesorderid != null">
+        salesOrderID = #{salesorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="productionorderno != null">
+        productionOrderNo = #{productionorderno,jdbcType=VARCHAR},
+      </if>
+      <if test="productquantity != null">
+        productQuantity = #{productquantity,jdbcType=VARCHAR},
+      </if>
+      <if test="finishedquantity != null">
+        finishedQuantity = #{finishedquantity,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        delflag = #{delflag,jdbcType=VARCHAR},
+      </if>
+      <if test="taskchangedstatus != null">
+        taskchangedstatus = #{taskchangedstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="processrealid != null">
+        processrealid = #{processrealid,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="porder != null">
+        porder = #{porder,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_plan_day
+    ${where}
+  </select>
+  <select id="selectByWhere" parameterType="java.lang.String" resultMap="BaseResultMap">
+     select 
+    <include refid="Base_Column_List" />
+    from tb_plan_day
+    ${where}
+  </select>
+  <select id="selectValueBySql" parameterType="java.lang.String" resultMap="BaseResultMap">
+    ${sql}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String">
+    delete from tb_plan_day
+    ${where}
+  </delete>
+  <select id="getDailyPlanlist" resultMap="ClassResultMapDailyPlanlist" parameterType="java.lang.String"> 
+  SELECT 
+  P.id                  as p_id, 
+  P.stdt,
+  P.eddt,
+  P.productNo,
+  P.productName,
+  P.lineid,
+  P.bomid,
+  P.dwgid,
+  P.insuser             as p_insuser,
+  P.insdt               as p_insdt,
+  P.remark              as p_remark,
+  P.type                as p_type,
+  P.salesOrderID        as p_salesOrderID,
+  P.productionOrderNo,
+  P.productQuantity,
+  P.finishedQuantity,
+  P.status              as p_status,
+  P.delflag             as p_delflag,
+  P.taskchangedstatus,
+  P.processrealid,
+  P.pid				as p_pid,
+  P.porder				as p_porder,
+  S.id                  as s_id,
+  S.insuser             as s_insuser,
+  S.insdt               as s_insdt,
+  S.SalesOrderNo,
+  S.productid,
+  S.productNum,
+  s.OrderCreateDate,
+  S.OrderFinishDate, 
+  I.id                  as i_id,
+  I.materialname,
+  R.name                as r_name
+  FROM tb_plan_day P
+  LEFT OUTER JOIN TB_material_SalesOrderProduct S ON S.id = P.salesOrderID
+  LEFT OUTER JOIN tb_material_info I ON I.id = S.productid 
+  LEFT OUTER JOIN tb_process_real R ON R.id = P.processrealid 
+  ${where}
+</select>
+<resultMap id="ClassResultMapDailyPlanlist" type="com.sipai.entity.plan.DailyPlan">
+  <id property="id" column="p_id" />
+  <result property="stdt" column="stdt"/>
+  <result property="eddt" column="eddt"/>
+  <result property="productno" column="productNo"/>
+  <result property="productname" column="productName"/>
+  <result property="lineid" column="lineid"/>
+  <result property="bomid" column="bomid"/>
+  <result property="dwgid" column="dwgid"/>
+  <result property="insuser" column="p_insuser"/>
+  <result property="insdt" column="p_insdt"/>
+  <result property="remark" column="p_remark"/>
+  <result property="type" column="p_type"/>
+  <result property="salesorderid" column="p_salesOrderID"/>
+  <result property="productionorderno" column="productionOrderNo"/>
+  <result property="productquantity" column="productQuantity"/>
+  <result property="finishedquantity" column="finishedQuantity"/>
+  <result property="status" column="p_status"/>
+  <result property="delflag" column="p_delflag"/>
+  <result property="taskchangedstatus" column="taskchangedstatus"/>
+  <result property="processrealid" column="processrealid"/>
+  <result property="pid" column="p_pid"/>
+  <result property="porder" column="p_porder"/>
+  <result property="processrealname" column="r_name"/>
+  
+  <association property="salesorderproduct" resultMap="sopResult" />
+  <association property="product" javaType="com.sipai.entity.material.MaterialInfo" >
+  	<id property="id" column="i_id"/>
+	<result property="materialname" column="materialname"/>
+  </association>
+</resultMap>
+  <select id="getDailyPlan" resultMap="ClassResultMapDailyPlan" parameterType="java.lang.String"> 
+  SELECT 
+  P.id                  as p_id, 
+  P.stdt,
+  P.eddt,
+  P.productNo,
+  P.productName,
+  P.lineid,
+  P.bomid,
+  P.dwgid,
+  P.insuser             as p_insuser,
+  P.insdt               as p_insdt,
+  P.remark              as p_remark,
+  P.type                as p_type,
+  P.salesOrderID        as p_salesOrderID,
+  P.productionOrderNo,
+  P.productQuantity,
+  P.finishedQuantity,
+  P.status              as p_status,
+  P.delflag             as p_delflag,
+  P.taskchangedstatus,
+  P.processrealid,
+  P.pid				as p_pid,
+  P.porder			as p_porder,
+  S.id                  as s_id,
+  S.insuser             as s_insuser,
+  S.insdt               as s_insdt,
+  S.SalesOrderNo,
+  S.productid,
+  S.productNum,
+  s.OrderCreateDate,
+  S.OrderFinishDate,
+  D.id                  as d_id,
+  D.ProductUId,
+  D.productionorderno   as d_productionorderno,
+  D.workorderid   as d_workorderid,
+  I.id                  as i_id,
+  I.materialname,
+  R.name                as r_name
+  FROM tb_plan_day P
+  LEFT OUTER JOIN TB_material_SalesOrderProduct S ON S.id = P.salesOrderID
+  LEFT OUTER JOIN tb_material_info I ON I.id = S.productid 
+  LEFT OUTER JOIN TB_material_OrderProductDetail_connect C ON C.planid =P.id
+  LEFT OUTER JOIN TB_material_OrderProductDetail D ON D.id = C.productdetailid
+  LEFT OUTER JOIN tb_process_real R ON R.id = P.processrealid 
+  ${where}
+</select>
+ <select id="selectLine" parameterType="String" resultType="com.sipai.entity.work.Line">  
+  	select tb_work_line.* from tb_work_line 
+  	where tb_work_line.id = #{lineid}
+ </select>
+<resultMap id="ClassResultMapDailyPlan" type="com.sipai.entity.plan.DailyPlan">
+  <id property="id" column="p_id" />
+  <result property="stdt" column="stdt"/>
+  <result property="eddt" column="eddt"/>
+  <result property="productno" column="productNo"/>
+  <result property="productname" column="productName"/>
+  <result property="lineid" column="lineid"/>
+  <result property="bomid" column="bomid"/>
+  <result property="dwgid" column="dwgid"/>
+  <result property="insuser" column="p_insuser"/>
+  <result property="insdt" column="p_insdt"/>
+  <result property="remark" column="p_remark"/>
+  <result property="type" column="p_type"/>
+  <result property="salesorderid" column="p_salesOrderID"/>
+  <result property="productionorderno" column="productionOrderNo"/>
+  <result property="productquantity" column="productQuantity"/>
+  <result property="finishedquantity" column="finishedQuantity"/>
+  <result property="status" column="p_status"/>
+  <result property="delflag" column="p_delflag"/>
+  <result property="taskchangedstatus" column="taskchangedstatus"/>
+  <result property="processrealid" column="processrealid"/>
+  <result property="pid" column="p_pid"/>
+  <result property="porder" column="p_porder"/>
+  <result property="processrealname" column="r_name"/>
+  <association property="salesorderproduct" resultMap="sopResult" />
+  <association property="product" javaType="com.sipai.entity.material.MaterialInfo" >
+  	<id property="id" column="i_id"/>
+	<result property="materialname" column="materialname"/>
+  </association>
+  <association column="lineid" property="line" jdbcType="VARCHAR" select="selectLine"/>
+  <collection property="orderproductdetail" ofType="com.sipai.entity.material.OrderProductDetail" >
+	<id property="id" column="d_id"/>
+	<result property="productuid" column="ProductUId"/>
+	<result property="productionorderno" column="d_productionorderno"/>
+	<result property="workorderid" column="d_workorderid"/>
+  </collection>
+</resultMap> 
+<resultMap id="sopResult" type="com.sipai.entity.material.SalesOrderProduct">
+  <id column="s_id" property="id" />
+    <result column="s_insuser" property="insuser"  />
+    <result column="s_insdt" property="insdt"  />
+    <result column="SalesOrderNo" property="salesorderno"  />
+    <result column="productid" property="productid" />
+    <result column="productNum" property="productnum"  />
+    <result column="OrderCreateDate" property="ordercreatedate"  />
+    <result column="OrderFinishDate" property="orderfinishdate"  />
+</resultMap>
+<update id="updateBySetAndWhere" parameterType="com.sipai.entity.plan.DailyPlan" >
+    update tb_plan_day
+    ${where}
+</update>
+  <select id="getSOPByPlan" resultMap="ResultMapSOPByPlan" parameterType="java.lang.String"> 
+  SELECT 
+  S.id                  as s_id,
+  S.insuser             as s_insuser,
+  S.insdt               as s_insdt,
+  S.SalesOrderNo,
+  S.productid,
+  S.productNum,
+  s.OrderCreateDate,
+  S.OrderFinishDate,
+
+  I.id                  as i_id,
+  I.materialname
+  FROM TB_material_SalesOrderProduct S
+  LEFT OUTER JOIN tb_material_info I ON I.id = S.productid  
+  ${where}
+</select>
+<resultMap id="ResultMapSOPByPlan" type="com.sipai.entity.material.SalesOrderProduct">
+  <id property="id" column="s_id" />  
+  <result property="insuser" column="s_insuser"/>
+  <result property="insdt" column="s_insdt"/>
+  <result property="salesorderno" column="SalesOrderNo"/>
+  <result property="productid" column="productid"/>
+  <result property="productnum" column="productNum"/>
+  <result property="ordercreatedate" column="OrderCreateDate"/>
+  <result property="orderfinishdate" column="OrderFinishDate"/>  
+  <association property="product" javaType="com.sipai.entity.material.MaterialInfo" >
+  	<id property="id" column="i_id"/>
+	<result property="materialname" column="materialname"/>
+  </association>
+ 
+</resultMap> 
+</mapper>

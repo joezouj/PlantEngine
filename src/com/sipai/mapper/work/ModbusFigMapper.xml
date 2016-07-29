@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="work.ModbusFigMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.work.ModbusFig" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="ipsever" property="ipsever" jdbcType="VARCHAR" />
+    <result column="port" property="port" jdbcType="VARCHAR" />
+    <result column="slaveid" property="slaveid" jdbcType="VARCHAR" />
+    <result column="order32" property="order32" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ipsever, port, slaveid, order32, name, remarks, flag, insuser, insdt
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_work_modbusfig
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_work_modbusfig
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.work.ModbusFig" >
+    insert into tb_work_modbusfig (id, ipsever, port, 
+      slaveid, order32, name, 
+      remarks, flag, insuser, 
+      insdt)
+    values (#{id,jdbcType=VARCHAR}, #{ipsever,jdbcType=VARCHAR}, #{port,jdbcType=VARCHAR}, 
+      #{slaveid,jdbcType=VARCHAR}, #{order32,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{flag,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, 
+      #{insdt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.work.ModbusFig" >
+    insert into tb_work_modbusfig
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ipsever != null" >
+        ipsever,
+      </if>
+      <if test="port != null" >
+        port,
+      </if>
+      <if test="slaveid != null" >
+        slaveid,
+      </if>
+      <if test="order32 != null" >
+        order32,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ipsever != null" >
+        #{ipsever,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="slaveid != null" >
+        #{slaveid,jdbcType=VARCHAR},
+      </if>
+      <if test="order32 != null" >
+        #{order32,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.work.ModbusFig" >
+    update tb_work_modbusfig
+    <set >
+      <if test="ipsever != null" >
+        ipsever = #{ipsever,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        port = #{port,jdbcType=VARCHAR},
+      </if>
+      <if test="slaveid != null" >
+        slaveid = #{slaveid,jdbcType=VARCHAR},
+      </if>
+      <if test="order32 != null" >
+        order32 = #{order32,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=VARCHAR},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.work.ModbusFig" >
+    update tb_work_modbusfig
+    set ipsever = #{ipsever,jdbcType=VARCHAR},
+      port = #{port,jdbcType=VARCHAR},
+      slaveid = #{slaveid,jdbcType=VARCHAR},
+      order32 = #{order32,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=VARCHAR},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectListByWhere" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_work_modbusfig
+		${where}
+	</select>
+	<delete id="deleteByWhere" parameterType="java.lang.String">
+		delete from tb_work_modbusfig
+		${where}
+	</delete>
+</mapper>

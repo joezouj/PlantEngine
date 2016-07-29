@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="document.DocFileMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.base.CommonFile" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="masterid" property="masterid" jdbcType="VARCHAR" />
+    <result column="filename" property="filename" jdbcType="VARCHAR" />
+    <result column="abspath" property="abspath" jdbcType="VARCHAR" />
+    <result column="size" property="size" jdbcType="INTEGER" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, masterid, filename, abspath, size, insuser, insdt, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_doc_file
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_doc_file
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteByMasterId" parameterType="java.lang.String" >
+    delete from tb_doc_file
+    where masterid = #{masterid,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.sipai.entity.base.CommonFile" >
+    insert into tb_doc_file (id, masterid, filename, 
+      abspath, size, insuser, 
+      insdt, type)
+    values (#{id,jdbcType=VARCHAR}, #{masterid,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, 
+      #{abspath,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER}, #{insuser,jdbcType=VARCHAR}, 
+      #{insdt,jdbcType=TIMESTAMP}, #{type,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sipai.entity.base.CommonFile" >
+    insert into tb_doc_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="masterid != null" >
+        masterid,
+      </if>
+      <if test="filename != null" >
+        filename,
+      </if>
+      <if test="abspath != null" >
+        abspath,
+      </if>
+      <if test="size != null" >
+        size,
+      </if>
+      <if test="insuser != null" >
+        insuser,
+      </if>
+      <if test="insdt != null" >
+        insdt,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="masterid != null" >
+        #{masterid,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="abspath != null" >
+        #{abspath,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        #{size,jdbcType=INTEGER},
+      </if>
+      <if test="insuser != null" >
+        #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.base.CommonFile" >
+    update tb_doc_file
+    <set >
+      <if test="masterid != null" >
+        masterid = #{masterid,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="abspath != null" >
+        abspath = #{abspath,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null" >
+        size = #{size,jdbcType=INTEGER},
+      </if>
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sipai.entity.base.CommonFile" >
+    update tb_doc_file
+    set masterid = #{masterid,jdbcType=VARCHAR},
+      filename = #{filename,jdbcType=VARCHAR},
+      abspath = #{abspath,jdbcType=VARCHAR},
+      size = #{size,jdbcType=INTEGER},
+      insuser = #{insuser,jdbcType=VARCHAR},
+      insdt = #{insdt,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByMasterId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_doc_file
+    where masterid = #{masterid,jdbcType=VARCHAR}
+  </select>
+</mapper>

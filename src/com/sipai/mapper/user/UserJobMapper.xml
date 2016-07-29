@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="user.UserJobMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.user.UserJob" >
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="jobid" property="jobid" jdbcType="VARCHAR" />
+    <result column="unitid" property="unitid" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.sipai.entity.user.UserJob" >
+    insert into tb_user_job (userid, jobid, unitid
+      )
+    values (#{userid,jdbcType=VARCHAR}, #{jobid,jdbcType=VARCHAR}, #{unitid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select *
+    from tb_user_job
+    ${where}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String">
+  	delete from tb_user_job 
+  	${where}
+  </delete>
+</mapper>

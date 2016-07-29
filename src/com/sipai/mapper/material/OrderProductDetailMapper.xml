@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="material.OrderProductDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.sipai.entity.material.OrderProductDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="insuser" property="insuser" jdbcType="VARCHAR" />
+    <result column="insdt" property="insdt" jdbcType="TIMESTAMP" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="productUId" property="productuid" jdbcType="VARCHAR" />
+    <result column="productionorderno" property="productionorderno" jdbcType="VARCHAR" />
+    <result column="workorderId" property="workorderid" jdbcType="VARCHAR" />
+    <result column="processrealid" property="processrealid" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, insuser, insdt, pid, productUId, productionorderno,workorderId,processrealid,status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_material_OrderProductDetail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_material_OrderProductDetail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sipai.entity.material.OrderProductDetail" >
+    insert into TB_material_OrderProductDetail (id, insuser, insdt, 
+      pid, productUId,productionorderno,workorderId,processrealid,status)
+    values (#{id,jdbcType=VARCHAR}, #{insuser,jdbcType=VARCHAR}, #{insdt,jdbcType=TIMESTAMP}, 
+      #{pid,jdbcType=VARCHAR}, #{productuid,jdbcType=VARCHAR}, #{productionorderno,jdbcType=VARCHAR}, #{workorderid,jdbcType=VARCHAR},
+      #{processrealid,jdbcType=VARCHAR},#{status,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sipai.entity.material.OrderProductDetail" >
+    update TB_material_OrderProductDetail
+    <set >
+      <if test="insuser != null" >
+        insuser = #{insuser,jdbcType=VARCHAR},
+      </if>
+      <if test="insdt != null" >
+        insdt = #{insdt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="productuid != null" >
+        productUId = #{productuid,jdbcType=VARCHAR},
+      </if>
+      <if test="productionorderno != null" >
+        productionorderno = #{productionorderno,jdbcType=VARCHAR},
+      </if>
+      <if test="workorderid != null" >
+        workorderId = #{workorderid,jdbcType=VARCHAR},
+      </if>
+      <if test="processrealid != null" >
+        processrealid = #{processrealid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+<update id="updateBySetAndWhere" parameterType="com.sipai.entity.material.OrderProductDetail" >
+    update 
+    ${where}
+</update>
+     <select id="selectListByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_material_OrderProductDetail
+    ${where}
+  </select>
+  <select id="selectByWhere" resultMap="BaseResultMap" parameterType="java.lang.String" >
+     select 
+    <include refid="Base_Column_List" />
+    from TB_material_OrderProductDetail
+    ${where}
+  </select>
+  <select id="selectTopNByWhere" resultMap="BaseResultMap" parameterType="java.util.Map" >
+     select  TOP ${numN}
+    <include refid="Base_Column_List" />
+    from TB_material_OrderProductDetail
+    ${wherestr}
+  </select>
+  <delete id="deleteByWhere" parameterType="java.lang.String" >
+    delete from TB_material_OrderProductDetail
+    ${where}
+  </delete>
+   <select id="getOrderProductDetail" resultMap="ClassResultMapOPD" parameterType="java.lang.String"> 
+  SELECT  
+  D.id                  as d_id,
+  D.insuser             as d_insuser,
+  D.insdt               as d_insdt,
+  D.pid					as d_pid,
+  D.productUId			as d_productUId,
+  D.productionorderno   as d_productionorderno,
+  D.workorderId			as d_workorderId,
+  D.processrealid		as d_processrealid,
+  D.status              as d_status,
+  O.id					as o_id,
+  O.wfOrderid			as o_wfOrderid,
+  O.productionOrderNo	as o_productionOrderNo,
+  W.id					as w_id,
+  W.order_State			as w_orderstate,
+  P.id					as p_id,
+  S.id					as s_id,
+  S.plandt				as s_plandt
+  from TB_material_OrderProductDetail D
+  LEFT OUTER JOIN tb_work_order O ON O.id = D.workorderid
+  LEFT OUTER JOIN wf_hist_order W ON W.id = O.wfOrderid
+  LEFT OUTER JOIN tb_plan_day P ON P.productionOrderNo = D.productionOrderNo
+  LEFT OUTER JOIN TB_plan_dailyplanSummary S ON S.id = P.pid
+  ${where}
+</select>
+<resultMap id="ClassResultMapOPD" type="com.sipai.entity.material.OrderProductDetail">
+  <id property="id" column="d_id" />
+  <result property="insuser" column="d_insuser"/>
+  <result property="insdt" column="d_insdt"/>
+  <result property="pid" column="d_pid"/>
+  <result property="productuid" column="d_productUId"/>
+  <result property="productionorderno" column="d_productionorderno"/>
+  <result property="workorderid" column="d_workorderId"/>
+  <result property="processrealid" column="d_processrealid"/>
+  <result property="status" column="d_status"/>
+  <result property="finishflag_wfo" column="w_orderstate"/>
+  <association property="workorder" javaType="com.sipai.entity.work.WorkOrder" >
+  	<id property="id" column="o_id"/>
+	<result property="wforderid" column="o_wforderid"/>
+	<result property="productionorderno" column="o_productionorderno"/>
+  </association> 
+</resultMap> 
+</mapper>
